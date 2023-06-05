@@ -99,4 +99,22 @@ public class SlackAPI {
         }
     }
 
+    public void createChannel(String name){
+        var client = Slack.getInstance().methods();
+
+        try {
+            var result = client.conversationsCreate(r -> r
+                    .token(token)
+                    .name(name)
+            );
+
+            if (result.isOk()) {
+                logger.info("ok");
+            } else {
+                logger.error("error: {}", result.getError());
+            }
+        } catch (SlackApiException | IOException e) {
+            logger.error("error: {}", e.getMessage(), e);
+        }
+    }
 }
