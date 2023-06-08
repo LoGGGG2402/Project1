@@ -33,8 +33,14 @@ public class Main {
             int choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
-                case 1 -> System.out.println(slackAPI.listUser());
-                case 2 -> System.out.println(slackAPI.listChannel());
+                case 1 -> {
+                    for (var user : slackAPI.listUser())
+                            System.out.println(user);
+                }
+                case 2 -> {
+                    for (var channel : slackAPI.listChannel())
+                        System.out.println(channel);
+                }
                 case 3 -> {
                     System.out.println("Enter channel name:");
                     String channelName = scanner.nextLine();

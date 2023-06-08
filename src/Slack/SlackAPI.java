@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class SlackAPI {
 
@@ -90,7 +89,7 @@ public class SlackAPI {
             );
 
             if (result.isOk()) {
-                logger.info("ok");
+                System.out.println("Add user " + usersId + " to channel " + channelId + " success");
             } else {
                 logger.error("error: {}", result.getError());
             }
@@ -107,10 +106,9 @@ public class SlackAPI {
                     .token(token)
                     .name(name)
             );
-
-            if (result.isOk()) {
-                logger.info("ok");
-            } else {
+            if (result.isOk()){
+                System.out.println("Create channel " + name + " success");
+            }else {
                 logger.error("error: {}", result.getError());
             }
         } catch (SlackApiException | IOException e) {
