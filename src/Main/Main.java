@@ -82,7 +82,15 @@ public class Main {
                 case 7 -> System.exit(0);
                 default -> System.out.println("Invalid choice");
             }
+            syncThread.interrupt();
+            try {
+                syncThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
+
+
 
 
 

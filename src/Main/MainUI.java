@@ -113,7 +113,10 @@ public class MainUI {
         buttonPanel.add(setSyncTimeButton);
 
         JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(e -> {
+            syncThread.interrupt();
+            System.exit(0);
+        });
         buttonPanel.add(exitButton);
 
         panel.add(buttonPanel, BorderLayout.WEST);
