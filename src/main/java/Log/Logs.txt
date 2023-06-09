@@ -1,0 +1,24 @@
+
+Error: Could not update field: Role in table: Users
+Error: Could not validate AirTable.
+Get list user successfully
+Get list channel of user: slackbot successfully
+Get list channel of user: sdt successfully
+Get list channel of user: bot01 successfully
+Get list channel of user: project12 successfully
+Get list channel of user: sidekick successfully
+Get list channel of user: bot_test successfully
+Get list channel of user: lythatda2003 successfully
+Get list channel of user: bot successfully
+Get list channel success
+Get list user of channel: random
+Get list user of channel: general
+Get list user of channel: test-channel
+Get list user of channel: project1
+Get list user of channel: test
+Get list user of channel: tes11t
+Get list user of channel: test1
+Get list user of channel: tes1t
+Create channel: longggg23 success
+Get list user of channel: longggg23
+Channel longggg23 created

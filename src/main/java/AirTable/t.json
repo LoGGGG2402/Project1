@@ -1,0 +1,35 @@
+{
+  "records": [
+    {
+      "id": "rec0YeysSxUSz2F5B",
+      "createdTime": "2023-06-09T01:31:27.000Z",
+      "fields": {
+        "Id": "3"
+      }
+    },
+    {
+      "id": "recV2SZkurNt0o4cZ",
+      "createdTime": "2023-06-09T01:30:58.000Z",
+      "fields": {
+        "Role": [
+          "Owner"
+        ],
+        "Num Channels": 2,
+        "Id": "1"
+      }
+    },
+    {
+      "id": "recYFl9SpoV6kY0TF",
+      "createdTime": "2023-06-09T01:30:50.000Z",
+      "fields": {
+        "Role": [
+          "Owner",
+          "Primary Owner"
+        ],
+        "Is Active": true,
+        "Num Channels": 4,
+        "Id": "llo"
+      }
+    }
+  ]
+}
