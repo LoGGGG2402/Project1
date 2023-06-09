@@ -4,6 +4,7 @@ import Log.Logs;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.slack.api.methods.MethodsClient;
 
 import java.time.Instant;
@@ -27,34 +28,6 @@ public class User {
 
     public String getName() {
         return name;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public int getNumChannels() {
-        return numChannels;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public JsonArray getChannelsId() {
-        return channelsId;
-    }
-
-    public JsonArray getRoles() {
-        return roles;
     }
 
     protected User(com.slack.api.model.User user, MethodsClient client){
@@ -104,13 +77,28 @@ public class User {
         channelsId.add(channelId);
         numChannels++;
     }
-    protected boolean removeChannelId(String channelId){
+    protected void removeChannelId(String channelId){
         JsonElement element = new Gson().fromJson(channelId, JsonElement.class);
-        if (!channelsId.contains(element))
-            return false;
-        channelsId.remove(element);
-        numChannels--;
-        return true;
+        if (channelsId.contains(element)){
+            channelsId.remove(element);
+            numChannels--;
+        }
+    }
+    public JsonObject toJson(){
+        JsonObject json = new JsonObject();
+        json.addProperty("Id", id);
+        json.addProperty("Display Name", name);
+        json.addProperty("Real Name", realName);
+        json.addProperty("Email", email);
+        json.addProperty("Updated", updated);
+        json.addProperty("Num Channels", numChannels);
+        json.addProperty("Is Active", isActive);
+        json.addProperty("Updated", updated);
+        json.add("Role", roles);
+        json.add("Channels Id", channelsId);
+
+
+        return json;
     }
 
     // API Method

@@ -12,6 +12,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         AirTable airTable = new AirTable();
+        if (!airTable.isValid()){
+            System.out.println("Error: Could not validate AirTable.");
+            return;
+        }
         Slack slack = new Slack();
 
         DataSyncTask dataSyncTask = new DataSyncTask(airTable, slack);
@@ -38,17 +42,20 @@ public class Main {
             switch (choice) {
                 case 1 -> {
                     for (var user : slack.getUsers())
-                        System.out.println(user);
+                        System.out.println(user.toJson());
                 }
                 case 2 -> {
                     for (var channel : slack.getChannels())
-                        System.out.println(channel);
+                        System.out.println(channel.toJson());
                 }
                 case 3 -> {
                     System.out.println("Enter channel name:");
                     String channelName = scanner.nextLine();
                     System.out.println(channelName);
-                    slack.createChannel(channelName);
+                    if (slack.createChannel(channelName))
+                        System.out.println("Channel created");
+                    else
+                        System.out.println("Channel not created");
                 }
                 case 4 -> {
                     System.out.print("Enter channel id: ");
@@ -102,6 +109,7 @@ public class Main {
                         System.out.println("User not removed from channel");
                 }
                 case 6 -> {
+                    slack.syncLocal();
                     List<Channel> channels = slack.getChannels();
                     List<User> users = slack.getUsers();
                     if (channels == null || users == null) {

@@ -1,9 +1,11 @@
 package AirTable;
 
+import Log.Logs;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPatch;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.http.ClassicHttpResponse;
@@ -19,17 +21,22 @@ public class Record {
     private final String IdFieldVal;
 
     Record(JsonObject record) {
-        this.id = record.get("id").getAsString();
-        this.fields = record.get("fields").getAsJsonObject();
-        this.IdFieldVal = this.fields.get("Id").getAsString();
+        try {
+            this.id = record.get("id").getAsString();
+            this.fields = record.get("fields").getAsJsonObject();
+            this.IdFieldVal = this.fields.get("Id").getAsString();
+        }catch (NullPointerException e){
+            Logs.writeLog("Error: Could not get record id or fields");
+            throw e;
+        }
     }
 
     protected String getId() {
         return this.id;
     }
 
-    protected boolean equals(JsonObject record) {
-        return this.fields.equals(record.get("fields").getAsJsonObject());
+    protected boolean equals(JsonObject fields) {
+        return this.fields.equals(fields);
     }
 
     protected String getIdFieldVal() {
@@ -81,9 +88,6 @@ public class Record {
         String url = "https://api.airtable.com/v0/" + baseId + "/" + tableId;
 
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
-            HttpPatch patch = new HttpPatch(url);
-            patch.setHeader("Authorization", "Bearer " + Token);
-            patch.setHeader("Content-Type", "application/json");
 
             JsonObject body = new JsonObject();
             body.add("fields", fields);
@@ -94,17 +98,22 @@ public class Record {
             JsonObject fullBody = new JsonObject();
             fullBody.add("records", records);
 
-            patch.setEntity(new StringEntity(fullBody.toString()));
+            HttpPost post = new HttpPost(url);
+            post.setHeader("Authorization", "Bearer " + Token);
+            post.setHeader("Content-Type", "application/json");
+            post.setEntity(new StringEntity(fullBody.toString()));
 
-            ClassicHttpResponse response = client.execute(patch);
+            ClassicHttpResponse response = client.execute(post);
 
             if (response.getCode() == 200) {
                 return EntityUtils.toString(response.getEntity());
             } else {
+                Logs.writeLog("Error creating record: " + response.getCode());
+                Logs.writeLog("fullBody: " + fullBody);
                 return null;
             }
         } catch (IOException | ParseException e) {
-            e.printStackTrace();
+            Logs.writeLog("Error creating record: " + e.getMessage());
             return null;
         }
     }

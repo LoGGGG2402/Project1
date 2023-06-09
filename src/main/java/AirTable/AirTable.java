@@ -8,7 +8,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +43,28 @@ public class AirTable {
        taskTable = allFieldsValid(taskTable, "Tasks");
 
        if (channelTable == null || userTable == null || taskTable == null) {
-          Logs.writeLog("Error: Could not validate AirTable.");
+          Logs.writeLog("Error: Could not validate AirTable. because of missing fields.");
+          System.out.println(channelTable == null);
+          System.out.println(userTable == null);
+          System.out.println(taskTable == null);
           valid = false;
        }
+
+       Field linkField = channelTable.getField("Users");
+       if (linkField == null) {
+           JsonObject newField = new JsonObject();
+           newField.addProperty("name", "Users");
+           newField.addProperty("type", "multipleRecordLinks");
+
+           JsonObject options = new JsonObject();
+           options.addProperty("linkedTableId", userTable.getId());
+           newField.add("options", options);
+           if (!channelTable.addField(newField, base, token)) {
+               Logs.writeLog("Error: Could not add field Users to Channels table.");
+               valid = false;
+           }
+       }
+
     }
     public boolean isValid() {
        return valid;
@@ -74,10 +93,7 @@ public class AirTable {
 
                 if (tableField == null){
                     if(!table.addField(fieldJson, base, token)) return null;
-                } else
-                    if(!tableField.equals(fieldJson))
-                        if(!table.updateField(fieldJson, tableField, base, token))
-                            return null;
+                }
             }
             return table;
         } catch (IOException e) {
@@ -88,16 +104,21 @@ public class AirTable {
     private boolean pushChannels(List<Channel> channels) {
         List<JsonObject> fields = new ArrayList<>();
         for (Channel channel: channels){
-            JsonObject field = new JsonObject();
-            field.addProperty("Id", channel.getId());
-            field.addProperty("Name", channel.getName());
-            field.addProperty("Topic", channel.getTopic());
-            field.addProperty("Purpose", channel.getPurpose());
-            field.addProperty("Is Private", channel.isPrivate());
-            field.addProperty("Is Archived", channel.isArchive());
-            field.addProperty("Creator Id", channel.getCreatorId());
-            field.addProperty("Created", channel.getCreated());
-            field.addProperty("Num Members", channel.getNumMembers());
+            JsonObject field = channel.toJson();
+
+            JsonArray MembersId = field.getAsJsonArray("Members Id");
+            JsonArray MembersRecordId = new JsonArray();
+            for (JsonElement member : MembersId) {
+                String memberId = member.getAsString();
+                Record record = userTable.getRecord(memberId);
+                if (record == null) {
+                    Logs.writeLog("Error: Could not find user with id " + memberId + ".");
+                    return false;
+                }
+                MembersRecordId.add(record.getId());
+            }
+            field.add("Users", MembersRecordId);
+            field.remove("Members Id");
 
             fields.add(field);
         }
@@ -111,15 +132,8 @@ public class AirTable {
     private boolean pushUsers(List<User> users){
         List<JsonObject> fields = new ArrayList<>();
         for (User user: users){
-            JsonObject field = new JsonObject();
-            field.addProperty("Id", user.getId());
-            field.addProperty("Display Name", user.getName());
-            field.addProperty("Real Name", user.getRealName());
-            field.addProperty("Email", user.getEmail());
-            field.addProperty("Num Channels", user.getNumChannels());
-            field.addProperty("Is Active", user.isActive());
-            field.add("Roles", user.getRoles());
-            field.addProperty("Updated", user.getUpdated());
+            JsonObject field = user.toJson();
+            field.remove("Channels Id");
 
             fields.add(field);
         }
@@ -134,12 +148,16 @@ public class AirTable {
         if (!pushUsers(users)) return false;
 
         JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("Id", taskTable.getNumRecords()+1);
         jsonObject.addProperty("Is Manual", isManual);
-        jsonObject.addProperty("Num of changes", channels.size() + users.size());
+        jsonObject.addProperty("Num of changes", channelTable.getNumChanges()+userTable.getNumChanges());
 
-        LocalDateTime now = LocalDateTime.now();
+        long time = System.currentTimeMillis();
+        Instant instant = Instant.ofEpochMilli(time);
         DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-        jsonObject.addProperty("Time", now.format(formatter));
+
+
+        jsonObject.addProperty("Update Time", formatter.format(instant));
 
         List<JsonObject> fields = new ArrayList<>();
         fields.add(jsonObject);

@@ -51,6 +51,7 @@ class TimeTask extends java.util.TimerTask{
 
     @Override
     public void run() {
+        slack.syncLocal();
         List<User> userList = slack.getUsers();
         List<Channel> channelList = slack.getChannels();
         airtable.pushData(channelList, userList, false);

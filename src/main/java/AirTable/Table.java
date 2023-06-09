@@ -19,7 +19,6 @@ public class Table {
     private int numChanges;
     private final String id;
     private final String name;
-    private final String primaryFieldId;
     private final List<Field> fields = new ArrayList<>();
     private final List<Record> records = new ArrayList<>();
 
@@ -27,7 +26,6 @@ public class Table {
     protected Table(JsonObject table, String baseId, String token) {
         this.id = table.get("id").getAsString();
         this.name = table.get("name").getAsString();
-        this.primaryFieldId = table.get("primaryFieldId").getAsString();
         table.get("fields").getAsJsonArray().forEach(field -> this.fields.add(new Field(field.getAsJsonObject())));
 
         // Get Records
@@ -35,8 +33,9 @@ public class Table {
         if (records == null) {
             Logs.writeLog("Error: Could not get records for table: " + name);
         } else {
-            JsonArray recordsJson = JsonParser.parseString(records).getAsJsonObject().get("records").getAsJsonArray();
-            recordsJson.forEach(record -> this.records.add(new Record(record.getAsJsonObject())));
+            JsonObject recordsJson = new Gson().fromJson(records, JsonObject.class);
+            JsonArray listRecords = recordsJson.get("records").getAsJsonArray();
+            listRecords.forEach(record -> this.records.add(new Record(record.getAsJsonObject())));
         }
     }
 
@@ -44,9 +43,8 @@ public class Table {
     protected String getName() {
         return this.name;
     }
-
-    protected String getPrimaryFieldId() {
-        return this.primaryFieldId;
+    protected String getId() {
+        return this.id;
     }
 
     // Handle Fields
@@ -98,15 +96,19 @@ public class Table {
     private boolean addRecord(JsonObject fields, String baseId, String token) {
         String recordCreate = Record.createRecord(fields, id, baseId, token);
         if (recordCreate == null) {
-            Logs.writeLog("Error: Could not create record: " + fields.get("idFieldVal").getAsString() + " in table: " + name);
+            Logs.writeLog("Error: Could not create record: " + fields.get("Id").getAsString() + " in table: " + name + "has id: " + id + " baseId: " + baseId);
             return false;
         }
-        JsonObject recordJson = JsonParser.parseString(recordCreate).getAsJsonObject();
-        records.add(new Record(recordJson));
-        Logs.writeLog("Created record: " + fields.get("idFieldVal").getAsString() + " in table: " + name);
+        JsonObject recordJson = new Gson().fromJson(recordCreate, JsonObject.class);
+        JsonArray listRecords = recordJson.get("records").getAsJsonArray();
+
+        records.clear();
+        listRecords.forEach(record -> this.records.add(new Record(record.getAsJsonObject())));
+
+        Logs.writeLog("Created record: " + fields.get("Id").getAsString() + " in table: " + name);
         return true;
     }
-    private Record getRecord(String idFieldVal) {
+    protected Record getRecord(String idFieldVal) {
         for (Record record : this.records) {
             if (record.getIdFieldVal().equals(idFieldVal)) {
                 return record;
@@ -115,10 +117,10 @@ public class Table {
         return null;
     }
     private boolean pullRecord(JsonObject fields, String baseId, String token) {
-        Record oldRecord = getRecord(fields.get("idFieldVal").getAsString());
+        Record oldRecord = getRecord(fields.get("Id").getAsString());
         if (oldRecord == null) {
             if (addRecord(fields, baseId, token)){
-                Logs.writeLog("Add record: " + fields.get("idFieldVal").getAsString() + " in table: " + name);
+                Logs.writeLog("Add record: " + fields.get("Id").getAsString() + " in table: " + name);
                 numChanges++;
                 return true;
             }
@@ -128,7 +130,7 @@ public class Table {
             return true;
         }
         if (updateRecord(fields, oldRecord, baseId, token)) {
-            Logs.writeLog("Update record: " + fields.get("idFieldVal").getAsString() + " in table: " + name);
+            Logs.writeLog("Update record: " + fields.get("Id").getAsString() + " in table: " + name);
             numChanges++;
             return true;
         }
@@ -138,7 +140,7 @@ public class Table {
         numChanges = 0;
         for (JsonObject field : fields) {
             if (!pullRecord(field, baseId, token)) {
-                Logs.writeLog("Error: Could not pull record: " + field.get("idFieldVal").getAsString() + " in table: " + name);
+                Logs.writeLog("Error: Could not pull record: " + field.get("Id").getAsString() + " in table: " + name);
                 return false;
             }
         }
@@ -148,19 +150,19 @@ public class Table {
 
     // API Methods
     protected static String listTables(String baseId, String token) {
-
         String url = "https://api.airtable.com/v0/meta/bases/" + baseId + "/tables";
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpGet get = new HttpGet(url);
             get.setHeader("Authorization", "Bearer " + token);
             ClassicHttpResponse response = client.execute(get);
             if (response.getCode() != 200) {
-                System.out.println("Error: " + response.getCode());
+                Logs.writeLog("Error: Could not list tables");
                 return null;
             }
+            Logs.writeLog("Listed tables");
             return EntityUtils.toString(response.getEntity());
         } catch (IOException | ParseException e) {
-            e.printStackTrace();
+            Logs.writeLog("Error: Could not list tables due to exception: " + e.getMessage());
             return null;
         }
     }
@@ -180,17 +182,23 @@ public class Table {
 
             ClassicHttpResponse response = client.execute(post);
             if (response.getCode() != 200) {
-                System.out.println("Error: " + response.getCode());
+                Logs.writeLog("Error: Could not create table: " + name);
                 return null;
             }
+            Logs.writeLog("Created table: " + name);
             return EntityUtils.toString(response.getEntity());
         } catch (IOException | ParseException e) {
-            e.printStackTrace();
+            Logs.writeLog("Error: Could not create table: " + name + " with message: " + e.getMessage());
             return null;
         }
     }
 
+
+
     protected int getNumChanges() {
         return numChanges;
+    }
+    protected int getNumRecords() {
+        return records.size();
     }
 }

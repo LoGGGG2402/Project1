@@ -111,28 +111,22 @@
       "options": {
         "choices": [
           {
-            "name": "Owner",
-            "color": "blueLight2"
+            "name": "Owner"
           },
           {
-            "name": "Admin",
-            "color": "cyanLight2"
+            "name": "Admin"
           },
           {
-            "name": "Primary Owner",
-            "color": "tealLight2"
+            "name": "Primary Owner"
           },
           {
-            "name": "Restricted",
-            "color": "greenLight2"
+            "name": "Restricted"
           },
           {
-            "name": "Ultra Restricted",
-            "color": "yellowLight2"
+            "name": "Ultra Restricted"
           },
           {
-            "name": "Bot",
-            "color": "orangeLight2"
+            "name": "Bot"
           }
         ]
       },
@@ -141,7 +135,10 @@
   ],
   "Tasks": [
     {
-      "type": "singleLineText",
+      "type": "number",
+      "options": {
+        "precision": 0
+      },
       "name": "Id"
     },
     {

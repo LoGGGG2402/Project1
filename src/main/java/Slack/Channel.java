@@ -4,6 +4,7 @@ import Log.Logs;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.model.Conversation;
@@ -57,45 +58,26 @@ public class Channel {
         }
     }
 
-    // Getters
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public String getTopic() {
-        return topic;
-    }
-
-    public String getPurpose() {
-        return purpose;
-    }
-
-    public int getNumMembers() {
-        return numMembers;
-    }
-
-    public boolean isPrivate() {
-        return isPrivate;
-    }
-
-    public boolean isArchive() {
-        return isArchive;
-    }
-
     public JsonArray getMembersId() {
         return membersId;
+    }
+    public JsonObject toJson(){
+        JsonObject json = new JsonObject();
+        json.addProperty("Id", this.id);
+        json.addProperty("Name", this.name);
+        json.addProperty("Topic", this.topic);
+        json.addProperty("Purpose", this.purpose);
+        json.addProperty("Is Private", this.isPrivate);
+        json.addProperty("Is Archived", this.isArchive);
+        json.addProperty("Creator Id", this.creatorId);
+        json.addProperty("Created", this.created);
+        json.addProperty("Num Members", this.numMembers);
+        json.add("Members Id", this.membersId);
+        return json;
+    }
+
+    public String getId() {
+        return id;
     }
 
 
@@ -176,4 +158,6 @@ public class Channel {
             return null;
         }
     }
+
+
 }
