@@ -35,6 +35,7 @@ public class Main {
             System.out.println("5. Remove a user from a channel");
             System.out.println("6. Sync data");
             System.out.println("7. Set sync time");
+            System.out.println("8. AirTable to Xlxs");
             System.out.println("0. Exit");
 
             int choice = Integer.parseInt(scanner.nextLine());
@@ -130,6 +131,7 @@ public class Main {
                     int second = Integer.parseInt(scanner.nextLine());
                     dataSyncTask.setTimeSync(hour, minute, second);
                 }
+                case 8 -> airTable.tableToXlsx();
                 case 0 -> System.exit(0);
                 default -> System.out.println("Invalid choice");
             }

@@ -168,4 +168,9 @@ public class AirTable {
         }
         return true;
     }
+    public void tableToXlsx() {
+        channelTable.writeTableToXlsx("src/main/java/Log/channels.xlsx");
+        userTable.writeTableToXlsx("src/main/java/Log/users.xlsx");
+        taskTable.writeTableToXlsx("src/main/java/Log/tasks.xlsx");
+    }
 }

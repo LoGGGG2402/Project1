@@ -11,6 +11,12 @@ import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +51,12 @@ public class Table {
     }
     protected String getId() {
         return this.id;
+    }
+    protected int getNumChanges() {
+        return numChanges;
+    }
+    protected int getNumRecords() {
+        return records.size();
     }
 
     // Handle Fields
@@ -84,13 +96,13 @@ public class Table {
     private boolean updateRecord(JsonObject fields, Record record, String baseId, String token) {
         String recordUpdate = Record.updateRecord(fields, record.getId(), id, baseId, token);
         if (recordUpdate == null) {
-            Logs.writeLog("Error: Could not update record: " + record.getIdFieldVal() + " in table: " + name);
+            Logs.writeLog("Error: Could not update record: " + record.getValOfId() + " in table: " + name);
             return false;
         }
         JsonObject recordJson = JsonParser.parseString(recordUpdate).getAsJsonObject();
         records.remove(record);
         records.add(new Record(recordJson));
-        Logs.writeLog("Updated record: " + record.getIdFieldVal() + " in table: " + name);
+        Logs.writeLog("Updated record: " + record.getValOfId() + " in table: " + name);
         return true;
     }
     private boolean addRecord(JsonObject fields, String baseId, String token) {
@@ -110,7 +122,7 @@ public class Table {
     }
     protected Record getRecord(String idFieldVal) {
         for (Record record : this.records) {
-            if (record.getIdFieldVal().equals(idFieldVal)) {
+            if (record.getValOfId().equals(idFieldVal)) {
                 return record;
             }
         }
@@ -193,12 +205,48 @@ public class Table {
         }
     }
 
+    // write to xlsx file
+    protected boolean writeTableToXlsx(String path) {
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet(name);
 
+            List<String> headers = new ArrayList<>();
+            for (Field field : fields) {
+                headers.add(field.getName());
+            }
 
-    protected int getNumChanges() {
-        return numChanges;
+            // write headers
+            Row headerRow = sheet.createRow(0);
+            for (String header : headers) {
+                Cell cell = headerRow.createCell(headers.indexOf(header));
+                cell.setCellValue(header);
+            }
+
+            // write records
+            for (Record record : records) {
+                Row row = sheet.createRow(records.indexOf(record) + 1);
+                JsonObject fields = record.getFields();
+                for (String header : headers) {
+                    Cell cell = row.createCell(headers.indexOf(header));
+                    if (fields.has(header)) {
+                        JsonElement field = fields.get(header);
+                        cell.setCellValue(field.toString());
+                    }
+                }
+            }
+
+            // write to file
+            FileOutputStream outputStream = new FileOutputStream(path);
+            workbook.write(outputStream);
+            workbook.close();
+            outputStream.close();
+            Logs.writeLog("Wrote table: " + name + " to file: " + path);
+            return true;
+        } catch (IOException e) {
+            Logs.writeLog("Error: Could not write table: " + name + " to file: " + path + " with message: " + e.getMessage());
+            return false;
+        }
     }
-    protected int getNumRecords() {
-        return records.size();
-    }
+
 }

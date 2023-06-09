@@ -21,26 +21,24 @@ public class Record {
     private final String IdFieldVal;
 
     Record(JsonObject record) {
-        try {
-            this.id = record.get("id").getAsString();
-            this.fields = record.get("fields").getAsJsonObject();
+        this.id = record.get("id").getAsString();
+        this.fields = record.get("fields").getAsJsonObject();
+        if (this.fields.has("Id"))
             this.IdFieldVal = this.fields.get("Id").getAsString();
-        }catch (NullPointerException e){
-            Logs.writeLog("Error: Could not get record id or fields");
-            throw e;
-        }
+        else
+            this.IdFieldVal = null;
     }
-
     protected String getId() {
         return this.id;
     }
-
     protected boolean equals(JsonObject fields) {
         return this.fields.equals(fields);
     }
-
-    protected String getIdFieldVal() {
+    protected String getValOfId() {
         return this.IdFieldVal;
+    }
+    protected JsonObject getFields() {
+        return this.fields;
     }
     // API Methods
     protected static String listRecords(String tableId, String baseId, String token) {
