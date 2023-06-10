@@ -73,7 +73,7 @@ public class Main {
                         System.out.println("User not found");
                         break;
                     }
-                    JsonElement jsonElement = new Gson().fromJson(channelId, JsonElement.class);
+                    JsonElement jsonElement = new Gson().fromJson(userId, JsonElement.class);
 
                     if (channel.getMembersId().contains(jsonElement)){
                         System.out.println("User already in channel");
