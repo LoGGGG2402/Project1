@@ -3,6 +3,7 @@ package AirTable;
 import Log.Logs;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPatch;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -40,7 +41,6 @@ public class Record {
                     continue;
                 if (!this.fields.has(field.getName()))
                 {
-                    System.out.println("Field " + field.getName() + " not found in record " + this.IdFieldVal + " new val: " + newVal);
                     return false;
                 }
                 String oldVal = this.fields.get(field.getName()).toString();
@@ -49,7 +49,6 @@ public class Record {
                         continue;
                 if (!newVal.equals(oldVal))
                 {
-                    System.out.println("Field " + field.getName() + " in record " + this.IdFieldVal + " has different values: " + oldVal + " and " + newVal);
                     return false;
                 }
             }
@@ -135,6 +134,28 @@ public class Record {
         } catch (IOException | ParseException e) {
             Logs.writeLog("Error creating record: " + e.getMessage());
             return null;
+        }
+    }
+    protected static boolean dropRecord(String recordId, String tableId, String baseId, String Token){
+        // curl -X DELETE "https://api.airtable.com/v0/{baseId}/{tableIdOrName}/{recordId}" \
+        //-H "Authorization: Bearer YOUR_TOKEN"
+        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableId + "/" + recordId;
+
+        try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
+            HttpDelete delete = new HttpDelete(url);
+            delete.setHeader("Authorization", "Bearer " + Token);
+
+            ClassicHttpResponse response = client.execute(delete);
+
+            if (response.getCode() == 200) {
+                Logs.writeLog("Record " + recordId + " deleted");
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

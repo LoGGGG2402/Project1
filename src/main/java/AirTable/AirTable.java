@@ -127,6 +127,7 @@ public class AirTable {
             Logs.writeLog("Error: Could not push channels to AirTable.");
             return false;
         }
+        channelTable.dropRecord(fields, base, token);
         return true;
     }
     private boolean pushUsers(List<User> users){
@@ -141,11 +142,14 @@ public class AirTable {
             Logs.writeLog("Error: Could not push users to AirTable.");
             return false;
         }
+        userTable.dropRecord(fields, base, token);
         return true;
     }
     public boolean pushData(List<Channel> channels, List<User> users, boolean isManual) {
-        if (!pushChannels(channels)) return false;
         if (!pushUsers(users)) return false;
+        userTable.syncRecord(base, token);
+        if (!pushChannels(channels)) return false;
+        channelTable.syncRecord(base, token);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("Id", taskTable.getNumRecords()+1);
@@ -166,6 +170,7 @@ public class AirTable {
             Logs.writeLog("Error: Could not push task to AirTable.");
             return false;
         }
+        channelTable.syncRecord(base, token);
         return true;
     }
     public void tableToXlsx() {

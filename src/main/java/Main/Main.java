@@ -1,9 +1,10 @@
 package Main;
 
 import AirTable.AirTable;
-import Slack.*;
+import Slack.Channel;
+import Slack.Slack;
+import Slack.User;
 import SyncTask.DataSyncTask;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import java.util.List;
@@ -73,12 +74,21 @@ public class Main {
                         System.out.println("User not found");
                         break;
                     }
-                    JsonElement jsonElement = new Gson().fromJson(channelId, JsonElement.class);
-
-                    if (channel.getMembersId().contains(jsonElement)){
-                        System.out.println("User already in channel");
-                        break;
+                    if (user.isBot()){
+                        System.out.println("This is bot user");
+                        continue;
                     }
+
+                    boolean check = false;
+                    for (JsonElement r : channel.getMembersId()) {
+                        if (r.getAsString().equals(userId)) {
+                            System.out.println("User already in channel");
+                            check = true;
+                            break;
+                        }
+                    }
+                    if (check) break;
+
                     if (slack.addUserToChannel(userId, channelId))
                         System.out.println("User added to channel");
                     else
@@ -99,11 +109,19 @@ public class Main {
                         System.out.println("User not found");
                         break;
                     }
-                    JsonElement jsonElement = new Gson().fromJson(channelId, JsonElement.class);
-                    if(!channel.getMembersId().contains(jsonElement)){
+
+                    boolean check = true;
+                    for (JsonElement r : channel.getMembersId()) {
+                        if (r.getAsString().equals(userId)) {
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check) {
                         System.out.println("User not in channel");
                         break;
                     }
+
                     if (slack.removeUserFromChannel(userId, channelId))
                         System.out.println("User removed from channel");
                     else

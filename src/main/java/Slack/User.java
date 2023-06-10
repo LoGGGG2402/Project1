@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class User {
+    private final boolean isBot;
     private final String id;
     private final String name;
     private final String realName;
@@ -25,11 +26,12 @@ public class User {
     public String getId() {
         return id;
     }
-
+    public   boolean isBot(){
+        return isBot;
+    }
     public String getName() {
         return name;
     }
-
     protected User(com.slack.api.model.User user, MethodsClient client){
         this.id = user.getId();
         this.name = user.getName();
@@ -42,8 +44,11 @@ public class User {
 
         this.updated = formatter.format(instant);
 
-        if(user.isBot())
+        if(user.isBot()){
             roles.add("Bot");
+            isBot = true;
+        } else isBot = false;
+
         if(user.isOwner())
             roles.add("Owner");
         if(user.isPrimaryOwner())
@@ -72,7 +77,6 @@ public class User {
 
 
     }
-
     protected void addChannelId(String channelId){
         channelsId.add(channelId);
         numChannels++;

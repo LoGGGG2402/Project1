@@ -35,6 +35,11 @@ public class Table {
         table.get("fields").getAsJsonArray().forEach(field -> this.fields.add(new Field(field.getAsJsonObject())));
 
         // Get Records
+        syncRecord(baseId, token);
+    }
+
+    protected void syncRecord(String baseId, String token) {
+        records.clear();
         String records = Record.listRecords(id, baseId, token);
         if (records == null) {
             Logs.writeLog("Error: Could not get records for table: " + name);
@@ -158,9 +163,30 @@ public class Table {
                 return false;
             }
         }
+        Logs.writeLog("Pulled all records in table: " + name);
         return true;
     }
-
+    protected void dropRecord(List<JsonObject> fields, String baseId, String token) {
+        List<Record> dropList = new ArrayList<>();
+        for (Record record : this.records) {
+            boolean isExist = false;
+            for (JsonObject field : fields) {
+                if (record.getValOfId().equals(field.get("Id").getAsString())) {
+                    isExist = true;
+                    break;
+                }
+            }
+            if (!isExist) {
+                if (Record.dropRecord(record.getId(), id, baseId, token)) {
+                    Logs.writeLog("Deleted record: " + record.getValOfId() + " in table: " + name);
+                    dropList.add(record);
+                } else {
+                    Logs.writeLog("Error: Could not delete record: " + record.getValOfId() + " in table: " + name);
+                }
+            }
+        }
+        this.records.removeAll(dropList);
+    }
 
     // API Methods
     protected static String listTables(String baseId, String token) {
