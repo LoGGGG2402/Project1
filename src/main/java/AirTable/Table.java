@@ -68,6 +68,7 @@ public class Table {
         }
         return null;
     }
+    @Deprecated // api not allow to update field type
     protected boolean updateField(JsonObject newField, Field field, String baseId, String token) {
         String fieldUpdate = Field.updateField(newField, field.getId(), id, baseId, token);
         if (fieldUpdate == null) {
@@ -80,6 +81,7 @@ public class Table {
         Logs.writeLog("Updated field: " + field.getName() + " in table: " + name);
         return true;
     }
+
     protected boolean addField(JsonObject field, String baseId, String token) {
         String fieldCreate = Field.createField(field, id, baseId, token);
         if (fieldCreate == null) {
@@ -138,7 +140,7 @@ public class Table {
             }
             return false;
         }
-        if (oldRecord.equals(fields)) {
+        if (oldRecord.equals(fields, this.fields)) {
             return true;
         }
         if (updateRecord(fields, oldRecord, baseId, token)) {
@@ -206,7 +208,7 @@ public class Table {
     }
 
     // write to xlsx file
-    protected boolean writeTableToXlsx(String path) {
+    protected void writeTableToXlsx(String path) {
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();
             XSSFSheet sheet = workbook.createSheet(name);
@@ -242,10 +244,9 @@ public class Table {
             workbook.close();
             outputStream.close();
             Logs.writeLog("Wrote table: " + name + " to file: " + path);
-            return true;
         } catch (IOException e) {
             Logs.writeLog("Error: Could not write table: " + name + " to file: " + path + " with message: " + e.getMessage());
-            return false;
+
         }
     }
 

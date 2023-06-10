@@ -14,6 +14,7 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Record {
     private final String id;
@@ -31,8 +32,29 @@ public class Record {
     protected String getId() {
         return this.id;
     }
-    protected boolean equals(JsonObject fields) {
-        return this.fields.equals(fields);
+    protected boolean equals(JsonObject fields, List<Field> fieldsList) {
+        for (Field field : fieldsList) {
+            if (fields.has(field.getName())) {
+                String newVal = fields.get(field.getName()).toString();
+                if (newVal.equals("false") || newVal.equals("null") || newVal.equals("[]"))
+                    continue;
+                if (!this.fields.has(field.getName()))
+                {
+                    System.out.println("Field " + field.getName() + " not found in record " + this.IdFieldVal + " new val: " + newVal);
+                    return false;
+                }
+                String oldVal = this.fields.get(field.getName()).toString();
+                if (field.getType().contains("date"))
+                    if(oldVal.replaceAll(".000Z", "Z").equals(newVal))
+                        continue;
+                if (!newVal.equals(oldVal))
+                {
+                    System.out.println("Field " + field.getName() + " in record " + this.IdFieldVal + " has different values: " + oldVal + " and " + newVal);
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     protected String getValOfId() {
         return this.IdFieldVal;
