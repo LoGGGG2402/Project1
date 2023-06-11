@@ -36,16 +36,8 @@ public class Field {
     protected String getName() {
         return this.name;
     }
-
-    protected boolean equals(JsonObject other) {
-        if (other.has("options")) {
-            return  this.name.equals(other.get("name").getAsString()) &&
-                    this.type.equals(other.get("type").getAsString()) &&
-                    this.options.equals(other.get("options").getAsJsonObject());
-        } else {
-            return  this.name.equals(other.get("name").getAsString()) &&
-                    this.type.equals(other.get("type").getAsString());
-        }
+    protected String getType() {
+        return this.type;
     }
 
 

@@ -3,6 +3,7 @@ package AirTable;
 import Log.Logs;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPatch;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -14,6 +15,7 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Record {
     private final String id;
@@ -31,8 +33,27 @@ public class Record {
     protected String getId() {
         return this.id;
     }
-    protected boolean equals(JsonObject fields) {
-        return this.fields.equals(fields);
+    protected boolean equals(JsonObject fields, List<Field> fieldsList) {
+        for (Field field : fieldsList) {
+            if (fields.has(field.getName())) {
+                String newVal = fields.get(field.getName()).toString();
+                if (newVal.equals("false") || newVal.equals("null") || newVal.equals("[]"))
+                    continue;
+                if (!this.fields.has(field.getName()))
+                {
+                    return false;
+                }
+                String oldVal = this.fields.get(field.getName()).toString();
+                if (field.getType().contains("date"))
+                    if(oldVal.replaceAll(".000Z", "Z").equals(newVal))
+                        continue;
+                if (!newVal.equals(oldVal))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     protected String getValOfId() {
         return this.IdFieldVal;
@@ -113,6 +134,28 @@ public class Record {
         } catch (IOException | ParseException e) {
             Logs.writeLog("Error creating record: " + e.getMessage());
             return null;
+        }
+    }
+    protected static boolean dropRecord(String recordId, String tableId, String baseId, String Token){
+        // curl -X DELETE "https://api.airtable.com/v0/{baseId}/{tableIdOrName}/{recordId}" \
+        //-H "Authorization: Bearer YOUR_TOKEN"
+        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableId + "/" + recordId;
+
+        try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
+            HttpDelete delete = new HttpDelete(url);
+            delete.setHeader("Authorization", "Bearer " + Token);
+
+            ClassicHttpResponse response = client.execute(delete);
+
+            if (response.getCode() == 200) {
+                Logs.writeLog("Record " + recordId + " deleted");
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
