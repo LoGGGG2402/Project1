@@ -149,7 +149,11 @@ public class Main {
                     int second = Integer.parseInt(scanner.nextLine());
                     dataSyncTask.setTimeSync(hour, minute, second);
                 }
-                case 8 -> airTable.tableToXlsx();
+                case 8 -> {
+                    System.out.print("Enter path: ");
+                    String path = scanner.nextLine();
+                    airTable.exportToXlsx(path);
+                }
                 case 0 -> System.exit(0);
                 default -> System.out.println("Invalid choice");
             }

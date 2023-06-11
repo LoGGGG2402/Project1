@@ -6,6 +6,7 @@ import Slack.User;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
@@ -173,9 +174,16 @@ public class AirTable {
         channelTable.syncRecord(base, token);
         return true;
     }
-    public void tableToXlsx() {
-        channelTable.writeTableToXlsx("src/main/java/Log/channels.xlsx");
-        userTable.writeTableToXlsx("src/main/java/Log/users.xlsx");
-        taskTable.writeTableToXlsx("src/main/java/Log/tasks.xlsx");
+    public void exportToXlsx(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                Logs.writeLog("Error: Could not create directory " + path + ".");
+                return;
+            }
+        }
+        channelTable.writeTableToXlsx(path + "/channels.xlsx");
+        userTable.writeTableToXlsx(path + "/users.xlsx");
+        taskTable.writeTableToXlsx(path + "/tasks.xlsx");
     }
 }

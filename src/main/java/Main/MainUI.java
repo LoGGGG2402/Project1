@@ -5,177 +5,166 @@ import Slack.Channel;
 import Slack.Slack;
 import Slack.User;
 import SyncTask.DataSyncTask;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Vector;
 
 public class MainUI {
     private final AirTable airTable;
     private final Slack slack;
-    private DataSyncTask dataSyncTask;
-    private JFrame frame;
+    private JPanel mainPanel;
+    private JButton createChannelsButton;
+    private JButton addUserToChannelButton;
+    private JButton removeUserFromChannelButton;
+    private JButton airTableToXlsxButton;
+    private JButton listAllUsersButton;
+    private JButton listAllChannelsButton;
+    private JButton syncButton;
+    private JButton setSyncTimeButton;
+    private JTextField status;
+    private JList list;
 
     public MainUI() {
         airTable = new AirTable();
         slack = new Slack();
-        if (!airTable.isValid()) {
-            System.out.println("Error: Could not validate AirTable.");
+        if (!airTable.isValid()){
+            status.setText("Error: Could not validate AirTable.");
             return;
         }
-        dataSyncTask = new DataSyncTask(airTable, slack);
-    }
 
-    public void createAndShowGUI() {
-        frame = new JFrame("Slack Data Sync");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(4, 2));
+        DataSyncTask dataSyncTask = new DataSyncTask(airTable, slack);
 
-        JLabel label = new JLabel("Choose one of the following options:");
-        frame.add(label);
+        Thread syncThread = new Thread(() -> dataSyncTask.setTimeSync(0, 0, 0));
 
-        JButton listUsersButton = new JButton("List all users");
-        listUsersButton.addActionListener(e -> listAllUsers());
-        frame.add(listUsersButton);
+        syncThread.start();
 
-        JButton listChannelsButton = new JButton("List all channels");
-        listChannelsButton.addActionListener(e -> listAllChannels());
-        frame.add(listChannelsButton);
-
-        JButton createChannelButton = new JButton("Create a new channel");
-        createChannelButton.addActionListener(e -> createNewChannel());
-        frame.add(createChannelButton);
-
-        JButton addUserToChannelButton = new JButton("Add a new user to a channel");
-        addUserToChannelButton.addActionListener(e -> addUserToChannel());
-        frame.add(addUserToChannelButton);
-
-        JButton removeUserFromChannelButton = new JButton("Remove a user from a channel");
-        removeUserFromChannelButton.addActionListener(e -> removeUserFromChannel());
-        frame.add(removeUserFromChannelButton);
-
-        JButton syncDataButton = new JButton("Sync data");
-        syncDataButton.addActionListener(e -> syncData());
-        frame.add(syncDataButton);
-
-        JButton setSyncTimeButton = new JButton("Set sync time");
-        setSyncTimeButton.addActionListener(e -> setSyncTime());
-        frame.add(setSyncTimeButton);
-
-        JButton airTableToXlsxButton = new JButton("AirTable to Xlsx");
-        airTableToXlsxButton.addActionListener(e -> airTableToXlsx());
-        frame.add(airTableToXlsxButton);
-
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    private void listAllUsers() {
-        for (var user : slack.getUsers())
-            System.out.println(user.toJson());
-    }
-
-    private void listAllChannels() {
-        for (var channel : slack.getChannels())
-            System.out.println(channel.toJson());
-    }
-
-    private void createNewChannel() {
-        String channelName = JOptionPane.showInputDialog(frame, "Enter channel name:");
-        if (channelName != null) {
+        listAllChannelsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Vector<String> channels = new Vector<>();
+                for (var channel : slack.getChannels())
+                    channels.add(channel.toJson().toString());
+                list.setListData(channels);
+                status.setText("Channels listed");
+            }
+        });
+        listAllUsersButton.addActionListener(e -> {
+            Vector<String> users = new Vector<>();
+            for (var user : slack.getUsers())
+                users.add(user.toJson().toString());
+            list.setListData(users);
+            status.setText("Users listed");
+        });
+        createChannelsButton.addActionListener(e -> {
+            String channelName = JOptionPane.showInputDialog("Enter channel name:");
             if (slack.createChannel(channelName))
-                JOptionPane.showMessageDialog(frame, "Channel created");
+                status.setText("Channel created");
             else
-                JOptionPane.showMessageDialog(frame, "Channel not created");
-        }
-    }
+                status.setText("Channel not created");
+        });
+        addUserToChannelButton.addActionListener(e -> {
+            String channelId = JOptionPane.showInputDialog("Enter channel Id:");
+            Channel channel = slack.getChannel(channelId);
+            if (channel == null){
+                status.setText("Channel not found");
+                return;
+            }
 
-    private void addUserToChannel() {
-        String channelId = JOptionPane.showInputDialog(frame, "Enter channel id:");
-        String userId = JOptionPane.showInputDialog(frame, "Enter user id:");
-        Channel channel = slack.getChannel(channelId);
-        User user = slack.getUser(userId);
-        if (channel == null) {
-            JOptionPane.showMessageDialog(frame, "Channel not found");
-            return;
-        }
-        if (user == null) {
-            JOptionPane.showMessageDialog(frame, "User not found");
-            return;
-        }
-        JsonElement jsonElement = new Gson().fromJson(channelId, JsonElement.class);
-        if (channel.getMembersId().contains(jsonElement)) {
-            JOptionPane.showMessageDialog(frame, "User already in channel");
-            return;
-        }
-        if (slack.addUserToChannel(userId, channelId))
-            JOptionPane.showMessageDialog(frame, "User added to channel");
-        else
-            JOptionPane.showMessageDialog(frame, "User not added to channel");
-    }
+            String userId = JOptionPane.showInputDialog("Enter user Id:");
+            User user = slack.getUser(userId);
+            if (user == null){
+                status.setText("User not found");
+                return;
+            }
 
-    private void removeUserFromChannel() {
-        String channelId = JOptionPane.showInputDialog(frame, "Enter channel id:");
-        String userId = JOptionPane.showInputDialog(frame, "Enter user id:");
-        Channel channel = slack.getChannel(channelId);
-        User user = slack.getUser(userId);
-        if (channel == null) {
-            JOptionPane.showMessageDialog(frame, "Channel not found");
-            return;
-        }
-        if (user == null) {
-            JOptionPane.showMessageDialog(frame, "User not found");
-            return;
-        }
-        JsonElement jsonElement = new Gson().fromJson(channelId, JsonElement.class);
-        if (!channel.getMembersId().contains(jsonElement)) {
-            JOptionPane.showMessageDialog(frame, "User not in channel");
-            return;
-        }
-        if (slack.removeUserFromChannel(userId, channelId))
-            JOptionPane.showMessageDialog(frame, "User removed from channel");
-        else
-            JOptionPane.showMessageDialog(frame, "User not removed from channel");
-    }
+            for (JsonElement r : channel.getMembersId()) {
+                if (r.getAsString().equals(userId)) {
+                    status.setText("User already in channel");
+                    return;
+                }
+            }
 
-    private void syncData() {
-        slack.syncLocal();
-        List<Channel> channels = slack.getChannels();
-        List<User> users = slack.getUsers();
-        if (channels == null || users == null) {
-            JOptionPane.showMessageDialog(frame, "Error getting data");
-            return;
-        }
-        if (airTable.pushData(channels, users, true))
-            JOptionPane.showMessageDialog(frame, "Data synced");
-        else
-            JOptionPane.showMessageDialog(frame, "Data not synced");
-    }
+            if (slack.addUserToChannel(channelId, userId))
+                status.setText("User added to channel");
+            else
+                status.setText("User not added to channel");
+        });
+        removeUserFromChannelButton.addActionListener(e -> {
+            String channelId = JOptionPane.showInputDialog("Enter channel Id:");
+            Channel channel = slack.getChannel(channelId);
+            if (channel == null){
+                status.setText("Channel not found");
+                return;
+            }
 
-    private void setSyncTime() {
-        String hourString = JOptionPane.showInputDialog(frame, "Enter hour:");
-        String minuteString = JOptionPane.showInputDialog(frame, "Enter minute:");
-        String secondString = JOptionPane.showInputDialog(frame, "Enter second:");
-        try {
-            int hour = Integer.parseInt(hourString);
-            int minute = Integer.parseInt(minuteString);
-            int second = Integer.parseInt(secondString);
+            String userId = JOptionPane.showInputDialog("Enter user Id:");
+            User user = slack.getUser(userId);
+            if (user == null){
+                status.setText("User not found");
+                return;
+            }
+
+            for (JsonElement r : channel.getMembersId()) {
+                if (r.getAsString().equals(userId)) {
+                    if (slack.removeUserFromChannel(channelId, userId))
+                        status.setText("User removed from channel");
+                    else
+                        status.setText("User not removed from channel");
+                    return;
+                }
+            }
+            status.setText("User not in channel");
+        });
+        syncButton.addActionListener(e -> {
+            slack.syncLocal();
+            List<Channel> channels = slack.getChannels();
+            List<User> users = slack.getUsers();
+            if (channels == null || users == null) {
+                status.setText("Error: Could not sync Slack.");
+                return;
+            }
+            if (airTable.pushData(channels, users, true))
+                status.setText("Data synced");
+            else
+                status.setText("Data not synced");
+        });
+        setSyncTimeButton.addActionListener(e -> {
+            int hour;
+            int minute;
+            int second;
+            try {
+                hour = Integer.parseInt(JOptionPane.showInputDialog("Enter hour:"));
+                minute = Integer.parseInt(JOptionPane.showInputDialog("Enter minute:"));
+                second = Integer.parseInt(JOptionPane.showInputDialog("Enter second:"));
+            } catch (NumberFormatException exception) {
+                status.setText("Error: Could not parse time.");
+                return;
+            }
+            if (hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) {
+                status.setText("Error: Invalid time.");
+                return;
+            }
             dataSyncTask.setTimeSync(hour, minute, second);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame, "Invalid time format");
-        }
-    }
+        });
+        airTableToXlsxButton.addActionListener(e -> {
+            String path = JOptionPane.showInputDialog("Enter path:");
+            if (path == null)
+                return;
+            airTable.exportToXlsx(path);
+            status.setText("Data exported to xlsx in " + path);
+        });
 
-    private void airTableToXlsx() {
-        airTable.tableToXlsx();
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MainUI mainUI = new MainUI();
-            mainUI.createAndShowGUI();
-        });
+        JFrame frame = new JFrame("MainUI");
+        frame.setContentPane(new MainUI().mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
