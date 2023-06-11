@@ -101,7 +101,6 @@ public class User {
         json.add("Role", roles);
         json.add("Channels Id", channelsId);
 
-
         return json;
     }
 
