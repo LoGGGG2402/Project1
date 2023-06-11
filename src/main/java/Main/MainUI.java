@@ -5,17 +5,20 @@ import Slack.Channel;
 import Slack.Slack;
 import Slack.User;
 import SyncTask.DataSyncTask;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.util.List;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainUI {
-    private final AirTable airTable;
-    private final Slack slack;
+    private  AirTable airTable;
+    private  Slack slack;
     private JPanel mainPanel;
     private JButton createChannelsButton;
     private JButton addUserToChannelButton;
@@ -26,36 +29,49 @@ public class MainUI {
     private JButton syncButton;
     private JButton setSyncTimeButton;
     private JTextField status;
-    private JList list;
+    private JList<String> list;
+    private DataSyncTask dataSyncTask;
+    Thread syncThread;
+
+    private static String replaceWhitespaceAfterBr(String html) {
+        Pattern pattern = Pattern.compile("<br>(\\s+)");
+        Matcher matcher = pattern.matcher(html);
+
+        StringBuilder buffer = new StringBuilder();
+        while (matcher.find()) {
+            String whitespace = matcher.group(1);
+            int whitespaceLength = whitespace.length();
+            String replacement = "<br>" + "&nbsp;".repeat(whitespaceLength);
+            matcher.appendReplacement(buffer, replacement);
+        }
+        matcher.appendTail(buffer);
+
+        return buffer.toString();
+    }
 
     public MainUI() {
-        airTable = new AirTable();
-        slack = new Slack();
-        if (!airTable.isValid()){
-            status.setText("Error: Could not validate AirTable.");
-            return;
-        }
+        list.setCellRenderer(new ColorfulCellRenderer());
 
-        DataSyncTask dataSyncTask = new DataSyncTask(airTable, slack);
-
-        Thread syncThread = new Thread(() -> dataSyncTask.setTimeSync(0, 0, 0));
-
-        syncThread.start();
-
-        listAllChannelsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Vector<String> channels = new Vector<>();
-                for (var channel : slack.getChannels())
-                    channels.add(channel.toJson().toString());
-                list.setListData(channels);
-                status.setText("Channels listed");
+        listAllChannelsButton.addActionListener(e -> {
+            DefaultListModel<String> model = new DefaultListModel<>();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            for (var channel : slack.getChannels()){
+                String json = gson.toJson(channel.toJson());
+                String html = "<html>" + json.replaceAll("\n", "<br>") + "</html>";
+                model.addElement(replaceWhitespaceAfterBr(html));
             }
+            list.setModel(model);
+            status.setText("Channels listed");
         });
         listAllUsersButton.addActionListener(e -> {
             Vector<String> users = new Vector<>();
-            for (var user : slack.getUsers())
-                users.add(user.toJson().toString());
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            for (var user : slack.getUsers()){
+                String json = gson.toJson(user.toJson());
+                String html = "<html>" + json.replaceAll("\n", "<br>  ") + "</html>";
+                users.add(replaceWhitespaceAfterBr(html));
+            }
+
             list.setListData(users);
             status.setText("Users listed");
         });
@@ -81,6 +97,11 @@ public class MainUI {
                 return;
             }
 
+            if (user.isBot()){
+                status.setText("User is a bot");
+                return;
+            }
+
             for (JsonElement r : channel.getMembersId()) {
                 if (r.getAsString().equals(userId)) {
                     status.setText("User already in channel");
@@ -88,7 +109,7 @@ public class MainUI {
                 }
             }
 
-            if (slack.addUserToChannel(channelId, userId))
+            if (slack.addUserToChannel(userId, channelId))
                 status.setText("User added to channel");
             else
                 status.setText("User not added to channel");
@@ -110,7 +131,7 @@ public class MainUI {
 
             for (JsonElement r : channel.getMembersId()) {
                 if (r.getAsString().equals(userId)) {
-                    if (slack.removeUserFromChannel(channelId, userId))
+                    if (slack.removeUserFromChannel(userId, channelId))
                         status.setText("User removed from channel");
                     else
                         status.setText("User not removed from channel");
@@ -157,14 +178,72 @@ public class MainUI {
             airTable.exportToXlsx(path);
             status.setText("Data exported to xlsx in " + path);
         });
+    }
 
+    public void setProperties(AirTable airTable, Slack slack) {
+        this.airTable = airTable;
+        this.slack = slack;
+        dataSyncTask = new DataSyncTask(airTable, slack);
+        dataSyncTask.setTimeSync(0, 0, 0);
+
+
+        syncThread = new Thread(() -> dataSyncTask.setTimeSync(0, 0, 0));
+        syncThread.start();
     }
 
     public static void main(String[] args) {
+        JDialog loadingDialog = new JDialog();
+        loadingDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        loadingDialog.setModal(true);
+        loadingDialog.setSize(200, 100);
+        loadingDialog.setLocationRelativeTo(null);
+
+        JLabel loadingLabel = new JLabel("Loading...");
+        loadingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        loadingDialog.add(loadingLabel);
+
         JFrame frame = new JFrame("MainUI");
-        frame.setContentPane(new MainUI().mainPanel);
+        MainUI mainUI = new MainUI();
+        frame.setContentPane(mainUI.mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(false);
+
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() {
+                AirTable airTable = new AirTable();
+                Slack slack = new Slack();
+                mainUI.setProperties(airTable, slack);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                loadingDialog.dispose();
+                frame.setVisible(true);
+            }
+        };
+
+        worker.execute();
+        loadingDialog.setVisible(true);
+    }
+}
+class ColorfulCellRenderer extends DefaultListCellRenderer {
+    private final Color evenColor = new Color(230, 242, 255);
+    private final Color oddColor = new Color(230, 255, 230);
+
+    @Override
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        Component component = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+        // Set the background color based on the index
+        if (index % 2 == 0) {
+            component.setBackground(evenColor);
+        } else {
+            component.setBackground(oddColor);
+        }
+
+        return component;
     }
 }

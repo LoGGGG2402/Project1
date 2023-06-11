@@ -34,11 +34,19 @@ public class Slack {
     }
 
     public User getUser(String id) {
-        return users.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
+        for (User user : users) {
+            if (user.getId().equals(id))
+                return user;
+        }
+        return null;
     }
 
     public Channel getChannel(String id) {
-        return channels.stream().filter(channel -> channel.getId().equals(id)).findFirst().orElse(null);
+        for (Channel channel : channels) {
+            if (channel.getId().equals(id))
+                return channel;
+        }
+        return null;
     }
 
     public boolean addUserToChannel(String userId, String channelId) {
