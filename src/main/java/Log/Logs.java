@@ -17,14 +17,15 @@ public class Logs {
                     System.out.println("Could not create new log file.");
 
             FileWriter fileWriter = new FileWriter(file, true);
-            fileWriter.write(message + "\n");
+            long time = System.currentTimeMillis();
+            java.time.Instant instant = java.time.Instant.ofEpochMilli(time);
+            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ISO_INSTANT;
+
+            fileWriter.write(formatter.format(instant) + " " + message + "\n");
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
-        writeLog("Test");
-    }
 }

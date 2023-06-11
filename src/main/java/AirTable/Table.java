@@ -35,6 +35,11 @@ public class Table {
         table.get("fields").getAsJsonArray().forEach(field -> this.fields.add(new Field(field.getAsJsonObject())));
 
         // Get Records
+        syncRecord(baseId, token);
+    }
+
+    protected void syncRecord(String baseId, String token) {
+        records.clear();
         String records = Record.listRecords(id, baseId, token);
         if (records == null) {
             Logs.writeLog("Error: Could not get records for table: " + name);
@@ -68,6 +73,7 @@ public class Table {
         }
         return null;
     }
+    @Deprecated // api not allow to update field type
     protected boolean updateField(JsonObject newField, Field field, String baseId, String token) {
         String fieldUpdate = Field.updateField(newField, field.getId(), id, baseId, token);
         if (fieldUpdate == null) {
@@ -80,6 +86,7 @@ public class Table {
         Logs.writeLog("Updated field: " + field.getName() + " in table: " + name);
         return true;
     }
+
     protected boolean addField(JsonObject field, String baseId, String token) {
         String fieldCreate = Field.createField(field, id, baseId, token);
         if (fieldCreate == null) {
@@ -138,7 +145,7 @@ public class Table {
             }
             return false;
         }
-        if (oldRecord.equals(fields)) {
+        if (oldRecord.equals(fields, this.fields)) {
             return true;
         }
         if (updateRecord(fields, oldRecord, baseId, token)) {
@@ -156,9 +163,30 @@ public class Table {
                 return false;
             }
         }
+        Logs.writeLog("Pulled all records in table: " + name);
         return true;
     }
-
+    protected void dropRecord(List<JsonObject> fields, String baseId, String token) {
+        List<Record> dropList = new ArrayList<>();
+        for (Record record : this.records) {
+            boolean isExist = false;
+            for (JsonObject field : fields) {
+                if (record.getValOfId().equals(field.get("Id").getAsString())) {
+                    isExist = true;
+                    break;
+                }
+            }
+            if (!isExist) {
+                if (Record.dropRecord(record.getId(), id, baseId, token)) {
+                    Logs.writeLog("Deleted record: " + record.getValOfId() + " in table: " + name);
+                    dropList.add(record);
+                } else {
+                    Logs.writeLog("Error: Could not delete record: " + record.getValOfId() + " in table: " + name);
+                }
+            }
+        }
+        this.records.removeAll(dropList);
+    }
 
     // API Methods
     protected static String listTables(String baseId, String token) {
@@ -206,7 +234,7 @@ public class Table {
     }
 
     // write to xlsx file
-    protected boolean writeTableToXlsx(String path) {
+    protected void writeTableToXlsx(String path) {
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();
             XSSFSheet sheet = workbook.createSheet(name);
@@ -242,10 +270,9 @@ public class Table {
             workbook.close();
             outputStream.close();
             Logs.writeLog("Wrote table: " + name + " to file: " + path);
-            return true;
         } catch (IOException e) {
             Logs.writeLog("Error: Could not write table: " + name + " to file: " + path + " with message: " + e.getMessage());
-            return false;
+
         }
     }
 

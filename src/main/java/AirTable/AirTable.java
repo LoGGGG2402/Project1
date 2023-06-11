@@ -6,6 +6,7 @@ import Slack.User;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
@@ -15,8 +16,8 @@ import java.util.List;
 
 public class AirTable {
     private boolean valid = true;
-    private final String token = "pat3acaA3Norc1kH5.921ac874b48c5b1a968856caa8ea736e4da824f4d451876efc4927514e20b87c";
-    private final String base = "app8iJ9HiaOsZgtJd";
+    private final String token = "pateiU5ObhT6DgGZC.b05a2bd7f9e4cabb3585f6d1950c6607db060aa6cbb4a62973e12b64efdb6dda";
+    private final String base = "app0JoYGd35HXtP3S";
 
     private Table channelTable = null;
     private Table userTable = null;
@@ -127,6 +128,7 @@ public class AirTable {
             Logs.writeLog("Error: Could not push channels to AirTable.");
             return false;
         }
+        channelTable.dropRecord(fields, base, token);
         return true;
     }
     private boolean pushUsers(List<User> users){
@@ -141,11 +143,14 @@ public class AirTable {
             Logs.writeLog("Error: Could not push users to AirTable.");
             return false;
         }
+        userTable.dropRecord(fields, base, token);
         return true;
     }
     public boolean pushData(List<Channel> channels, List<User> users, boolean isManual) {
-        if (!pushChannels(channels)) return false;
         if (!pushUsers(users)) return false;
+        userTable.syncRecord(base, token);
+        if (!pushChannels(channels)) return false;
+        channelTable.syncRecord(base, token);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("Id", taskTable.getNumRecords()+1);
@@ -166,11 +171,19 @@ public class AirTable {
             Logs.writeLog("Error: Could not push task to AirTable.");
             return false;
         }
+        channelTable.syncRecord(base, token);
         return true;
     }
-    public void tableToXlsx() {
-        channelTable.writeTableToXlsx("src/main/java/Log/channels.xlsx");
-        userTable.writeTableToXlsx("src/main/java/Log/users.xlsx");
-        taskTable.writeTableToXlsx("src/main/java/Log/tasks.xlsx");
+    public void exportToXlsx(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                Logs.writeLog("Error: Could not create directory " + path + ".");
+                return;
+            }
+        }
+        channelTable.writeTableToXlsx(path + "/channels.xlsx");
+        userTable.writeTableToXlsx(path + "/users.xlsx");
+        taskTable.writeTableToXlsx(path + "/tasks.xlsx");
     }
 }
