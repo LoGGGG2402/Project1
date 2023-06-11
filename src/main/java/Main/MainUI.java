@@ -10,11 +10,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainUI {
     private  AirTable airTable;
@@ -33,22 +30,6 @@ public class MainUI {
     private DataSyncTask dataSyncTask;
     Thread syncThread;
 
-    private static String replaceWhitespaceAfterBr(String html) {
-        Pattern pattern = Pattern.compile("<br>(\\s+)");
-        Matcher matcher = pattern.matcher(html);
-
-        StringBuilder buffer = new StringBuilder();
-        while (matcher.find()) {
-            String whitespace = matcher.group(1);
-            int whitespaceLength = whitespace.length();
-            String replacement = "<br>" + "&nbsp;".repeat(whitespaceLength);
-            matcher.appendReplacement(buffer, replacement);
-        }
-        matcher.appendTail(buffer);
-
-        return buffer.toString();
-    }
-
     public MainUI() {
         list.setCellRenderer(new ColorfulCellRenderer());
 
@@ -57,8 +38,8 @@ public class MainUI {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             for (var channel : slack.getChannels()){
                 String json = gson.toJson(channel.toJson());
-                String html = "<html>" + json.replaceAll("\n", "<br>") + "</html>";
-                model.addElement(replaceWhitespaceAfterBr(html));
+                String html = "<html>" + json.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp;") + "</html>";
+                model.addElement(html);
             }
             list.setModel(model);
             status.setText("Channels listed");
@@ -68,8 +49,8 @@ public class MainUI {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             for (var user : slack.getUsers()){
                 String json = gson.toJson(user.toJson());
-                String html = "<html>" + json.replaceAll("\n", "<br>  ") + "</html>";
-                users.add(replaceWhitespaceAfterBr(html));
+                String html = "<html>" + json.replaceAll("\n", "<br>  ").replaceAll(" ", "&nbsp;") + "</html>";
+                users.add(html);
             }
 
             list.setListData(users);
@@ -227,23 +208,5 @@ public class MainUI {
 
         worker.execute();
         loadingDialog.setVisible(true);
-    }
-}
-class ColorfulCellRenderer extends DefaultListCellRenderer {
-    private final Color evenColor = new Color(230, 242, 255);
-    private final Color oddColor = new Color(230, 255, 230);
-
-    @Override
-    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        Component component = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-        // Set the background color based on the index
-        if (index % 2 == 0) {
-            component.setBackground(evenColor);
-        } else {
-            component.setBackground(oddColor);
-        }
-
-        return component;
     }
 }
