@@ -29,9 +29,7 @@ public class User {
     public   boolean isBot(){
         return isBot;
     }
-    public String getName() {
-        return name;
-    }
+
     protected User(com.slack.api.model.User user, MethodsClient client){
         this.id = user.getId();
         this.name = user.getName();

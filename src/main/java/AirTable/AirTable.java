@@ -16,8 +16,8 @@ import java.util.List;
 
 public class AirTable {
     private boolean valid = true;
-    private final String token = "pateiU5ObhT6DgGZC.b05a2bd7f9e4cabb3585f6d1950c6607db060aa6cbb4a62973e12b64efdb6dda";
-    private final String base = "app0JoYGd35HXtP3S";
+    private final String token = "patPn1X7ufHoUP79B.39ad60a754d7aa501cf52a3032df08d3f47a680d4ba8ba26eb009c67d8fcea59";
+    private final String base = "appDIUD8Lbor8F2Bf";
 
     private Table channelTable = null;
     private Table userTable = null;
