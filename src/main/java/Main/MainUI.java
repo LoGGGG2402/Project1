@@ -10,11 +10,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainUI {
     private  AirTable airTable;
