@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Slack {
-    private final String token = "xoxb-5244767721591-5326693653700-351dqpn8DUCgFiYFwT5gN9k4";
+    private final String token = "xoxp-5244767721591-5283002456640-5399069062806-0f31acdf775d32d61926cfbe89275c99";
     private final MethodsClient client = com.slack.api.Slack.getInstance().methods(token);
     private final List<User> users = new ArrayList<>();
     private final List<Channel> channels = new ArrayList<>();

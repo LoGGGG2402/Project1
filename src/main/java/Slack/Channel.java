@@ -29,11 +29,22 @@ public class Channel {
     public Channel(Conversation conversation, MethodsClient client){
         this.id = conversation.getId();
         this.name = conversation.getName();
-        this.topic = conversation.getTopic().getValue();
-        this.purpose = conversation.getPurpose().getValue();
+        String topic = conversation.getTopic().getValue();
+        if (topic.isEmpty())
+            this.topic = null;
+        else
+            this.topic = conversation.getTopic().getValue();
+
+        String purpose = conversation.getPurpose().getValue();
+        if (purpose.isEmpty())
+            this.purpose = null;
+        else
+            this.purpose = conversation.getPurpose().getValue();
+
         this.creatorId = conversation.getCreator();
         this.isArchive = conversation.isArchived();
         this.isPrivate = conversation.isPrivate();
+
 
         Instant instant = Instant.ofEpochSecond(conversation.getCreated());
         DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
