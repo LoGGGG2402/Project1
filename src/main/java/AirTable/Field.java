@@ -27,7 +27,6 @@ public class Field {
 //        } else {
 //            this.options = null;
 //        }
-        JsonObject options = field.has("options") ? field.get("options").getAsJsonObject() : null;
     }
 
     protected String getId() {
