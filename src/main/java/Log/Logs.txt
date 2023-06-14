@@ -556,3 +556,193 @@
 2023-06-11T17:02:46.623Z Created record: 6 in table: Tasks
 2023-06-11T17:02:46.624Z Add record: 6 in table: Tasks
 2023-06-11T17:02:46.625Z Pulled all records in table: Tasks
+2023-06-14T16:40:11.054Z Listed tables
+2023-06-14T16:40:15.731Z Get list user successfully
+2023-06-14T16:40:16.108Z Get list channel of user: slackbot successfully
+2023-06-14T16:40:16.438Z Get list channel of user: sdt successfully
+2023-06-14T16:40:16.764Z Get list channel of user: bot01 successfully
+2023-06-14T16:40:17.099Z Get list channel of user: project12 successfully
+2023-06-14T16:40:17.404Z Get list channel of user: sidekick successfully
+2023-06-14T16:40:17.723Z Get list channel of user: bot_test successfully
+2023-06-14T16:40:18.021Z Get list channel of user: lythatda2003 successfully
+2023-06-14T16:40:18.324Z Get list channel of user: bot successfully
+2023-06-14T16:40:18.639Z Get list channel of user: dghongnam successfully
+2023-06-14T16:40:19.011Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-14T16:40:19.318Z Get list channel success
+2023-06-14T16:40:19.600Z Get list user of channel: random
+2023-06-14T16:40:19.881Z Get list user of channel: general
+2023-06-14T16:40:20.154Z Get list user of channel: test-channel
+2023-06-14T16:40:20.434Z Get list user of channel: project1
+2023-06-14T16:40:20.705Z Get list user of channel: test
+2023-06-14T16:40:20.971Z Get list user of channel: tes11t
+2023-06-14T16:40:21.269Z Get list user of channel: test1
+2023-06-14T16:40:21.574Z Get list user of channel: longggg23
+2023-06-14T16:40:21.847Z Get list user of channel: ninh_test_channel
+2023-06-14T16:40:22.114Z Get list user of channel: long123
+2023-06-14T16:40:22.383Z Get list user of channel: longgg
+2023-06-14T16:40:22.674Z Get list user of channel: tes1t
+2023-06-14T16:40:22.952Z Get list user of channel: helloo
+2023-06-14T16:40:23.235Z Get list user of channel: testp2
+2023-06-14T16:40:23.503Z Get list user of channel: testp2_1
+2023-06-14T16:40:45.505Z Get list user successfully
+2023-06-14T16:40:45.840Z Get list channel of user: slackbot successfully
+2023-06-14T16:40:46.147Z Get list channel of user: sdt successfully
+2023-06-14T16:40:46.448Z Get list channel of user: bot01 successfully
+2023-06-14T16:40:46.736Z Get list channel of user: project12 successfully
+2023-06-14T16:40:47.046Z Get list channel of user: sidekick successfully
+2023-06-14T16:40:47.403Z Get list channel of user: bot_test successfully
+2023-06-14T16:40:47.708Z Get list channel of user: lythatda2003 successfully
+2023-06-14T16:40:48.013Z Get list channel of user: bot successfully
+2023-06-14T16:40:48.347Z Get list channel of user: dghongnam successfully
+2023-06-14T16:40:48.649Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-14T16:40:48.970Z Get list channel success
+2023-06-14T16:40:49.245Z Get list user of channel: random
+2023-06-14T16:40:49.510Z Get list user of channel: general
+2023-06-14T16:40:49.778Z Get list user of channel: test-channel
+2023-06-14T16:40:50.057Z Get list user of channel: project1
+2023-06-14T16:40:50.327Z Get list user of channel: test
+2023-06-14T16:40:50.617Z Get list user of channel: tes11t
+2023-06-14T16:40:50.887Z Get list user of channel: test1
+2023-06-14T16:40:51.160Z Get list user of channel: longggg23
+2023-06-14T16:40:51.430Z Get list user of channel: ninh_test_channel
+2023-06-14T16:40:51.703Z Get list user of channel: long123
+2023-06-14T16:40:51.971Z Get list user of channel: longgg
+2023-06-14T16:40:52.237Z Get list user of channel: tes1t
+2023-06-14T16:40:52.520Z Get list user of channel: helloo
+2023-06-14T16:40:52.791Z Get list user of channel: testp2
+2023-06-14T16:40:53.074Z Get list user of channel: testp2_1
+2023-06-14T16:40:54.260Z Updated record: U05BYBA99T5 in table: Users
+2023-06-14T16:40:54.261Z Update record: U05BYBA99T5 in table: Users
+2023-06-14T16:40:55.393Z Updated record: U05C02YUCS0 in table: Users
+2023-06-14T16:40:55.394Z Update record: U05C02YUCS0 in table: Users
+2023-06-14T16:40:55.395Z Pulled all records in table: Users
+2023-06-14T16:40:58.117Z Updated record: C0576NKMLBH in table: Channels
+2023-06-14T16:40:58.118Z Update record: C0576NKMLBH in table: Channels
+2023-06-14T16:40:59.297Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-14T16:40:59.298Z Update record: C057PPFRL6Q in table: Channels
+2023-06-14T16:40:59.301Z Pulled all records in table: Channels
+2023-06-14T16:41:01.653Z Created record: 7 in table: Tasks
+2023-06-14T16:41:01.653Z Add record: 7 in table: Tasks
+2023-06-14T16:41:01.654Z Pulled all records in table: Tasks
+2023-06-14T16:48:46.200Z Listed tables
+2023-06-14T16:48:51.964Z Get list user successfully
+2023-06-14T16:48:52.331Z Get list channel of user: slackbot successfully
+2023-06-14T16:48:52.645Z Get list channel of user: sdt successfully
+2023-06-14T16:48:52.951Z Get list channel of user: bot01 successfully
+2023-06-14T16:48:53.251Z Get list channel of user: project12 successfully
+2023-06-14T16:48:53.557Z Get list channel of user: sidekick successfully
+2023-06-14T16:48:53.859Z Get list channel of user: bot_test successfully
+2023-06-14T16:48:54.163Z Get list channel of user: lythatda2003 successfully
+2023-06-14T16:48:54.473Z Get list channel of user: bot successfully
+2023-06-14T16:48:54.773Z Get list channel of user: dghongnam successfully
+2023-06-14T16:48:55.088Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-14T16:48:55.443Z Get list channel success
+2023-06-14T16:48:55.786Z Get list user of channel: random
+2023-06-14T16:48:56.087Z Get list user of channel: general
+2023-06-14T16:48:56.362Z Get list user of channel: test-channel
+2023-06-14T16:48:56.656Z Get list user of channel: project1
+2023-06-14T16:48:56.939Z Get list user of channel: test
+2023-06-14T16:48:57.212Z Get list user of channel: tes11t
+2023-06-14T16:48:57.484Z Get list user of channel: test1
+2023-06-14T16:48:57.760Z Get list user of channel: longggg23
+2023-06-14T16:48:58.055Z Get list user of channel: ninh_test_channel
+2023-06-14T16:48:58.336Z Get list user of channel: long123
+2023-06-14T16:48:58.598Z Get list user of channel: longgg
+2023-06-14T16:48:58.878Z Get list user of channel: tes1t
+2023-06-14T16:48:59.195Z Get list user of channel: helloo
+2023-06-14T16:48:59.490Z Get list user of channel: testp2
+2023-06-14T16:48:59.819Z Get list user of channel: testp2_1
+2023-06-14T16:49:21.301Z Get list user successfully
+2023-06-14T16:49:21.621Z Get list channel of user: slackbot successfully
+2023-06-14T16:49:21.919Z Get list channel of user: sdt successfully
+2023-06-14T16:49:22.216Z Get list channel of user: bot01 successfully
+2023-06-14T16:49:22.519Z Get list channel of user: project12 successfully
+2023-06-14T16:49:22.815Z Get list channel of user: sidekick successfully
+2023-06-14T16:49:23.136Z Get list channel of user: bot_test successfully
+2023-06-14T16:49:23.422Z Get list channel of user: lythatda2003 successfully
+2023-06-14T16:49:23.717Z Get list channel of user: bot successfully
+2023-06-14T16:49:24.212Z Get list channel of user: dghongnam successfully
+2023-06-14T16:49:24.535Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-14T16:49:24.849Z Get list channel success
+2023-06-14T16:49:25.132Z Get list user of channel: random
+2023-06-14T16:49:25.408Z Get list user of channel: general
+2023-06-14T16:49:25.684Z Get list user of channel: test-channel
+2023-06-14T16:49:25.963Z Get list user of channel: project1
+2023-06-14T16:49:26.250Z Get list user of channel: test
+2023-06-14T16:49:26.515Z Get list user of channel: tes11t
+2023-06-14T16:49:26.791Z Get list user of channel: test1
+2023-06-14T16:49:27.068Z Get list user of channel: longggg23
+2023-06-14T16:49:27.351Z Get list user of channel: ninh_test_channel
+2023-06-14T16:49:27.624Z Get list user of channel: long123
+2023-06-14T16:49:27.891Z Get list user of channel: longgg
+2023-06-14T16:49:28.172Z Get list user of channel: tes1t
+2023-06-14T16:49:28.451Z Get list user of channel: helloo
+2023-06-14T16:49:28.725Z Get list user of channel: testp2
+2023-06-14T16:49:28.992Z Get list user of channel: testp2_1
+2023-06-14T16:49:30.226Z Updated record: U05BYBA99T5 in table: Users
+2023-06-14T16:49:30.227Z Update record: U05BYBA99T5 in table: Users
+2023-06-14T16:49:31.417Z Updated record: U05C02YUCS0 in table: Users
+2023-06-14T16:49:31.417Z Update record: U05C02YUCS0 in table: Users
+2023-06-14T16:49:31.418Z Pulled all records in table: Users
+2023-06-14T16:49:34.277Z Updated record: C0576NKMLBH in table: Channels
+2023-06-14T16:49:34.277Z Update record: C0576NKMLBH in table: Channels
+2023-06-14T16:49:35.462Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-14T16:49:35.463Z Update record: C057PPFRL6Q in table: Channels
+2023-06-14T16:49:35.465Z Pulled all records in table: Channels
+2023-06-14T16:49:37.714Z Created record: 8 in table: Tasks
+2023-06-14T16:49:37.716Z Add record: 8 in table: Tasks
+2023-06-14T16:49:37.717Z Pulled all records in table: Tasks
+2023-06-14T16:50:30.891Z Create channel: test_146 success
+2023-06-14T16:50:31.163Z Get list user of channel: test_146
+2023-06-14T16:50:31.164Z Channel test_146 created
+2023-06-14T16:50:47.275Z Get list user successfully
+2023-06-14T16:50:47.603Z Get list channel of user: slackbot successfully
+2023-06-14T16:50:47.924Z Get list channel of user: sdt successfully
+2023-06-14T16:50:48.261Z Get list channel of user: bot01 successfully
+2023-06-14T16:50:48.566Z Get list channel of user: project12 successfully
+2023-06-14T16:50:48.874Z Get list channel of user: sidekick successfully
+2023-06-14T16:50:49.182Z Get list channel of user: bot_test successfully
+2023-06-14T16:50:49.482Z Get list channel of user: lythatda2003 successfully
+2023-06-14T16:50:49.825Z Get list channel of user: bot successfully
+2023-06-14T16:50:50.138Z Get list channel of user: dghongnam successfully
+2023-06-14T16:50:50.441Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-14T16:50:50.757Z Get list channel success
+2023-06-14T16:50:51.024Z Get list user of channel: random
+2023-06-14T16:50:51.300Z Get list user of channel: general
+2023-06-14T16:50:51.575Z Get list user of channel: test-channel
+2023-06-14T16:50:51.853Z Get list user of channel: project1
+2023-06-14T16:50:52.136Z Get list user of channel: test
+2023-06-14T16:50:52.419Z Get list user of channel: tes11t
+2023-06-14T16:50:52.690Z Get list user of channel: test1
+2023-06-14T16:50:52.955Z Get list user of channel: longggg23
+2023-06-14T16:50:53.224Z Get list user of channel: ninh_test_channel
+2023-06-14T16:50:53.512Z Get list user of channel: long123
+2023-06-14T16:50:53.783Z Get list user of channel: longgg
+2023-06-14T16:50:54.056Z Get list user of channel: tes1t
+2023-06-14T16:50:54.325Z Get list user of channel: test_146
+2023-06-14T16:50:54.605Z Get list user of channel: helloo
+2023-06-14T16:50:54.883Z Get list user of channel: testp2
+2023-06-14T16:50:55.949Z Get list user of channel: testp2_1
+2023-06-14T16:50:57.305Z Updated record: U058B02DEJU in table: Users
+2023-06-14T16:50:57.305Z Update record: U058B02DEJU in table: Users
+2023-06-14T16:50:58.426Z Updated record: U05BYBA99T5 in table: Users
+2023-06-14T16:50:58.426Z Update record: U05BYBA99T5 in table: Users
+2023-06-14T16:50:59.557Z Updated record: U05C02YUCS0 in table: Users
+2023-06-14T16:50:59.557Z Update record: U05C02YUCS0 in table: Users
+2023-06-14T16:50:59.558Z Pulled all records in table: Users
+2023-06-14T16:51:01.812Z Updated record: C0576NKMLBH in table: Channels
+2023-06-14T16:51:01.813Z Update record: C0576NKMLBH in table: Channels
+2023-06-14T16:51:03.005Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-14T16:51:03.006Z Update record: C057PPFRL6Q in table: Channels
+2023-06-14T16:51:04.215Z Created record: C05C3UY1ZSB in table: Channels
+2023-06-14T16:51:04.216Z Add record: C05C3UY1ZSB in table: Channels
+2023-06-14T16:51:05.438Z Created record: C05CBC9MLU9 in table: Channels
+2023-06-14T16:51:05.439Z Add record: C05CBC9MLU9 in table: Channels
+2023-06-14T16:51:06.617Z Created record: C05CBM3NE5P in table: Channels
+2023-06-14T16:51:06.618Z Add record: C05CBM3NE5P in table: Channels
+2023-06-14T16:51:07.826Z Created record: C05CNPV79MW in table: Channels
+2023-06-14T16:51:07.827Z Add record: C05CNPV79MW in table: Channels
+2023-06-14T16:51:07.827Z Pulled all records in table: Channels
+2023-06-14T16:51:10.180Z Created record: 2 in table: Tasks
+2023-06-14T16:51:10.181Z Add record: 2 in table: Tasks
+2023-06-14T16:51:10.182Z Pulled all records in table: Tasks
