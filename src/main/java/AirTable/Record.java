@@ -17,7 +17,7 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import java.io.IOException;
 import java.util.List;
 
-public class Record {
+public class Record{
     private final String id;
     private final JsonObject fields;
     private final String IdFieldVal;

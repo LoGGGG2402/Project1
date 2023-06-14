@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table {
+public class Table{
     private int numChanges;
     private final String id;
     private final String name;

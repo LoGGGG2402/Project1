@@ -1,6 +1,7 @@
 package Slack;
 
 import Log.Logs;
+import Main.MainUI;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.model.Conversation;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Slack {
+public class Slack extends MainUI {
     private final String token = "xoxp-5244767721591-5283002456640-5399069062806-0f31acdf775d32d61926cfbe89275c99";
     private final MethodsClient client = com.slack.api.Slack.getInstance().methods(token);
     private final List<User> users = new ArrayList<>();

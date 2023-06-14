@@ -11,7 +11,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class User {
+public class User extends Slack {
     private final boolean isBot;
     private final String id;
     private final String name;

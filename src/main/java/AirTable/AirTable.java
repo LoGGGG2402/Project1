@@ -1,6 +1,7 @@
 package AirTable;
 
 import Log.Logs;
+import Main.MainUI;
 import Slack.Channel;
 import Slack.User;
 import com.google.gson.*;
@@ -14,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirTable {
+public class AirTable{
     private boolean valid = true;
     private final String token = "pateiU5ObhT6DgGZC.b05a2bd7f9e4cabb3585f6d1950c6607db060aa6cbb4a62973e12b64efdb6dda";
     private final String base = "app0JoYGd35HXtP3S";

@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class Channel {
+public class Channel extends Slack {
     private final String id;
     private final String name;
     private final String creatorId;

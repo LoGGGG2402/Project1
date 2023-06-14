@@ -12,7 +12,7 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
 
-public class Field {
+public class Field{
     private final String id;
     private final String name;
     private final String type;
