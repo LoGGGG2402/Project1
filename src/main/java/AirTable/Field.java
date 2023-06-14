@@ -12,6 +12,7 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
+import java.net.URI;
 
 public class Field {
     private static final HttpClientResponseHandler<? extends ClassicHttpResponse> responseHandler = (HttpClientResponseHandler<ClassicHttpResponse>) classicHttpResponse -> null;
@@ -47,10 +48,10 @@ public class Field {
     // API Methods
     protected static String createField(JsonObject field, String tableId, String baseId, String token) {
 
-        String url = "https://api.airtable.com/v0/meta/bases/" + baseId + "/tables/" + tableId + "/fields";
+        URI uri = URI.create("https://api.airtable.com/v0/meta/bases/" + baseId + "/tables/" + tableId + "/fields");
 
         try(CloseableHttpClient client = HttpClientBuilder.create().build()) {
-            HttpPost post = new HttpPost(url);
+            HttpPost post = new HttpPost(uri);
             post.setHeader("Authorization", "Bearer " + token);
             post.setHeader("Content-Type", "application/json");
             post.setEntity(new StringEntity(field.toString()));
@@ -71,10 +72,10 @@ public class Field {
     }
     protected static String updateField(JsonObject field, String fieldId, String tableId, String baseId, String token) {
 
-        String url = "https://api.airtable.com/v0/meta/bases/" + baseId + "/tables/" + tableId + "/fields/" + fieldId;
+        URI uri = URI.create("https://api.airtable.com/v0/meta/bases/" + baseId + "/tables/" + tableId + "/fields/" + fieldId);
 
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
-            HttpPatch patch = new HttpPatch(url);
+            HttpPatch patch = new HttpPatch(uri);
             patch.setHeader("Authorization", "Bearer " + token);
             patch.setHeader("Content-Type", "application/json");
             patch.setEntity(new StringEntity(field.toString()));
