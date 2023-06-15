@@ -16,8 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MainUI {
     private  AirTable airTable;
@@ -123,7 +121,7 @@ public class MainUI {
 
     private void createChannel(){
         String channelName = JOptionPane.showInputDialog(language.get("enterChannelName").getAsString());
-        boolean isPrivate = JOptionPane.showConfirmDialog(null, language.get("isPrivate").getAsString(), language.get("private").getAsString(), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+        boolean isPrivate = JOptionPane.showConfirmDialog(null, language.get("isPrivate?").getAsString(), language.get("private").getAsString(), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 
         if (channelName == null)
             return;
@@ -198,15 +196,19 @@ public class MainUI {
     }
 
     private void syncData(){
+        long start = System.currentTimeMillis();
         if (!slack.syncLocal()) {
             status.setText(language.get("localSyncNotSuccess").getAsString());
             return;
         }
-
+        long end = System.currentTimeMillis();
+        System.out.println("Sync local: " + (end - start) + "ms");
         if (airTable.pushData(slack.getChannels(), slack.getUsers(), true))
             status.setText(language.get("dataSynced").getAsString());
         else
             status.setText(language.get("dataNotSynced").getAsString());
+        long end2 = System.currentTimeMillis();
+        System.out.println("Sync remote: " + (end2 - end) + "ms");
     }
 
     private void setSyncTime(){

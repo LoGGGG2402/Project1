@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class AirTable {
     private boolean isActive = true;
@@ -148,11 +149,35 @@ public class AirTable {
             fields.add(field);
         }
 
-        if (!channelTable.pullAllRecord(fields, base, token)) {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        List<Future<Boolean>> results = new ArrayList<>();
+
+        Future<Boolean> pullResult = executor.submit(() -> channelTable.pullAllRecord(fields, base, token), true);
+        results.add(pullResult);
+
+        Future<Boolean> dropResult = executor.submit(() -> channelTable.dropRecord(fields, base, token), true);
+        results.add(dropResult);
+
+        boolean isSuccess = true;
+
+        for (Future<Boolean> result : results) {
+            try {
+                if (!result.get()) {
+                    isSuccess = false;
+                    break;
+                }
+            } catch (Exception e) {
+                isSuccess = false;
+            }
+        }
+
+        executor.shutdown();
+
+        if (!isSuccess) {
             Logs.writeLog("Error: Could not push channels to AirTable.");
             return false;
         }
-        channelTable.dropRecord(fields, base, token);
+
         return true;
     }
     private boolean pushUsers(List<SlackUser> users){

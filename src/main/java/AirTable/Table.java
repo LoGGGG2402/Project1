@@ -10,7 +10,6 @@ import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -20,6 +19,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class Table {
     private int numChanges;
@@ -152,16 +155,37 @@ public class Table {
 
     protected boolean pullAllRecord(List<JsonObject> fields, String baseId, String token) {
         numChanges = 0;
-        for (JsonObject field : fields) {
-            if (!pullRecord(field, baseId, token)) {
-                Logs.writeLog("Error: Could not pull record: " + field.get("Id").getAsString() + " in table: " + name);
-                return false;
+
+        ExecutorService executor = Executors.newFixedThreadPool(fields.size());
+
+        List<CompletableFuture<Boolean>> futures = fields.stream()
+                .map(field -> CompletableFuture.supplyAsync(() -> pullRecord(field, baseId, token), executor))
+                .toList();
+
+        boolean isSuccess = true;
+
+        for (CompletableFuture<Boolean> future : futures) {
+            try {
+                if (!future.get()) {
+                    isSuccess = false;
+                    break;
+                }
+            } catch (Exception e) {
+                isSuccess = false;
             }
         }
+
+        executor.shutdown();
+
+        if (!isSuccess) {
+            Logs.writeLog("Error: Could not pull one or more records in table: " + name);
+            return false;
+        }
+
         Logs.writeLog("Pulled all records in table: " + name);
         return true;
     }
-    protected void dropRecord(List<JsonObject> fields, String baseId, String token) {
+    protected boolean dropRecord(List<JsonObject> fields, String baseId, String token) {
         List<Record> dropList = new ArrayList<>();
         for (Record record : this.records) {
             boolean isExist = false;
@@ -177,10 +201,12 @@ public class Table {
                     dropList.add(record);
                 } else {
                     Logs.writeLog("Error: Could not delete record: " + record.getId() + " in table: " + name);
+                    return false;
                 }
             }
         }
         this.records.removeAll(dropList);
+        return true;
     }
 
     // API Methods
