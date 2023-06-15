@@ -890,3 +890,1094 @@
 2023-06-14T17:02:28.671Z Created record: 11 in table: Tasks
 2023-06-14T17:02:28.672Z Add record: 11 in table: Tasks
 2023-06-14T17:02:28.672Z Pulled all records in table: Tasks
+2023-06-14T18:08:42.320Z Listed tables
+2023-06-14T18:08:47.515Z Get list user successfully
+2023-06-14T18:08:47.897Z Get list channel of user: slackbot successfully
+2023-06-14T18:08:48.213Z Get list channel of user: sdt successfully
+2023-06-14T18:08:48.576Z Get list channel of user: bot01 successfully
+2023-06-14T18:08:48.916Z Get list channel of user: project12 successfully
+2023-06-14T18:08:49.238Z Get list channel of user: sidekick successfully
+2023-06-14T18:08:49.575Z Get list channel of user: bot_test successfully
+2023-06-14T18:08:49.863Z Get list channel of user: lythatda2003 successfully
+2023-06-14T18:08:50.166Z Get list channel of user: bot successfully
+2023-06-14T18:08:50.619Z Get list channel of user: dghongnam successfully
+2023-06-14T18:08:51.020Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-14T18:08:51.318Z Get list channel success
+2023-06-14T18:08:51.669Z Get list user of channel: random
+2023-06-14T18:08:51.940Z Get list user of channel: general
+2023-06-14T18:08:52.218Z Get list user of channel: test-channel
+2023-06-14T18:08:52.715Z Get list user of channel: project1
+2023-06-14T18:08:53.009Z Get list user of channel: test
+2023-06-14T18:08:53.382Z Get list user of channel: tes11t
+2023-06-14T18:08:53.763Z Get list user of channel: test1
+2023-06-14T18:08:54.037Z Get list user of channel: longggg23
+2023-06-14T18:08:54.312Z Get list user of channel: ninh_test_channel
+2023-06-14T18:08:54.823Z Get list user of channel: long123
+2023-06-14T18:08:55.216Z Get list user of channel: longgg
+2023-06-14T18:08:55.585Z Get list user of channel: tes1t
+2023-06-14T18:08:56.666Z Get list user of channel: test_146
+2023-06-14T18:08:57.353Z Get list user of channel: helloo
+2023-06-14T18:08:58.051Z Get list user of channel: testp2
+2023-06-14T18:08:59.217Z Get list user of channel: testp2_1
+2023-06-14T18:09:15.332Z Create channel: null failed
+2023-06-14T18:09:15.333Z Channel null created failed
+2023-06-14T18:09:56.551Z Wrote table: Channels to file: /Users/log2402/Desktop/thư mục không có tiêu đề/channels.xlsx
+2023-06-14T18:09:56.604Z Wrote table: Users to file: /Users/log2402/Desktop/thư mục không có tiêu đề/users.xlsx
+2023-06-14T18:09:56.622Z Wrote table: Tasks to file: /Users/log2402/Desktop/thư mục không có tiêu đề/tasks.xlsx
+2023-06-14T18:10:12.809Z Get list user successfully
+2023-06-14T18:10:13.133Z Get list channel of user: slackbot successfully
+2023-06-14T18:10:13.458Z Get list channel of user: sdt successfully
+2023-06-14T18:10:13.849Z Get list channel of user: bot01 successfully
+2023-06-14T18:10:14.191Z Get list channel of user: project12 successfully
+2023-06-14T18:10:14.528Z Get list channel of user: sidekick successfully
+2023-06-14T18:10:14.898Z Get list channel of user: bot_test successfully
+2023-06-14T18:10:15.209Z Get list channel of user: lythatda2003 successfully
+2023-06-14T18:10:15.553Z Get list channel of user: bot successfully
+2023-06-14T18:10:15.851Z Get list channel of user: dghongnam successfully
+2023-06-14T18:10:16.342Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-14T18:10:16.655Z Get list channel success
+2023-06-14T18:10:16.994Z Get list user of channel: random
+2023-06-14T18:10:17.284Z Get list user of channel: general
+2023-06-14T18:10:17.649Z Get list user of channel: test-channel
+2023-06-14T18:10:18.042Z Get list user of channel: project1
+2023-06-14T18:10:18.364Z Get list user of channel: test
+2023-06-14T18:10:18.698Z Get list user of channel: tes11t
+2023-06-14T18:10:18.981Z Get list user of channel: test1
+2023-06-14T18:10:19.254Z Get list user of channel: longggg23
+2023-06-14T18:10:19.746Z Get list user of channel: ninh_test_channel
+2023-06-14T18:10:20.032Z Get list user of channel: long123
+2023-06-14T18:10:20.312Z Get list user of channel: longgg
+2023-06-14T18:10:20.795Z Get list user of channel: tes1t
+2023-06-14T18:10:21.090Z Get list user of channel: test_146
+2023-06-14T18:10:21.361Z Get list user of channel: helloo
+2023-06-14T18:10:21.847Z Get list user of channel: testp2
+2023-06-14T18:10:22.234Z Get list user of channel: testp2_1
+2023-06-14T18:10:23.644Z Updated record: U05BYBA99T5 in table: Users
+2023-06-14T18:10:23.644Z Update record: U05BYBA99T5 in table: Users
+2023-06-14T18:10:25.235Z Updated record: U05C02YUCS0 in table: Users
+2023-06-14T18:10:25.235Z Update record: U05C02YUCS0 in table: Users
+2023-06-14T18:10:25.235Z Pulled all records in table: Users
+2023-06-14T18:10:28.652Z Updated record: C0576NKMLBH in table: Channels
+2023-06-14T18:10:28.652Z Update record: C0576NKMLBH in table: Channels
+2023-06-14T18:10:30.371Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-14T18:10:30.371Z Update record: C057PPFRL6Q in table: Channels
+2023-06-14T18:10:30.372Z Pulled all records in table: Channels
+2023-06-14T18:10:35.158Z Created record: 12 in table: Tasks
+2023-06-14T18:10:35.159Z Add record: 12 in table: Tasks
+2023-06-14T18:10:35.159Z Pulled all records in table: Tasks
+2023-06-15T03:17:54.355Z Listed tables
+2023-06-15T03:18:18.236Z Get list user failed
+2023-06-15T03:19:08.311Z Listed tables
+2023-06-15T03:19:14.516Z Get list user successfully
+2023-06-15T03:19:15.342Z Get list channel of user: slackbot successfully
+2023-06-15T03:19:15.940Z Get list channel of user: sdt successfully
+2023-06-15T03:19:16.750Z Get list channel of user: bot01 successfully
+2023-06-15T03:19:17.569Z Get list channel of user: project12 successfully
+2023-06-15T03:19:20.027Z Get list channel of user: sidekick successfully
+2023-06-15T03:19:20.946Z Get list channel of user: bot_test successfully
+2023-06-15T03:19:21.666Z Get list channel of user: lythatda2003 successfully
+2023-06-15T03:19:22.688Z Get list channel of user: bot successfully
+2023-06-15T03:19:25.861Z Get list channel of user: dghongnam successfully
+2023-06-15T03:19:26.225Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T03:19:26.960Z Get list channel success
+2023-06-15T03:19:27.616Z Get list user of channel: random
+2023-06-15T03:19:28.418Z Get list user of channel: general
+2023-06-15T03:19:30.158Z Get list user of channel: test-channel
+2023-06-15T03:19:32.788Z Get list user of channel: project1
+2023-06-15T03:19:33.539Z Get list user of channel: test
+2023-06-15T03:19:33.945Z Get list user of channel: tes11t
+2023-06-15T03:19:35.896Z Get list user of channel: test1
+2023-06-15T03:19:38.659Z Get list user of channel: longggg23
+2023-06-15T03:19:39.170Z Get list user of channel: ninh_test_channel
+2023-06-15T03:19:39.886Z Get list user of channel: long123
+2023-06-15T03:19:40.399Z Get list user of channel: longgg
+2023-06-15T03:19:40.809Z Get list user of channel: tes1t
+2023-06-15T03:19:41.218Z Get list user of channel: test_146
+2023-06-15T03:19:41.626Z Get list user of channel: helloo
+2023-06-15T03:19:42.038Z Get list user of channel: testp2
+2023-06-15T03:19:42.447Z Get list user of channel: testp2_1
+2023-06-15T03:22:06.331Z Get list user successfully
+2023-06-15T03:22:06.731Z Get list channel of user: slackbot successfully
+2023-06-15T03:22:07.115Z Get list channel of user: sdt successfully
+2023-06-15T03:22:07.550Z Get list channel of user: bot01 successfully
+2023-06-15T03:22:07.905Z Get list channel of user: project12 successfully
+2023-06-15T03:22:08.278Z Get list channel of user: sidekick successfully
+2023-06-15T03:22:08.673Z Get list channel of user: bot_test successfully
+2023-06-15T03:22:09.085Z Get list channel of user: lythatda2003 successfully
+2023-06-15T03:22:09.434Z Get list channel of user: bot successfully
+2023-06-15T03:22:09.799Z Get list channel of user: dghongnam successfully
+2023-06-15T03:22:10.149Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T03:22:10.521Z Get list channel success
+2023-06-15T03:22:10.852Z Get list user of channel: random
+2023-06-15T03:22:11.181Z Get list user of channel: general
+2023-06-15T03:22:11.543Z Get list user of channel: test-channel
+2023-06-15T03:22:11.912Z Get list user of channel: project1
+2023-06-15T03:22:12.242Z Get list user of channel: test
+2023-06-15T03:22:12.572Z Get list user of channel: tes11t
+2023-06-15T03:22:12.929Z Get list user of channel: test1
+2023-06-15T03:22:13.258Z Get list user of channel: longggg23
+2023-06-15T03:22:13.691Z Get list user of channel: ninh_test_channel
+2023-06-15T03:22:14.110Z Get list user of channel: long123
+2023-06-15T03:22:14.511Z Get list user of channel: longgg
+2023-06-15T03:22:14.843Z Get list user of channel: tes1t
+2023-06-15T03:22:15.170Z Get list user of channel: test_146
+2023-06-15T03:22:15.535Z Get list user of channel: helloo
+2023-06-15T03:22:15.863Z Get list user of channel: testp2
+2023-06-15T03:22:16.252Z Get list user of channel: testp2_1
+2023-06-15T03:22:17.494Z Updated record: U05BYBA99T5 in table: Users
+2023-06-15T03:22:17.494Z Update record: U05BYBA99T5 in table: Users
+2023-06-15T03:22:18.663Z Updated record: U05C02YUCS0 in table: Users
+2023-06-15T03:22:18.663Z Update record: U05C02YUCS0 in table: Users
+2023-06-15T03:22:18.664Z Pulled all records in table: Users
+2023-06-15T03:22:21.016Z Updated record: C0576NKMLBH in table: Channels
+2023-06-15T03:22:21.016Z Update record: C0576NKMLBH in table: Channels
+2023-06-15T03:22:22.302Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-15T03:22:22.303Z Update record: C057PPFRL6Q in table: Channels
+2023-06-15T03:22:22.304Z Pulled all records in table: Channels
+2023-06-15T03:22:24.933Z Created record: 13 in table: Tasks
+2023-06-15T03:22:24.934Z Add record: 13 in table: Tasks
+2023-06-15T03:22:24.934Z Pulled all records in table: Tasks
+2023-06-15T03:24:34.903Z Get list user successfully
+2023-06-15T03:24:35.312Z Get list channel of user: slackbot successfully
+2023-06-15T03:24:35.721Z Get list channel of user: sdt successfully
+2023-06-15T03:24:36.155Z Get list channel of user: bot01 successfully
+2023-06-15T03:24:36.541Z Get list channel of user: project12 successfully
+2023-06-15T03:24:36.889Z Get list channel of user: sidekick successfully
+2023-06-15T03:24:37.238Z Get list channel of user: bot_test successfully
+2023-06-15T03:24:37.666Z Get list channel of user: lythatda2003 successfully
+2023-06-15T03:24:38.074Z Get list channel of user: bot successfully
+2023-06-15T03:24:38.488Z Get list channel of user: dghongnam successfully
+2023-06-15T03:24:38.901Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T03:24:39.313Z Get list channel success
+2023-06-15T03:24:39.640Z Get list user of channel: random
+2023-06-15T03:24:40.122Z Get list user of channel: general
+2023-06-15T03:24:40.453Z Get list user of channel: test-channel
+2023-06-15T03:24:40.840Z Get list user of channel: project1
+2023-06-15T03:24:41.249Z Get list user of channel: test
+2023-06-15T03:24:41.660Z Get list user of channel: tes11t
+2023-06-15T03:24:41.987Z Get list user of channel: test1
+2023-06-15T03:24:42.583Z Get list user of channel: longggg23
+2023-06-15T03:24:42.912Z Get list user of channel: ninh_test_channel
+2023-06-15T03:24:43.240Z Get list user of channel: long123
+2023-06-15T03:24:43.569Z Get list user of channel: longgg
+2023-06-15T03:24:43.912Z Get list user of channel: tes1t
+2023-06-15T03:24:44.237Z Get list user of channel: test_146
+2023-06-15T03:24:44.629Z Get list user of channel: helloo
+2023-06-15T03:24:44.956Z Get list user of channel: testp2
+2023-06-15T03:24:45.284Z Get list user of channel: testp2_1
+2023-06-15T03:24:46.655Z Updated record: U058B02DEJU in table: Users
+2023-06-15T03:24:46.655Z Update record: U058B02DEJU in table: Users
+2023-06-15T03:24:47.909Z Updated record: U05BYBA99T5 in table: Users
+2023-06-15T03:24:47.909Z Update record: U05BYBA99T5 in table: Users
+2023-06-15T03:24:49.077Z Updated record: U05C02YUCS0 in table: Users
+2023-06-15T03:24:49.077Z Update record: U05C02YUCS0 in table: Users
+2023-06-15T03:24:49.078Z Pulled all records in table: Users
+2023-06-15T03:24:51.694Z Updated record: C0576NKMLBH in table: Channels
+2023-06-15T03:24:51.695Z Update record: C0576NKMLBH in table: Channels
+2023-06-15T03:24:52.860Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-15T03:24:52.860Z Update record: C057PPFRL6Q in table: Channels
+2023-06-15T03:24:54.145Z Updated record: C05CNPV79MW in table: Channels
+2023-06-15T03:24:54.145Z Update record: C05CNPV79MW in table: Channels
+2023-06-15T03:24:54.146Z Pulled all records in table: Channels
+2023-06-15T03:24:56.645Z Created record: 2 in table: Tasks
+2023-06-15T03:24:56.645Z Add record: 2 in table: Tasks
+2023-06-15T03:24:56.645Z Pulled all records in table: Tasks
+2023-06-15T03:30:25.629Z Get list user successfully
+2023-06-15T03:30:26.031Z Get list channel of user: slackbot successfully
+2023-06-15T03:30:26.542Z Get list channel of user: sdt successfully
+2023-06-15T03:30:26.965Z Get list channel of user: bot01 successfully
+2023-06-15T03:30:27.337Z Get list channel of user: project12 successfully
+2023-06-15T03:30:27.692Z Get list channel of user: sidekick successfully
+2023-06-15T03:30:28.076Z Get list channel of user: bot_test successfully
+2023-06-15T03:30:28.486Z Get list channel of user: lythatda2003 successfully
+2023-06-15T03:30:28.899Z Get list channel of user: bot successfully
+2023-06-15T03:30:29.307Z Get list channel of user: dghongnam successfully
+2023-06-15T03:30:29.704Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T03:30:30.053Z Get list channel success
+2023-06-15T03:30:30.408Z Get list user of channel: random
+2023-06-15T03:30:30.741Z Get list user of channel: general
+2023-06-15T03:30:31.150Z Get list user of channel: test-channel
+2023-06-15T03:30:31.557Z Get list user of channel: project1
+2023-06-15T03:30:31.896Z Get list user of channel: test
+2023-06-15T03:30:32.229Z Get list user of channel: tes11t
+2023-06-15T03:30:32.581Z Get list user of channel: test1
+2023-06-15T03:30:32.995Z Get list user of channel: longggg23
+2023-06-15T03:30:33.401Z Get list user of channel: ninh_test_channel
+2023-06-15T03:30:33.814Z Get list user of channel: long123
+2023-06-15T03:30:34.222Z Get list user of channel: longgg
+2023-06-15T03:30:34.632Z Get list user of channel: tes1t
+2023-06-15T03:30:35.041Z Get list user of channel: test_146
+2023-06-15T03:30:35.452Z Get list user of channel: helloo
+2023-06-15T03:30:35.860Z Get list user of channel: testp2
+2023-06-15T03:30:36.191Z Get list user of channel: testp2_1
+2023-06-15T03:30:37.702Z Updated record: U05BYBA99T5 in table: Users
+2023-06-15T03:30:37.702Z Update record: U05BYBA99T5 in table: Users
+2023-06-15T03:30:38.933Z Updated record: U05C02YUCS0 in table: Users
+2023-06-15T03:30:38.934Z Update record: U05C02YUCS0 in table: Users
+2023-06-15T03:30:38.934Z Pulled all records in table: Users
+2023-06-15T03:30:41.448Z Updated record: C0576NKMLBH in table: Channels
+2023-06-15T03:30:41.449Z Update record: C0576NKMLBH in table: Channels
+2023-06-15T03:30:42.655Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-15T03:30:42.655Z Update record: C057PPFRL6Q in table: Channels
+2023-06-15T03:30:43.975Z Updated record: C057ZTSR56V in table: Channels
+2023-06-15T03:30:43.975Z Update record: C057ZTSR56V in table: Channels
+2023-06-15T03:30:43.976Z Pulled all records in table: Channels
+2023-06-15T03:30:46.434Z Updated record: 2 in table: Tasks
+2023-06-15T03:30:46.434Z Update record: 2 in table: Tasks
+2023-06-15T03:30:46.434Z Pulled all records in table: Tasks
+2023-06-15T03:38:04.923Z Remove user: U05C02YUCS0 from channel: general failed
+2023-06-15T03:38:04.923Z User U05C02YUCS0 removed from channel C057PPFRL6Q failed
+2023-06-15T03:38:31.520Z Remove user: U05C02YUCS0 from channel: test-channel
+2023-06-15T03:38:31.521Z User U05C02YUCS0 removed from channel C057RLDG1L4
+2023-06-15T03:45:54.935Z Listed tables
+2023-06-15T03:45:59.752Z Get list user successfully
+2023-06-15T03:46:00.286Z Get list channel of user: slackbot successfully
+2023-06-15T03:46:00.675Z Get list channel of user: sdt successfully
+2023-06-15T03:46:01.067Z Get list channel of user: bot01 successfully
+2023-06-15T03:46:01.508Z Get list channel of user: project12 successfully
+2023-06-15T03:46:01.858Z Get list channel of user: sidekick successfully
+2023-06-15T03:46:02.294Z Get list channel of user: bot_test successfully
+2023-06-15T03:46:02.663Z Get list channel of user: lythatda2003 successfully
+2023-06-15T03:46:03.068Z Get list channel of user: bot successfully
+2023-06-15T03:46:03.521Z Get list channel of user: dghongnam successfully
+2023-06-15T03:46:03.931Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T03:46:04.282Z Get list channel success
+2023-06-15T03:46:04.718Z Get list user of channel: random
+2023-06-15T03:46:05.054Z Get list user of channel: general
+2023-06-15T03:46:05.379Z Get list user of channel: test-channel
+2023-06-15T03:46:05.770Z Get list user of channel: project1
+2023-06-15T03:46:06.229Z Get list user of channel: test
+2023-06-15T03:46:06.590Z Get list user of channel: tes11t
+2023-06-15T03:46:06.916Z Get list user of channel: test1
+2023-06-15T03:46:07.246Z Get list user of channel: longggg23
+2023-06-15T03:46:07.576Z Get list user of channel: ninh_test_channel
+2023-06-15T03:46:07.899Z Get list user of channel: long123
+2023-06-15T03:46:08.330Z Get list user of channel: longgg
+2023-06-15T03:46:08.741Z Get list user of channel: tes1t
+2023-06-15T03:46:09.079Z Get list user of channel: test_146
+2023-06-15T03:46:09.424Z Get list user of channel: helloo
+2023-06-15T03:46:09.765Z Get list user of channel: testp2
+2023-06-15T03:46:10.097Z Get list user of channel: testp2_1
+2023-06-15T03:56:49.741Z Listed tables
+2023-06-15T03:56:54.595Z Get list user successfully
+2023-06-15T03:56:54.973Z Get list channel of user: slackbot successfully
+2023-06-15T03:56:55.405Z Get list channel of user: sdt successfully
+2023-06-15T03:56:55.750Z Get list channel of user: bot01 successfully
+2023-06-15T03:56:56.230Z Get list channel of user: project12 successfully
+2023-06-15T03:56:56.789Z Get list channel of user: sidekick successfully
+2023-06-15T03:56:57.147Z Get list channel of user: bot_test successfully
+2023-06-15T03:56:57.556Z Get list channel of user: lythatda2003 successfully
+2023-06-15T03:56:57.964Z Get list channel of user: bot successfully
+2023-06-15T03:56:58.377Z Get list channel of user: dghongnam successfully
+2023-06-15T03:56:58.784Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T03:56:59.180Z Get list channel success
+2023-06-15T03:56:59.605Z Get list user of channel: random
+2023-06-15T03:56:59.937Z Get list user of channel: general
+2023-06-15T03:57:00.317Z Get list user of channel: test-channel
+2023-06-15T03:57:00.724Z Get list user of channel: project1
+2023-06-15T03:57:01.137Z Get list user of channel: test
+2023-06-15T03:57:01.548Z Get list user of channel: tes11t
+2023-06-15T03:57:01.954Z Get list user of channel: test1
+2023-06-15T03:57:02.362Z Get list user of channel: longggg23
+2023-06-15T03:57:02.688Z Get list user of channel: ninh_test_channel
+2023-06-15T03:57:03.083Z Get list user of channel: long123
+2023-06-15T03:57:03.493Z Get list user of channel: longgg
+2023-06-15T03:57:03.901Z Get list user of channel: tes1t
+2023-06-15T03:57:04.311Z Get list user of channel: test_146
+2023-06-15T03:57:04.717Z Get list user of channel: helloo
+2023-06-15T03:57:05.049Z Get list user of channel: testp2
+2023-06-15T03:57:05.434Z Get list user of channel: testp2_1
+2023-06-15T03:59:01.038Z Get list user successfully
+2023-06-15T03:59:01.450Z Get list channel of user: slackbot successfully
+2023-06-15T03:59:01.799Z Get list channel of user: sdt successfully
+2023-06-15T03:59:02.163Z Get list channel of user: bot01 successfully
+2023-06-15T03:59:02.575Z Get list channel of user: project12 successfully
+2023-06-15T03:59:02.985Z Get list channel of user: sidekick successfully
+2023-06-15T03:59:03.390Z Get list channel of user: bot_test successfully
+2023-06-15T03:59:03.804Z Get list channel of user: lythatda2003 successfully
+2023-06-15T03:59:04.213Z Get list channel of user: bot successfully
+2023-06-15T03:59:04.622Z Get list channel of user: dghongnam successfully
+2023-06-15T03:59:04.974Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T03:59:05.340Z Get list channel success
+2023-06-15T03:59:05.670Z Get list user of channel: random
+2023-06-15T03:59:06.006Z Get list user of channel: general
+2023-06-15T03:59:06.331Z Get list user of channel: test-channel
+2023-06-15T03:59:06.772Z Get list user of channel: project1
+2023-06-15T03:59:07.097Z Get list user of channel: test
+2023-06-15T03:59:07.427Z Get list user of channel: tes11t
+2023-06-15T03:59:07.752Z Get list user of channel: test1
+2023-06-15T03:59:08.083Z Get list user of channel: longggg23
+2023-06-15T03:59:08.412Z Get list user of channel: ninh_test_channel
+2023-06-15T03:59:08.819Z Get list user of channel: long123
+2023-06-15T03:59:09.229Z Get list user of channel: longgg
+2023-06-15T03:59:09.641Z Get list user of channel: tes1t
+2023-06-15T03:59:09.970Z Get list user of channel: test_146
+2023-06-15T03:59:10.295Z Get list user of channel: helloo
+2023-06-15T03:59:10.620Z Get list user of channel: testp2
+2023-06-15T03:59:10.950Z Get list user of channel: testp2_1
+2023-06-15T03:59:12.412Z Updated record: U05C02YUCS0 in table: Users
+2023-06-15T03:59:12.413Z Update record: U05C02YUCS0 in table: Users
+2023-06-15T03:59:12.415Z Pulled all records in table: Users
+2023-06-15T03:59:14.841Z Updated record: C0576NKMLBH in table: Channels
+2023-06-15T03:59:14.842Z Update record: C0576NKMLBH in table: Channels
+2023-06-15T03:59:15.986Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-15T03:59:15.987Z Update record: C057PPFRL6Q in table: Channels
+2023-06-15T03:59:17.215Z Updated record: C057RLDG1L4 in table: Channels
+2023-06-15T03:59:17.215Z Update record: C057RLDG1L4 in table: Channels
+2023-06-15T03:59:17.217Z Pulled all records in table: Channels
+2023-06-15T03:59:19.838Z Created record: 15 in table: Tasks
+2023-06-15T03:59:19.839Z Add record: 15 in table: Tasks
+2023-06-15T03:59:19.839Z Pulled all records in table: Tasks
+2023-06-15T04:20:23.371Z Listed tables
+2023-06-15T04:20:28.384Z Get list user successfully
+2023-06-15T04:20:28.805Z Get list channel of user: slackbot successfully
+2023-06-15T04:20:29.190Z Get list channel of user: sdt successfully
+2023-06-15T04:20:29.598Z Get list channel of user: bot01 successfully
+2023-06-15T04:20:30.008Z Get list channel of user: project12 successfully
+2023-06-15T04:20:30.419Z Get list channel of user: sidekick successfully
+2023-06-15T04:20:30.827Z Get list channel of user: bot_test successfully
+2023-06-15T04:20:31.170Z Get list channel of user: lythatda2003 successfully
+2023-06-15T04:20:31.541Z Get list channel of user: bot successfully
+2023-06-15T04:20:31.942Z Get list channel of user: dghongnam successfully
+2023-06-15T04:20:32.307Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T04:20:32.774Z Get list channel success
+2023-06-15T04:20:33.176Z Get list user of channel: random
+2023-06-15T04:20:33.585Z Get list user of channel: general
+2023-06-15T04:20:34.001Z Get list user of channel: test-channel
+2023-06-15T04:20:34.403Z Get list user of channel: project1
+2023-06-15T04:20:34.727Z Get list user of channel: test
+2023-06-15T04:20:35.049Z Get list user of channel: tes11t
+2023-06-15T04:20:35.428Z Get list user of channel: test1
+2023-06-15T04:20:35.749Z Get list user of channel: longggg23
+2023-06-15T04:20:36.078Z Get list user of channel: ninh_test_channel
+2023-06-15T04:20:36.454Z Get list user of channel: long123
+2023-06-15T04:20:36.864Z Get list user of channel: tes1t
+2023-06-15T04:20:37.187Z Get list user of channel: test_146
+2023-06-15T04:20:37.594Z Get list user of channel: helloo
+2023-06-15T04:20:37.992Z Get list user of channel: testp2
+2023-06-15T04:20:38.329Z Get list user of channel: testp2_1
+2023-06-15T04:20:40.757Z Get list user successfully
+2023-06-15T04:20:41.266Z Get list channel of user: slackbot successfully
+2023-06-15T04:20:41.608Z Get list channel of user: sdt successfully
+2023-06-15T04:20:41.986Z Get list channel of user: bot01 successfully
+2023-06-15T04:20:42.334Z Get list channel of user: project12 successfully
+2023-06-15T04:20:42.802Z Get list channel of user: sidekick successfully
+2023-06-15T04:20:45.270Z Get list channel of user: bot_test successfully
+2023-06-15T04:20:45.621Z Get list channel of user: lythatda2003 successfully
+2023-06-15T04:20:46.080Z Get list channel of user: bot successfully
+2023-06-15T04:20:46.491Z Get list channel of user: dghongnam successfully
+2023-06-15T04:20:46.968Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T04:20:47.320Z Get list channel success
+2023-06-15T04:20:47.674Z Get list user of channel: random
+2023-06-15T04:20:48.022Z Get list user of channel: general
+2023-06-15T04:20:48.345Z Get list user of channel: test-channel
+2023-06-15T04:20:48.670Z Get list user of channel: project1
+2023-06-15T04:20:49.061Z Get list user of channel: test
+2023-06-15T04:20:49.413Z Get list user of channel: tes11t
+2023-06-15T04:20:49.865Z Get list user of channel: test1
+2023-06-15T04:20:50.233Z Get list user of channel: longggg23
+2023-06-15T04:20:50.630Z Get list user of channel: ninh_test_channel
+2023-06-15T04:20:50.963Z Get list user of channel: long123
+2023-06-15T04:20:51.305Z Get list user of channel: tes1t
+2023-06-15T04:20:51.709Z Get list user of channel: test_146
+2023-06-15T04:20:52.036Z Get list user of channel: helloo
+2023-06-15T04:20:52.356Z Get list user of channel: testp2
+2023-06-15T04:20:52.811Z Get list user of channel: testp2_1
+2023-06-15T04:21:08.814Z Get list user successfully
+2023-06-15T04:21:09.225Z Get list channel of user: slackbot successfully
+2023-06-15T04:21:09.634Z Get list channel of user: sdt successfully
+2023-06-15T04:21:10.041Z Get list channel of user: bot01 successfully
+2023-06-15T04:21:10.380Z Get list channel of user: project12 successfully
+2023-06-15T04:21:10.757Z Get list channel of user: sidekick successfully
+2023-06-15T04:21:11.169Z Get list channel of user: bot_test successfully
+2023-06-15T04:21:11.550Z Get list channel of user: lythatda2003 successfully
+2023-06-15T04:21:11.988Z Get list channel of user: bot successfully
+2023-06-15T04:21:12.399Z Get list channel of user: dghongnam successfully
+2023-06-15T04:21:12.806Z Get list channel of user: ninh.nguyn1602 successfully
+2023-06-15T04:21:13.218Z Get list channel success
+2023-06-15T04:21:13.626Z Get list user of channel: random
+2023-06-15T04:21:13.951Z Get list user of channel: general
+2023-06-15T04:21:14.343Z Get list user of channel: test-channel
+2023-06-15T04:21:14.668Z Get list user of channel: project1
+2023-06-15T04:21:15.058Z Get list user of channel: test
+2023-06-15T04:21:15.467Z Get list user of channel: tes11t
+2023-06-15T04:21:15.961Z Get list user of channel: test1
+2023-06-15T04:21:16.287Z Get list user of channel: longggg23
+2023-06-15T04:21:16.607Z Get list user of channel: ninh_test_channel
+2023-06-15T04:21:16.932Z Get list user of channel: long123
+2023-06-15T04:21:17.256Z Get list user of channel: tes1t
+2023-06-15T04:21:17.582Z Get list user of channel: test_146
+2023-06-15T04:21:17.924Z Get list user of channel: helloo
+2023-06-15T04:21:18.337Z Get list user of channel: testp2
+2023-06-15T04:21:18.673Z Get list user of channel: testp2_1
+2023-06-15T09:08:00.113Z Listed tables
+2023-06-15T09:08:04.901Z List users failed
+2023-06-15T09:08:05.486Z List channels failed
+2023-06-15T09:08:56.848Z Listed tables
+2023-06-15T09:09:02.312Z List channels id of user lythatda2003 successfully
+2023-06-15T09:09:02.613Z List channels id of user dghongnam successfully
+2023-06-15T09:09:02.912Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T09:09:02.912Z List users successfully
+2023-06-15T09:09:03.504Z List members of channel random successfully
+2023-06-15T09:09:03.768Z List members of channel general successfully
+2023-06-15T09:09:04.040Z List members of channel test-channel successfully
+2023-06-15T09:09:04.321Z List members of channel project1 successfully
+2023-06-15T09:09:04.591Z List members of channel test successfully
+2023-06-15T09:09:04.858Z List members of channel tes11t successfully
+2023-06-15T09:09:05.145Z List members of channel test1 successfully
+2023-06-15T09:09:05.418Z List members of channel longggg23 successfully
+2023-06-15T09:09:05.684Z List members of channel ninh_test_channel successfully
+2023-06-15T09:09:05.948Z List members of channel long123 successfully
+2023-06-15T09:09:06.230Z List members of channel tes1t successfully
+2023-06-15T09:09:06.651Z List members of channel test_146 successfully
+2023-06-15T09:09:06.925Z List members of channel helloo successfully
+2023-06-15T09:09:07.190Z List members of channel testp2 successfully
+2023-06-15T09:09:07.467Z List members of channel testp2_1 successfully
+2023-06-15T09:09:07.743Z List members of channel test_private successfully
+2023-06-15T09:09:07.743Z List channels successfully
+2023-06-15T09:09:25.441Z List channels id of user lythatda2003 successfully
+2023-06-15T09:09:25.726Z List channels id of user dghongnam successfully
+2023-06-15T09:09:26.024Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T09:09:26.024Z List users successfully
+2023-06-15T09:09:26.615Z List members of channel random successfully
+2023-06-15T09:09:26.887Z List members of channel general successfully
+2023-06-15T09:09:27.150Z List members of channel test-channel successfully
+2023-06-15T09:09:27.425Z List members of channel project1 successfully
+2023-06-15T09:09:27.698Z List members of channel test successfully
+2023-06-15T09:09:27.976Z List members of channel tes11t successfully
+2023-06-15T09:09:28.249Z List members of channel test1 successfully
+2023-06-15T09:09:28.518Z List members of channel longggg23 successfully
+2023-06-15T09:09:28.785Z List members of channel ninh_test_channel successfully
+2023-06-15T09:09:29.062Z List members of channel long123 successfully
+2023-06-15T09:09:29.338Z List members of channel tes1t successfully
+2023-06-15T09:09:29.602Z List members of channel test_146 successfully
+2023-06-15T09:09:29.863Z List members of channel helloo successfully
+2023-06-15T09:09:30.129Z List members of channel testp2 successfully
+2023-06-15T09:09:30.403Z List members of channel testp2_1 successfully
+2023-06-15T09:09:30.678Z List members of channel test_private successfully
+2023-06-15T09:09:30.678Z List channels successfully
+2023-06-15T09:09:32.663Z Updated record: U05BYBA99T5 in table: Users
+2023-06-15T09:09:32.663Z Update record: U05BYBA99T5 in table: Users
+2023-06-15T09:09:33.970Z Updated record: U05C02YUCS0 in table: Users
+2023-06-15T09:09:33.971Z Update record: U05C02YUCS0 in table: Users
+2023-06-15T09:09:33.971Z Pulled all records in table: Users
+2023-06-15T09:09:35.664Z Record rec0fUFpAqkUhWl5a deleted
+2023-06-15T09:09:35.665Z Deleted record: U0581PDJE1F in table: Users
+2023-06-15T09:09:36.887Z Record rec8ac2BXcXY2xzID deleted
+2023-06-15T09:09:36.888Z Deleted record: U0580ST4F7T in table: Users
+2023-06-15T09:09:38.694Z Record recMrMJ6rNusBrvxv deleted
+2023-06-15T09:09:38.694Z Deleted record: U059LLDK7LL in table: Users
+2023-06-15T09:09:39.942Z Record recpBKWT9TCOhXF7o deleted
+2023-06-15T09:09:39.943Z Deleted record: U057KL28YGN in table: Users
+2023-06-15T09:09:41.709Z Record recscsewkM9ccfaUE deleted
+2023-06-15T09:09:41.710Z Deleted record: USLACKBOT in table: Users
+2023-06-15T09:09:42.910Z Record reczL5Nhe5RCD6mzd deleted
+2023-06-15T09:09:42.910Z Deleted record: U057MS99N9Y in table: Users
+2023-06-15T09:09:44.262Z Record reczhJFjGBob58fyU deleted
+2023-06-15T09:09:44.262Z Deleted record: U057FBSSW5U in table: Users
+2023-06-15T09:09:46.854Z Updated record: C0576NKMLBH in table: Channels
+2023-06-15T09:09:46.854Z Update record: C0576NKMLBH in table: Channels
+2023-06-15T09:09:48.254Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-15T09:09:48.255Z Update record: C057PPFRL6Q in table: Channels
+2023-06-15T09:09:49.987Z Updated record: C057RLDG1L4 in table: Channels
+2023-06-15T09:09:49.987Z Update record: C057RLDG1L4 in table: Channels
+2023-06-15T09:09:51.724Z Updated record: C057ZTSR56V in table: Channels
+2023-06-15T09:09:51.724Z Update record: C057ZTSR56V in table: Channels
+2023-06-15T09:09:53.045Z Updated record: C05AWPHQ06T in table: Channels
+2023-06-15T09:09:53.045Z Update record: C05AWPHQ06T in table: Channels
+2023-06-15T09:09:54.322Z Updated record: C05B4LN70KG in table: Channels
+2023-06-15T09:09:54.323Z Update record: C05B4LN70KG in table: Channels
+2023-06-15T09:09:55.601Z Updated record: C05BBANJ96W in table: Channels
+2023-06-15T09:09:55.601Z Update record: C05BBANJ96W in table: Channels
+2023-06-15T09:09:56.851Z Updated record: C05BL6MJZJA in table: Channels
+2023-06-15T09:09:56.851Z Update record: C05BL6MJZJA in table: Channels
+2023-06-15T09:09:58.177Z Updated record: C05BWUFE1SN in table: Channels
+2023-06-15T09:09:58.178Z Update record: C05BWUFE1SN in table: Channels
+2023-06-15T09:09:59.519Z Updated record: C05C11EKV2L in table: Channels
+2023-06-15T09:09:59.520Z Update record: C05C11EKV2L in table: Channels
+2023-06-15T09:10:00.765Z Created record: C05C3UY1ZSB in table: Channels
+2023-06-15T09:10:00.766Z Add record: C05C3UY1ZSB in table: Channels
+2023-06-15T09:10:02.691Z Created record: C05CBC9MLU9 in table: Channels
+2023-06-15T09:10:02.691Z Add record: C05CBC9MLU9 in table: Channels
+2023-06-15T09:10:04.457Z Created record: C05CBM3NE5P in table: Channels
+2023-06-15T09:10:04.458Z Add record: C05CBM3NE5P in table: Channels
+2023-06-15T09:10:05.765Z Created record: C05CNPV79MW in table: Channels
+2023-06-15T09:10:05.766Z Add record: C05CNPV79MW in table: Channels
+2023-06-15T09:10:07Z Created record: C05CZSDKCJV in table: Channels
+2023-06-15T09:10:07.001Z Add record: C05CZSDKCJV in table: Channels
+2023-06-15T09:10:07.001Z Pulled all records in table: Channels
+2023-06-15T09:10:09.641Z Created record: 4 in table: Tasks
+2023-06-15T09:10:09.641Z Add record: 4 in table: Tasks
+2023-06-15T09:10:09.642Z Pulled all records in table: Tasks
+2023-06-15T10:10:48.380Z Listed tables
+2023-06-15T10:10:54.613Z List channels id of user lythatda2003 successfully
+2023-06-15T10:10:54.717Z List members of channel random successfully
+2023-06-15T10:10:54.906Z List channels id of user dghongnam successfully
+2023-06-15T10:10:54.991Z List members of channel general successfully
+2023-06-15T10:10:55.242Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T10:10:55.243Z List users successfully
+2023-06-15T10:10:55.287Z List members of channel test-channel successfully
+2023-06-15T10:10:55.592Z List members of channel project1 successfully
+2023-06-15T10:10:55.853Z List members of channel test successfully
+2023-06-15T10:10:56.345Z List members of channel tes11t successfully
+2023-06-15T10:10:56.609Z List members of channel test1 successfully
+2023-06-15T10:10:56.896Z List members of channel longggg23 successfully
+2023-06-15T10:10:57.163Z List members of channel ninh_test_channel successfully
+2023-06-15T10:10:57.440Z List members of channel long123 successfully
+2023-06-15T10:10:57.716Z List members of channel tes1t successfully
+2023-06-15T10:10:57.992Z List members of channel test_146 successfully
+2023-06-15T10:10:58.257Z List members of channel helloo successfully
+2023-06-15T10:10:58.527Z List members of channel testp2 successfully
+2023-06-15T10:10:58.805Z List members of channel testp2_1 successfully
+2023-06-15T10:10:59.108Z List members of channel test_private successfully
+2023-06-15T10:10:59.108Z List channels successfully
+2023-06-15T10:11:01.547Z List channels id of user lythatda2003 successfully
+2023-06-15T10:11:01.620Z List members of channel random successfully
+2023-06-15T10:11:01.853Z List channels id of user dghongnam successfully
+2023-06-15T10:11:01.955Z List members of channel general successfully
+2023-06-15T10:11:02.222Z List members of channel test-channel successfully
+2023-06-15T10:11:02.232Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T10:11:02.232Z List users successfully
+2023-06-15T10:11:02.500Z List members of channel project1 successfully
+2023-06-15T10:11:02.766Z List members of channel test successfully
+2023-06-15T10:11:03.039Z List members of channel tes11t successfully
+2023-06-15T10:11:03.304Z List members of channel test1 successfully
+2023-06-15T10:11:03.580Z List members of channel longggg23 successfully
+2023-06-15T10:11:03.849Z List members of channel ninh_test_channel successfully
+2023-06-15T10:11:04.124Z List members of channel long123 successfully
+2023-06-15T10:11:04.401Z List members of channel tes1t successfully
+2023-06-15T10:11:04.677Z List members of channel test_146 successfully
+2023-06-15T10:11:04.953Z List members of channel helloo successfully
+2023-06-15T10:11:05.214Z List members of channel testp2 successfully
+2023-06-15T10:11:05.505Z List members of channel testp2_1 successfully
+2023-06-15T10:11:05.779Z List members of channel test_private successfully
+2023-06-15T10:11:05.779Z List channels successfully
+2023-06-15T10:11:25.195Z List channels id of user lythatda2003 successfully
+2023-06-15T10:11:25.236Z List members of channel random successfully
+2023-06-15T10:11:25.495Z List channels id of user dghongnam successfully
+2023-06-15T10:11:25.582Z List members of channel general successfully
+2023-06-15T10:11:25.782Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T10:11:25.783Z List users successfully
+2023-06-15T10:11:25.870Z List members of channel test-channel successfully
+2023-06-15T10:11:26.138Z List members of channel project1 successfully
+2023-06-15T10:11:26.410Z List members of channel test successfully
+2023-06-15T10:11:26.688Z List members of channel tes11t successfully
+2023-06-15T10:11:26.957Z List members of channel test1 successfully
+2023-06-15T10:11:27.221Z List members of channel longggg23 successfully
+2023-06-15T10:11:27.517Z List members of channel ninh_test_channel successfully
+2023-06-15T10:11:27.816Z List members of channel long123 successfully
+2023-06-15T10:11:28.115Z List members of channel tes1t successfully
+2023-06-15T10:11:28.412Z List members of channel test_146 successfully
+2023-06-15T10:11:28.685Z List members of channel helloo successfully
+2023-06-15T10:11:28.964Z List members of channel testp2 successfully
+2023-06-15T10:11:29.229Z List members of channel testp2_1 successfully
+2023-06-15T10:11:29.500Z List members of channel test_private successfully
+2023-06-15T10:11:29.501Z List channels successfully
+2023-06-15T10:12:20.138Z Create channel: long.pph failed
+2023-06-15T10:12:20.140Z Channel long.pph created failed
+2023-06-15T10:12:30.701Z Create channel: longga1 success
+2023-06-15T10:12:30.976Z List members of channel longga1 successfully
+2023-06-15T10:12:30.976Z Channel longga1 created
+2023-06-15T10:12:38.238Z List channels id of user lythatda2003 successfully
+2023-06-15T10:12:38.299Z List members of channel random successfully
+2023-06-15T10:12:38.555Z List channels id of user dghongnam successfully
+2023-06-15T10:12:38.632Z List members of channel general successfully
+2023-06-15T10:12:38.854Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T10:12:38.855Z List users successfully
+2023-06-15T10:12:38.916Z List members of channel test-channel successfully
+2023-06-15T10:12:39.180Z List members of channel project1 successfully
+2023-06-15T10:12:39.465Z List members of channel test successfully
+2023-06-15T10:12:39.752Z List members of channel tes11t successfully
+2023-06-15T10:12:40.048Z List members of channel test1 successfully
+2023-06-15T10:12:40.324Z List members of channel longggg23 successfully
+2023-06-15T10:12:40.595Z List members of channel ninh_test_channel successfully
+2023-06-15T10:12:40.862Z List members of channel long123 successfully
+2023-06-15T10:12:41.141Z List members of channel tes1t successfully
+2023-06-15T10:12:41.405Z List members of channel test_146 successfully
+2023-06-15T10:12:41.680Z List members of channel helloo successfully
+2023-06-15T10:12:41.942Z List members of channel testp2 successfully
+2023-06-15T10:12:42.225Z List members of channel testp2_1 successfully
+2023-06-15T10:12:42.492Z List members of channel longga1 successfully
+2023-06-15T10:12:42.758Z List members of channel test_private successfully
+2023-06-15T10:12:42.759Z List channels successfully
+2023-06-15T10:12:59.415Z List channels id of user lythatda2003 successfully
+2023-06-15T10:12:59.668Z List members of channel random successfully
+2023-06-15T10:12:59.715Z List channels id of user dghongnam successfully
+2023-06-15T10:12:59.936Z List members of channel general successfully
+2023-06-15T10:13:00.065Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T10:13:00.065Z List users successfully
+2023-06-15T10:13:00.213Z List members of channel test-channel successfully
+2023-06-15T10:13:00.494Z List members of channel project1 successfully
+2023-06-15T10:13:00.777Z List members of channel test successfully
+2023-06-15T10:13:01.043Z List members of channel tes11t successfully
+2023-06-15T10:13:01.333Z List members of channel test1 successfully
+2023-06-15T10:13:01.623Z List members of channel longggg23 successfully
+2023-06-15T10:13:01.889Z List members of channel ninh_test_channel successfully
+2023-06-15T10:13:02.162Z List members of channel long123 successfully
+2023-06-15T10:13:02.428Z List members of channel tes1t successfully
+2023-06-15T10:13:02.707Z List members of channel test_146 successfully
+2023-06-15T10:13:02.982Z List members of channel helloo successfully
+2023-06-15T10:13:03.254Z List members of channel testp2 successfully
+2023-06-15T10:13:03.516Z List members of channel testp2_1 successfully
+2023-06-15T10:13:03.796Z List members of channel longga1 successfully
+2023-06-15T10:13:04.075Z List members of channel test_private successfully
+2023-06-15T10:13:04.075Z List channels successfully
+2023-06-15T10:13:05.470Z Updated record: U058B02DEJU in table: Users
+2023-06-15T10:13:05.470Z Update record: U058B02DEJU in table: Users
+2023-06-15T10:13:06.724Z Updated record: U05BYBA99T5 in table: Users
+2023-06-15T10:13:06.724Z Update record: U05BYBA99T5 in table: Users
+2023-06-15T10:13:07.991Z Updated record: U05C02YUCS0 in table: Users
+2023-06-15T10:13:07.991Z Update record: U05C02YUCS0 in table: Users
+2023-06-15T10:13:07.992Z Pulled all records in table: Users
+2023-06-15T10:13:10.335Z Updated record: C0576NKMLBH in table: Channels
+2023-06-15T10:13:10.335Z Update record: C0576NKMLBH in table: Channels
+2023-06-15T10:13:11.646Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-15T10:13:11.646Z Update record: C057PPFRL6Q in table: Channels
+2023-06-15T10:13:13.323Z Updated record: C05CNPV79MW in table: Channels
+2023-06-15T10:13:13.323Z Update record: C05CNPV79MW in table: Channels
+2023-06-15T10:13:14.787Z Created record: C05CP0CSXCJ in table: Channels
+2023-06-15T10:13:14.788Z Add record: C05CP0CSXCJ in table: Channels
+2023-06-15T10:13:16.019Z Created record: C05CZSDKCJV in table: Channels
+2023-06-15T10:13:16.019Z Add record: C05CZSDKCJV in table: Channels
+2023-06-15T10:13:16.020Z Pulled all records in table: Channels
+2023-06-15T10:13:18.445Z Created record: 5 in table: Tasks
+2023-06-15T10:13:18.445Z Add record: 5 in table: Tasks
+2023-06-15T10:13:18.446Z Pulled all records in table: Tasks
+2023-06-15T10:13:49.063Z List channels id of user lythatda2003 successfully
+2023-06-15T10:13:49.167Z List members of channel random successfully
+2023-06-15T10:13:49.345Z List channels id of user dghongnam successfully
+2023-06-15T10:13:49.432Z List members of channel general successfully
+2023-06-15T10:13:49.646Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T10:13:49.647Z List users successfully
+2023-06-15T10:13:49.724Z List members of channel test-channel successfully
+2023-06-15T10:13:49.991Z List members of channel project1 successfully
+2023-06-15T10:13:50.265Z List members of channel test successfully
+2023-06-15T10:13:50.542Z List members of channel tes11t successfully
+2023-06-15T10:13:50.826Z List members of channel test1 successfully
+2023-06-15T10:13:51.176Z List members of channel longggg23 successfully
+2023-06-15T10:13:51.477Z List members of channel ninh_test_channel successfully
+2023-06-15T10:13:51.778Z List members of channel long123 successfully
+2023-06-15T10:13:52.056Z List members of channel tes1t successfully
+2023-06-15T10:13:52.320Z List members of channel test_146 successfully
+2023-06-15T10:13:52.595Z List members of channel helloo successfully
+2023-06-15T10:13:52.882Z List members of channel testp2 successfully
+2023-06-15T10:13:53.146Z List members of channel testp2_1 successfully
+2023-06-15T10:13:53.431Z List members of channel longga1 successfully
+2023-06-15T10:13:53.708Z List members of channel test_private successfully
+2023-06-15T10:13:53.708Z List channels successfully
+2023-06-15T10:13:55.354Z Updated record: U05C02YUCS0 in table: Users
+2023-06-15T10:13:55.355Z Update record: U05C02YUCS0 in table: Users
+2023-06-15T10:13:55.355Z Pulled all records in table: Users
+2023-06-15T10:13:57.710Z Updated record: C0576NKMLBH in table: Channels
+2023-06-15T10:13:57.710Z Update record: C0576NKMLBH in table: Channels
+2023-06-15T10:13:59.441Z Updated record: C057PPFRL6Q in table: Channels
+2023-06-15T10:13:59.442Z Update record: C057PPFRL6Q in table: Channels
+2023-06-15T10:13:59.443Z Pulled all records in table: Channels
+2023-06-15T10:14:00.794Z Record rec4WGJxtI5YUDRvM deleted
+2023-06-15T10:14:00.795Z Deleted record: C05C0CF0CLU in table: Channels
+2023-06-15T10:14:03.787Z Created record: 2 in table: Tasks
+2023-06-15T10:14:03.787Z Add record: 2 in table: Tasks
+2023-06-15T10:14:03.788Z Pulled all records in table: Tasks
+2023-06-15T10:14:43.647Z List channels id of user lythatda2003 successfully
+2023-06-15T10:14:43.774Z List members of channel random successfully
+2023-06-15T10:14:43.949Z List channels id of user dghongnam successfully
+2023-06-15T10:14:44.048Z List members of channel general successfully
+2023-06-15T10:14:44.250Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T10:14:44.250Z List users successfully
+2023-06-15T10:14:44.337Z List members of channel test-channel successfully
+2023-06-15T10:14:44.611Z List members of channel project1 successfully
+2023-06-15T10:14:44.885Z List members of channel test successfully
+2023-06-15T10:14:45.157Z List members of channel tes11t successfully
+2023-06-15T10:14:45.419Z List members of channel test1 successfully
+2023-06-15T10:14:45.730Z List members of channel longggg23 successfully
+2023-06-15T10:14:45.995Z List members of channel ninh_test_channel successfully
+2023-06-15T10:14:46.314Z List members of channel long123 successfully
+2023-06-15T10:14:46.620Z List members of channel tes1t successfully
+2023-06-15T10:14:46.885Z List members of channel test_146 successfully
+2023-06-15T10:14:47.148Z List members of channel helloo successfully
+2023-06-15T10:14:47.431Z List members of channel testp2 successfully
+2023-06-15T10:14:47.711Z List members of channel testp2_1 successfully
+2023-06-15T10:14:48.004Z List members of channel longga1 successfully
+2023-06-15T10:14:48.295Z List members of channel test_private successfully
+2023-06-15T10:14:48.295Z List channels successfully
+2023-06-15T10:15:17.567Z Remove user: U058B02DEJU from channel: project1 failed
+2023-06-15T10:15:17.567Z SlackUser lythatda2003@gmail.com removed from channel project1 failed
+2023-06-15T10:15:50.088Z List channels id of user lythatda2003 successfully
+2023-06-15T10:15:50.159Z List members of channel random successfully
+2023-06-15T10:15:50.403Z List channels id of user dghongnam successfully
+2023-06-15T10:15:50.453Z List members of channel general successfully
+2023-06-15T10:15:50.762Z List members of channel test-channel successfully
+2023-06-15T10:15:50.781Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T10:15:50.781Z List users successfully
+2023-06-15T10:15:51.037Z List members of channel project1 successfully
+2023-06-15T10:15:51.315Z List members of channel test successfully
+2023-06-15T10:15:51.577Z List members of channel tes11t successfully
+2023-06-15T10:15:51.867Z List members of channel test1 successfully
+2023-06-15T10:15:52.160Z List members of channel longggg23 successfully
+2023-06-15T10:15:52.448Z List members of channel ninh_test_channel successfully
+2023-06-15T10:15:52.712Z List members of channel long123 successfully
+2023-06-15T10:15:52.996Z List members of channel tes1t successfully
+2023-06-15T10:15:53.266Z List members of channel test_146 successfully
+2023-06-15T10:15:53.531Z List members of channel helloo successfully
+2023-06-15T10:15:53.863Z List members of channel testp2 successfully
+2023-06-15T10:15:54.149Z List members of channel testp2_1 successfully
+2023-06-15T10:15:54.438Z List members of channel longga1 successfully
+2023-06-15T10:15:54.720Z List members of channel test_private successfully
+2023-06-15T10:15:54.721Z List channels successfully
+2023-06-15T10:16:09.805Z Remove user: U05C02YUCS0 from channel: ninh_test_channel
+2023-06-15T10:16:09.805Z SlackUser ninh.nguyn1602@gmail.com removed from channel ninh_test_channel
+2023-06-15T10:16:24.294Z List channels id of user lythatda2003 successfully
+2023-06-15T10:16:24.402Z List members of channel random successfully
+2023-06-15T10:16:24.619Z List channels id of user dghongnam successfully
+2023-06-15T10:16:24.672Z List members of channel general successfully
+2023-06-15T10:16:24.922Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T10:16:24.923Z List users successfully
+2023-06-15T10:16:24.999Z List members of channel test-channel successfully
+2023-06-15T10:16:25.264Z List members of channel project1 successfully
+2023-06-15T10:16:25.527Z List members of channel test successfully
+2023-06-15T10:16:25.802Z List members of channel tes11t successfully
+2023-06-15T10:16:26.065Z List members of channel test1 successfully
+2023-06-15T10:16:26.344Z List members of channel longggg23 successfully
+2023-06-15T10:16:26.620Z List members of channel ninh_test_channel successfully
+2023-06-15T10:16:26.897Z List members of channel long123 successfully
+2023-06-15T10:16:27.175Z List members of channel tes1t successfully
+2023-06-15T10:16:27.456Z List members of channel test_146 successfully
+2023-06-15T10:16:27.736Z List members of channel helloo successfully
+2023-06-15T10:16:28.004Z List members of channel testp2 successfully
+2023-06-15T10:16:28.290Z List members of channel testp2_1 successfully
+2023-06-15T10:16:28.584Z List members of channel longga1 successfully
+2023-06-15T10:16:28.855Z List members of channel test_private successfully
+2023-06-15T10:16:28.856Z List channels successfully
+2023-06-15T10:16:50.310Z Remove user: U058B02DEJU from channel: ninh_test_channel failed
+2023-06-15T10:16:50.312Z SlackUser lythatda2003@gmail.com removed from channel ninh_test_channel failed
+2023-06-15T11:07:01.144Z Listed tables
+2023-06-15T11:07:02.880Z Created table: Channels
+2023-06-15T11:07:05.764Z Created table: Users
+2023-06-15T11:07:08.505Z Created table: Tasks
+2023-06-15T11:07:55.312Z Listed tables
+2023-06-15T11:08:00.645Z List channels id of user lythatda2003 successfully
+2023-06-15T11:08:00.892Z List members of channel random successfully
+2023-06-15T11:08:00.968Z List channels id of user dghongnam successfully
+2023-06-15T11:08:01.155Z List members of channel general successfully
+2023-06-15T11:08:01.386Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:08:01.386Z List users successfully
+2023-06-15T11:08:01.437Z List members of channel test-channel successfully
+2023-06-15T11:08:01.701Z List members of channel project1 successfully
+2023-06-15T11:08:01.988Z List members of channel test successfully
+2023-06-15T11:08:02.274Z List members of channel tes11t successfully
+2023-06-15T11:08:02.557Z List members of channel test1 successfully
+2023-06-15T11:08:02.833Z List members of channel longggg23 successfully
+2023-06-15T11:08:03.099Z List members of channel ninh_test_channel successfully
+2023-06-15T11:08:03.360Z List members of channel long123 successfully
+2023-06-15T11:08:03.626Z List members of channel tes1t successfully
+2023-06-15T11:08:03.891Z List members of channel test_146 successfully
+2023-06-15T11:08:04.166Z List members of channel helloo successfully
+2023-06-15T11:08:04.447Z List members of channel testp2 successfully
+2023-06-15T11:08:04.750Z List members of channel testp2_1 successfully
+2023-06-15T11:08:05.019Z List members of channel longga1 successfully
+2023-06-15T11:08:05.287Z List members of channel test_private successfully
+2023-06-15T11:08:05.287Z List channels successfully
+2023-06-15T11:08:53.426Z List channels id of user lythatda2003 successfully
+2023-06-15T11:08:53.652Z List members of channel random successfully
+2023-06-15T11:08:53.752Z List channels id of user dghongnam successfully
+2023-06-15T11:08:53.948Z List members of channel general successfully
+2023-06-15T11:08:54.058Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:08:54.058Z List users successfully
+2023-06-15T11:08:54.221Z List members of channel test-channel successfully
+2023-06-15T11:08:54.495Z List members of channel project1 successfully
+2023-06-15T11:08:54.779Z List members of channel test successfully
+2023-06-15T11:08:55.054Z List members of channel tes11t successfully
+2023-06-15T11:08:55.319Z List members of channel test1 successfully
+2023-06-15T11:08:55.579Z List members of channel longggg23 successfully
+2023-06-15T11:08:55.850Z List members of channel ninh_test_channel successfully
+2023-06-15T11:08:56.367Z List members of channel long123 successfully
+2023-06-15T11:08:56.633Z List members of channel tes1t successfully
+2023-06-15T11:08:56.896Z List members of channel test_146 successfully
+2023-06-15T11:08:57.170Z List members of channel helloo successfully
+2023-06-15T11:08:57.435Z List members of channel testp2 successfully
+2023-06-15T11:08:57.703Z List members of channel testp2_1 successfully
+2023-06-15T11:08:57.978Z List members of channel longga1 successfully
+2023-06-15T11:08:58.243Z List members of channel test_private successfully
+2023-06-15T11:08:58.244Z List channels successfully
+2023-06-15T11:11:05.477Z Listed tables
+2023-06-15T11:11:11.311Z List channels id of user lythatda2003 successfully
+2023-06-15T11:11:11.422Z List members of channel random successfully
+2023-06-15T11:11:11.618Z List channels id of user dghongnam successfully
+2023-06-15T11:11:11.709Z List members of channel general successfully
+2023-06-15T11:11:11.941Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:11:11.941Z List users successfully
+2023-06-15T11:11:11.997Z List members of channel test-channel successfully
+2023-06-15T11:11:12.267Z List members of channel project1 successfully
+2023-06-15T11:11:12.534Z List members of channel test successfully
+2023-06-15T11:11:12.806Z List members of channel tes11t successfully
+2023-06-15T11:11:13.078Z List members of channel test1 successfully
+2023-06-15T11:11:13.357Z List members of channel longggg23 successfully
+2023-06-15T11:11:13.637Z List members of channel ninh_test_channel successfully
+2023-06-15T11:11:13.908Z List members of channel long123 successfully
+2023-06-15T11:11:14.223Z List members of channel tes1t successfully
+2023-06-15T11:11:14.492Z List members of channel test_146 successfully
+2023-06-15T11:11:14.772Z List members of channel helloo successfully
+2023-06-15T11:11:15.042Z List members of channel testp2 successfully
+2023-06-15T11:11:15.322Z List members of channel testp2_1 successfully
+2023-06-15T11:11:15.604Z List members of channel longga1 successfully
+2023-06-15T11:11:15.888Z List members of channel test_private successfully
+2023-06-15T11:11:15.909Z List channels successfully
+2023-06-15T11:13:55.255Z List channels id of user lythatda2003 successfully
+2023-06-15T11:13:55.553Z List channels id of user dghongnam successfully
+2023-06-15T11:13:55.669Z List members of channel random successfully
+2023-06-15T11:13:55.926Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:13:55.927Z List users successfully
+2023-06-15T11:13:55.973Z List members of channel general successfully
+2023-06-15T11:13:56.420Z List members of channel test-channel successfully
+2023-06-15T11:13:56.683Z List members of channel project1 successfully
+2023-06-15T11:13:56.964Z List members of channel test successfully
+2023-06-15T11:13:57.252Z List members of channel tes11t successfully
+2023-06-15T11:13:57.523Z List members of channel test1 successfully
+2023-06-15T11:13:57.795Z List members of channel longggg23 successfully
+2023-06-15T11:13:58.077Z List members of channel ninh_test_channel successfully
+2023-06-15T11:13:58.363Z List members of channel long123 successfully
+2023-06-15T11:13:58.627Z List members of channel tes1t successfully
+2023-06-15T11:13:58.911Z List members of channel test_146 successfully
+2023-06-15T11:13:59.179Z List members of channel helloo successfully
+2023-06-15T11:13:59.442Z List members of channel testp2 successfully
+2023-06-15T11:13:59.720Z List members of channel testp2_1 successfully
+2023-06-15T11:13:59.994Z List members of channel longga1 successfully
+2023-06-15T11:14:00.280Z List members of channel test_private successfully
+2023-06-15T11:14:00.280Z List channels successfully
+2023-06-15T11:14:18.377Z Listed tables
+2023-06-15T11:14:23.712Z List channels id of user lythatda2003 successfully
+2023-06-15T11:14:23.897Z List members of channel random successfully
+2023-06-15T11:14:24.012Z List channels id of user dghongnam successfully
+2023-06-15T11:14:24.175Z List members of channel general successfully
+2023-06-15T11:14:24.321Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:14:24.321Z List users successfully
+2023-06-15T11:14:24.440Z List members of channel test-channel successfully
+2023-06-15T11:14:24.718Z List members of channel project1 successfully
+2023-06-15T11:14:24.987Z List members of channel test successfully
+2023-06-15T11:14:25.250Z List members of channel tes11t successfully
+2023-06-15T11:14:25.516Z List members of channel test1 successfully
+2023-06-15T11:14:25.780Z List members of channel longggg23 successfully
+2023-06-15T11:14:26.048Z List members of channel ninh_test_channel successfully
+2023-06-15T11:14:26.313Z List members of channel long123 successfully
+2023-06-15T11:14:26.581Z List members of channel tes1t successfully
+2023-06-15T11:14:26.852Z List members of channel test_146 successfully
+2023-06-15T11:14:27.128Z List members of channel helloo successfully
+2023-06-15T11:14:27.392Z List members of channel testp2 successfully
+2023-06-15T11:14:27.658Z List members of channel testp2_1 successfully
+2023-06-15T11:14:27.942Z List members of channel longga1 successfully
+2023-06-15T11:14:28.224Z List members of channel test_private successfully
+2023-06-15T11:14:28.224Z List channels successfully
+2023-06-15T11:16:26.498Z Listed tables
+2023-06-15T11:16:31.539Z List channels id of user lythatda2003 successfully
+2023-06-15T11:16:31.645Z List members of channel random successfully
+2023-06-15T11:16:31.885Z List channels id of user dghongnam successfully
+2023-06-15T11:16:31.952Z List members of channel general successfully
+2023-06-15T11:16:32.219Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:16:32.219Z List users successfully
+2023-06-15T11:16:32.276Z List members of channel test-channel successfully
+2023-06-15T11:16:32.566Z List members of channel project1 successfully
+2023-06-15T11:16:32.846Z List members of channel test successfully
+2023-06-15T11:16:33.128Z List members of channel tes11t successfully
+2023-06-15T11:16:33.406Z List members of channel test1 successfully
+2023-06-15T11:16:33.697Z List members of channel longggg23 successfully
+2023-06-15T11:16:33.983Z List members of channel ninh_test_channel successfully
+2023-06-15T11:16:34.269Z List members of channel long123 successfully
+2023-06-15T11:16:34.582Z List members of channel tes1t successfully
+2023-06-15T11:16:34.857Z List members of channel test_146 successfully
+2023-06-15T11:16:35.164Z List members of channel helloo successfully
+2023-06-15T11:16:35.510Z List members of channel testp2 successfully
+2023-06-15T11:16:35.798Z List members of channel testp2_1 successfully
+2023-06-15T11:16:36.090Z List members of channel longga1 successfully
+2023-06-15T11:16:36.373Z List members of channel test_private successfully
+2023-06-15T11:16:36.373Z List channels successfully
+2023-06-15T11:16:57.825Z List channels id of user lythatda2003 successfully
+2023-06-15T11:16:57.980Z List members of channel random successfully
+2023-06-15T11:16:58.120Z List channels id of user dghongnam successfully
+2023-06-15T11:16:58.252Z List members of channel general successfully
+2023-06-15T11:16:58.424Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:16:58.424Z List users successfully
+2023-06-15T11:16:58.559Z List members of channel test-channel successfully
+2023-06-15T11:16:58.936Z List members of channel project1 successfully
+2023-06-15T11:16:59.225Z List members of channel test successfully
+2023-06-15T11:16:59.503Z List members of channel tes11t successfully
+2023-06-15T11:16:59.793Z List members of channel test1 successfully
+2023-06-15T11:17:00.091Z List members of channel longggg23 successfully
+2023-06-15T11:17:00.380Z List members of channel ninh_test_channel successfully
+2023-06-15T11:17:00.663Z List members of channel long123 successfully
+2023-06-15T11:17:00.943Z List members of channel tes1t successfully
+2023-06-15T11:17:01.220Z List members of channel test_146 successfully
+2023-06-15T11:17:01.502Z List members of channel helloo successfully
+2023-06-15T11:17:01.802Z List members of channel testp2 successfully
+2023-06-15T11:17:02.101Z List members of channel testp2_1 successfully
+2023-06-15T11:17:02.414Z List members of channel longga1 successfully
+2023-06-15T11:17:02.710Z List members of channel test_private successfully
+2023-06-15T11:17:02.710Z List channels successfully
+2023-06-15T11:18:15.192Z Listed tables
+2023-06-15T11:18:21.689Z List channels id of user lythatda2003 successfully
+2023-06-15T11:18:21.784Z List members of channel random successfully
+2023-06-15T11:18:21.993Z List channels id of user dghongnam successfully
+2023-06-15T11:18:22.068Z List members of channel general successfully
+2023-06-15T11:18:22.302Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:18:22.302Z List users successfully
+2023-06-15T11:18:22.376Z List members of channel test-channel successfully
+2023-06-15T11:18:22.655Z List members of channel project1 successfully
+2023-06-15T11:18:23.026Z List members of channel test successfully
+2023-06-15T11:18:23.305Z List members of channel tes11t successfully
+2023-06-15T11:18:23.579Z List members of channel test1 successfully
+2023-06-15T11:18:23.863Z List members of channel longggg23 successfully
+2023-06-15T11:18:24.129Z List members of channel ninh_test_channel successfully
+2023-06-15T11:18:24.397Z List members of channel long123 successfully
+2023-06-15T11:18:24.681Z List members of channel tes1t successfully
+2023-06-15T11:18:24.952Z List members of channel test_146 successfully
+2023-06-15T11:18:25.222Z List members of channel helloo successfully
+2023-06-15T11:18:25.492Z List members of channel testp2 successfully
+2023-06-15T11:18:25.771Z List members of channel testp2_1 successfully
+2023-06-15T11:18:26.057Z List members of channel longga1 successfully
+2023-06-15T11:18:26.329Z List members of channel test_private successfully
+2023-06-15T11:18:26.329Z List channels successfully
+2023-06-15T11:20:10.860Z Listed tables
+2023-06-15T11:20:18.059Z List channels id of user lythatda2003 successfully
+2023-06-15T11:20:18.160Z List members of channel random successfully
+2023-06-15T11:20:18.393Z List channels id of user dghongnam successfully
+2023-06-15T11:20:18.478Z List members of channel general successfully
+2023-06-15T11:20:18.735Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:20:18.735Z List users successfully
+2023-06-15T11:20:18.813Z List members of channel test-channel successfully
+2023-06-15T11:20:19.130Z List members of channel project1 successfully
+2023-06-15T11:20:19.445Z List members of channel test successfully
+2023-06-15T11:20:19.848Z List members of channel tes11t successfully
+2023-06-15T11:20:20.162Z List members of channel test1 successfully
+2023-06-15T11:20:20.497Z List members of channel longggg23 successfully
+2023-06-15T11:20:20.816Z List members of channel ninh_test_channel successfully
+2023-06-15T11:20:21.180Z List members of channel long123 successfully
+2023-06-15T11:20:21.494Z List members of channel tes1t successfully
+2023-06-15T11:20:21.996Z List members of channel test_146 successfully
+2023-06-15T11:20:22.307Z List members of channel helloo successfully
+2023-06-15T11:20:22.620Z List members of channel testp2 successfully
+2023-06-15T11:20:23.024Z List members of channel testp2_1 successfully
+2023-06-15T11:20:23.344Z List members of channel longga1 successfully
+2023-06-15T11:20:23.738Z List members of channel test_private successfully
+2023-06-15T11:20:23.739Z List channels successfully
+2023-06-15T11:22:01.922Z Listed tables
+2023-06-15T11:22:08.426Z List channels id of user lythatda2003 successfully
+2023-06-15T11:22:08.737Z List channels id of user dghongnam successfully
+2023-06-15T11:22:09.017Z List members of channel random successfully
+2023-06-15T11:22:09.120Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:22:09.132Z List users successfully
+2023-06-15T11:22:09.296Z List members of channel general successfully
+2023-06-15T11:22:09.573Z List members of channel test-channel successfully
+2023-06-15T11:22:09.834Z List members of channel project1 successfully
+2023-06-15T11:22:10.103Z List members of channel test successfully
+2023-06-15T11:22:10.373Z List members of channel tes11t successfully
+2023-06-15T11:22:10.650Z List members of channel test1 successfully
+2023-06-15T11:22:10.922Z List members of channel longggg23 successfully
+2023-06-15T11:22:11.211Z List members of channel ninh_test_channel successfully
+2023-06-15T11:22:11.491Z List members of channel long123 successfully
+2023-06-15T11:22:11.876Z List members of channel tes1t successfully
+2023-06-15T11:22:12.134Z List members of channel test_146 successfully
+2023-06-15T11:22:12.419Z List members of channel helloo successfully
+2023-06-15T11:22:12.823Z List members of channel testp2 successfully
+2023-06-15T11:22:13.088Z List members of channel testp2_1 successfully
+2023-06-15T11:22:13.381Z List members of channel longga1 successfully
+2023-06-15T11:22:13.643Z List members of channel test_private successfully
+2023-06-15T11:22:13.643Z List channels successfully
+2023-06-15T11:23:34.584Z Listed tables
+2023-06-15T11:23:40.224Z List channels id of user lythatda2003 successfully
+2023-06-15T11:23:40.323Z List members of channel random successfully
+2023-06-15T11:23:40.515Z List channels id of user dghongnam successfully
+2023-06-15T11:23:40.607Z List members of channel general successfully
+2023-06-15T11:23:40.824Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:23:40.824Z List users successfully
+2023-06-15T11:23:40.882Z List members of channel test-channel successfully
+2023-06-15T11:23:41.171Z List members of channel project1 successfully
+2023-06-15T11:23:41.463Z List members of channel test successfully
+2023-06-15T11:23:41.731Z List members of channel tes11t successfully
+2023-06-15T11:23:42.008Z List members of channel test1 successfully
+2023-06-15T11:23:42.286Z List members of channel longggg23 successfully
+2023-06-15T11:23:42.563Z List members of channel ninh_test_channel successfully
+2023-06-15T11:23:42.863Z List members of channel long123 successfully
+2023-06-15T11:23:43.138Z List members of channel tes1t successfully
+2023-06-15T11:23:43.420Z List members of channel test_146 successfully
+2023-06-15T11:23:43.702Z List members of channel helloo successfully
+2023-06-15T11:23:43.974Z List members of channel testp2 successfully
+2023-06-15T11:23:44.252Z List members of channel testp2_1 successfully
+2023-06-15T11:23:44.675Z List members of channel longga1 successfully
+2023-06-15T11:23:44.947Z List members of channel test_private successfully
+2023-06-15T11:23:44.948Z List channels successfully
+2023-06-15T11:25:19.550Z List members of channel random successfully
+2023-06-15T11:25:19.662Z List channels id of user lythatda2003 successfully
+2023-06-15T11:25:19.839Z List members of channel general successfully
+2023-06-15T11:25:19.984Z List channels id of user dghongnam successfully
+2023-06-15T11:25:20.103Z List members of channel test-channel successfully
+2023-06-15T11:25:20.302Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:25:20.302Z List users successfully
+2023-06-15T11:25:20.377Z List members of channel project1 successfully
+2023-06-15T11:25:20.639Z List members of channel test successfully
+2023-06-15T11:25:20.917Z List members of channel tes11t successfully
+2023-06-15T11:25:21.182Z List members of channel test1 successfully
+2023-06-15T11:25:21.453Z List members of channel longggg23 successfully
+2023-06-15T11:25:21.732Z List members of channel ninh_test_channel successfully
+2023-06-15T11:25:22.016Z List members of channel long123 successfully
+2023-06-15T11:25:22.304Z List members of channel tes1t successfully
+2023-06-15T11:25:22.570Z List members of channel test_146 successfully
+2023-06-15T11:25:22.862Z List members of channel helloo successfully
+2023-06-15T11:25:23.126Z List members of channel testp2 successfully
+2023-06-15T11:25:23.433Z List members of channel testp2_1 successfully
+2023-06-15T11:25:23.711Z List members of channel longga1 successfully
+2023-06-15T11:25:24.193Z List members of channel test_private successfully
+2023-06-15T11:25:24.193Z List channels successfully
+2023-06-15T11:25:25.944Z Created record: U058B02DEJU in table: Users
+2023-06-15T11:25:25.944Z Add record: U058B02DEJU in table: Users
+2023-06-15T11:25:27.211Z Created record: U05BYBA99T5 in table: Users
+2023-06-15T11:25:27.211Z Add record: U05BYBA99T5 in table: Users
+2023-06-15T11:25:28.923Z Created record: U05C02YUCS0 in table: Users
+2023-06-15T11:25:28.923Z Add record: U05C02YUCS0 in table: Users
+2023-06-15T11:25:28.923Z Pulled all records in table: Users
+2023-06-15T11:25:31.674Z Created record: C0576NKMLBH in table: Channels
+2023-06-15T11:25:31.674Z Add record: C0576NKMLBH in table: Channels
+2023-06-15T11:25:32.952Z Created record: C057PPFRL6Q in table: Channels
+2023-06-15T11:25:32.952Z Add record: C057PPFRL6Q in table: Channels
+2023-06-15T11:25:35.288Z Created record: C057RLDG1L4 in table: Channels
+2023-06-15T11:25:35.288Z Add record: C057RLDG1L4 in table: Channels
+2023-06-15T11:25:37.214Z Created record: C057ZTSR56V in table: Channels
+2023-06-15T11:25:37.214Z Add record: C057ZTSR56V in table: Channels
+2023-06-15T11:25:38.976Z Created record: C05AWPHQ06T in table: Channels
+2023-06-15T11:25:38.976Z Add record: C05AWPHQ06T in table: Channels
+2023-06-15T11:25:40.183Z Created record: C05B4LN70KG in table: Channels
+2023-06-15T11:25:40.183Z Add record: C05B4LN70KG in table: Channels
+2023-06-15T11:25:41.843Z Created record: C05BBANJ96W in table: Channels
+2023-06-15T11:25:41.843Z Add record: C05BBANJ96W in table: Channels
+2023-06-15T11:25:43.080Z Created record: C05BL6MJZJA in table: Channels
+2023-06-15T11:25:43.081Z Add record: C05BL6MJZJA in table: Channels
+2023-06-15T11:25:44.395Z Created record: C05BWUFE1SN in table: Channels
+2023-06-15T11:25:44.395Z Add record: C05BWUFE1SN in table: Channels
+2023-06-15T11:25:46.069Z Created record: C05BYK1T8LB in table: Channels
+2023-06-15T11:25:46.069Z Add record: C05BYK1T8LB in table: Channels
+2023-06-15T11:25:47.757Z Created record: C05C11EKV2L in table: Channels
+2023-06-15T11:25:47.757Z Add record: C05C11EKV2L in table: Channels
+2023-06-15T11:25:49.015Z Created record: C05C3UY1ZSB in table: Channels
+2023-06-15T11:25:49.015Z Add record: C05C3UY1ZSB in table: Channels
+2023-06-15T11:25:50.190Z Created record: C05CBC9MLU9 in table: Channels
+2023-06-15T11:25:50.190Z Add record: C05CBC9MLU9 in table: Channels
+2023-06-15T11:25:51.847Z Created record: C05CBM3NE5P in table: Channels
+2023-06-15T11:25:51.848Z Add record: C05CBM3NE5P in table: Channels
+2023-06-15T11:25:53.080Z Created record: C05CNPV79MW in table: Channels
+2023-06-15T11:25:53.080Z Add record: C05CNPV79MW in table: Channels
+2023-06-15T11:25:54.310Z Created record: C05CP0CSXCJ in table: Channels
+2023-06-15T11:25:54.310Z Add record: C05CP0CSXCJ in table: Channels
+2023-06-15T11:25:55.666Z Created record: C05CZSDKCJV in table: Channels
+2023-06-15T11:25:55.667Z Add record: C05CZSDKCJV in table: Channels
+2023-06-15T11:25:55.667Z Pulled all records in table: Channels
+2023-06-15T11:25:58.188Z Created record: 1 in table: Tasks
+2023-06-15T11:25:58.189Z Add record: 1 in table: Tasks
+2023-06-15T11:25:58.189Z Pulled all records in table: Tasks
+2023-06-15T11:26:00.708Z List channels id of user lythatda2003 successfully
+2023-06-15T11:26:00.787Z List members of channel random successfully
+2023-06-15T11:26:01.020Z List channels id of user dghongnam successfully
+2023-06-15T11:26:01.085Z List members of channel general successfully
+2023-06-15T11:26:01.326Z List channels id of user ninh.nguyn1602 successfully
+2023-06-15T11:26:01.326Z List users successfully
+2023-06-15T11:26:01.399Z List members of channel test-channel successfully
+2023-06-15T11:26:01.674Z List members of channel project1 successfully
+2023-06-15T11:26:02.095Z List members of channel test successfully
+2023-06-15T11:26:10.883Z List members of channel tes11t successfully

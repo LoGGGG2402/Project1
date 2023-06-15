@@ -8,10 +8,12 @@ import com.google.gson.JsonObject;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.model.Conversation;
+import com.slack.api.model.ConversationType;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Channel {
@@ -21,11 +23,11 @@ public class Channel {
     private final String created;
     private final String topic;
     private final String purpose;
-    private int numMembers;
+    private final int numMembers;
     private final boolean isPrivate;
     private final boolean isArchive;
 
-    JsonArray membersId = new JsonArray();
+    private final JsonArray membersId;
     public Channel(Conversation conversation, MethodsClient client){
         this.id = conversation.getId();
         this.name = conversation.getName();
@@ -33,13 +35,13 @@ public class Channel {
         if (topic.isEmpty())
             this.topic = null;
         else
-            this.topic = conversation.getTopic().getValue();
+            this.topic = topic;
 
         String purpose = conversation.getPurpose().getValue();
         if (purpose.isEmpty())
             this.purpose = null;
         else
-            this.purpose = conversation.getPurpose().getValue();
+            this.purpose = purpose;
 
         this.creatorId = conversation.getCreator();
         this.isArchive = conversation.isArchived();
@@ -52,23 +54,12 @@ public class Channel {
         this.created = formatter.format(instant);
 
 
-        try {
-            var result = client.conversationsMembers(r -> r
-                    .channel(this.id)
-            );
-            if (result.isOk()){
-                result.getMembers().forEach(r -> membersId.add(r));
-                numMembers = membersId.size();
-                Logs.writeLog("Get list user of channel: " + this.name);
-            }else {
-                Logs.writeLog("Get list user of channel: " + this.name + " failed");
-            }
-        } catch (SlackApiException | IOException e) {
-            Logs.writeLog("Get list user of channel: " + this.name + " failed");
-            e.printStackTrace();
-        }
+        this.membersId = listMembersId(this, client);
+        this.numMembers = membersId != null ? membersId.size() : 0;
     }
 
+
+    // Getters
     public JsonArray getMembersId() {
         return membersId;
     }
@@ -86,9 +77,11 @@ public class Channel {
         json.add("Members Id", this.membersId);
         return json;
     }
-
     public String getId() {
         return id;
+    }
+    public String getName() {
+        return name;
     }
 
 
@@ -133,28 +126,57 @@ public class Channel {
             return false;
         }
     }
-    protected static List<Conversation> listChannels(MethodsClient client){
+    public static List<Channel> listChannels(MethodsClient client) {
+        List<Channel> channels = new ArrayList<>();
+        String nextCursor = "";
         try {
-            var result = client.conversationsList(r -> r
-                    .limit(1000)
-            );
-            if (result.isOk()){
-                Logs.writeLog("Get list channel success");
-                return result.getChannels();
-            }else {
-                Logs.writeLog("Get list channel failed");
-                return null;
-            }
-        } catch (SlackApiException | IOException e) {
-            Logs.writeLog("Get list channel failed");
-            e.printStackTrace();
+            do {
+                String finalNextCursor = nextCursor;
+                var response = client.conversationsList(r -> r
+                        .types(List.of(ConversationType.PRIVATE_CHANNEL, ConversationType.PUBLIC_CHANNEL))
+                        .cursor(finalNextCursor)
+                        .limit(1000)
+                );
+                for (var channel : response.getChannels()) {
+                    channels.add(new Channel(channel, client));
+                }
+                nextCursor = response.getResponseMetadata().getNextCursor();
+            } while (nextCursor != null && !nextCursor.isEmpty());
+            Logs.writeLog("List channels successfully");
+            return channels;
+        } catch (Exception e) {
+            Logs.writeLog("List channels failed");
             return null;
         }
     }
-    protected static Conversation createChannel(String name, MethodsClient client){
+    private JsonArray listMembersId(Channel channel, MethodsClient client) {
+        JsonArray membersId = new JsonArray();
+        String nextCursor = "";
+        try {
+            do {
+                String finalNextCursor = nextCursor;
+                var response = client.conversationsMembers(r -> r
+                        .channel(channel.id)
+                        .cursor(finalNextCursor)
+                        .limit(1000)
+                );
+                for (var memberId : response.getMembers()) {
+                    membersId.add(memberId);
+                }
+                nextCursor = response.getResponseMetadata().getNextCursor();
+            } while (nextCursor != null && !nextCursor.isEmpty());
+            Logs.writeLog("List members of channel " + channel.name + " successfully");
+            return membersId;
+        } catch (Exception e) {
+            Logs.writeLog("List members of channel " + channel.name + " failed");
+            return null;
+        }
+    }
+    protected static Conversation createChannel(String name, boolean isPrivate, MethodsClient client){
         try {
             var result = client.conversationsCreate(r -> r
                     .name(name)
+                    .isPrivate(isPrivate)
             );
             if (result.isOk()){
                 Logs.writeLog("Create channel: " + name + " success");
@@ -169,6 +191,4 @@ public class Channel {
             return null;
         }
     }
-
-
 }

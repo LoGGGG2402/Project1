@@ -2,7 +2,7 @@ package AirTable;
 
 import Log.Logs;
 import Slack.Channel;
-import Slack.User;
+import Slack.SlackUser;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AirTable {
-    private boolean valid = true;
-    private final String token = "patPn1X7ufHoUP79B.39ad60a754d7aa501cf52a3032df08d3f47a680d4ba8ba26eb009c67d8fcea59";
-    private final String base = "appDIUD8Lbor8F2Bf";
+    private boolean isActive = true;
+    private final String token = "patogTEA7FvHGIl6u.349a94a6d90f7677d2a982c8d1d1b1f23559a96400fd5e378af806afa6c6f4a2";
+    private final String base = "app0JoYGd35HXtP3S";
 
     private Table channelTable = null;
     private Table userTable = null;
@@ -48,7 +48,7 @@ public class AirTable {
           System.out.println(channelTable == null);
           System.out.println(userTable == null);
           System.out.println(taskTable == null);
-          valid = false;
+          isActive = false;
        }
 
        Field linkField = channelTable.getField("Users");
@@ -62,16 +62,16 @@ public class AirTable {
            newField.add("options", options);
            if (!channelTable.addField(newField, base, token)) {
                Logs.writeLog("Error: Could not add field Users to Channels table.");
-               valid = false;
+               isActive = false;
            }
        }
 
     }
-    public boolean isValid() {
-       return valid;
+    public boolean isActive() {
+       return isActive;
     }
     private Table allFieldsValid(Table table, String name) {
-        try (FileReader fileReader = new FileReader("src/main/java/Log/fields.json")) {
+        try (FileReader fileReader = new FileReader("src/main/java/data/fields.json")) {
 
             JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
 
@@ -131,9 +131,9 @@ public class AirTable {
         channelTable.dropRecord(fields, base, token);
         return true;
     }
-    private boolean pushUsers(List<User> users){
+    private boolean pushUsers(List<SlackUser> users){
         List<JsonObject> fields = new ArrayList<>();
-        for (User user: users){
+        for (SlackUser user: users){
             JsonObject field = user.toJson();
             field.remove("Channels Id");
 
@@ -146,7 +146,7 @@ public class AirTable {
         userTable.dropRecord(fields, base, token);
         return true;
     }
-    public boolean pushData(List<Channel> channels, List<User> users, boolean isManual) {
+    public boolean pushData(List<Channel> channels, List<SlackUser> users, boolean isManual) {
         if (!pushUsers(users)) return false;
         userTable.syncRecord(base, token);
         if (!pushChannels(channels)) return false;
