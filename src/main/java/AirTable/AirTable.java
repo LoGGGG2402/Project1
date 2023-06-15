@@ -1,6 +1,6 @@
 package AirTable;
 
-import Log.Logs;
+import Logs.Logs;
 import Slack.Channel;
 import Slack.SlackUser;
 import com.google.gson.*;
@@ -13,6 +13,8 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AirTable {
     private boolean isActive = true;
@@ -24,35 +26,55 @@ public class AirTable {
     private Table taskTable = null;
 
     public AirTable() {
-       String listTables = Table.listTables(base, token);
-       if (listTables == null) {
+        long time = System.currentTimeMillis();
+        String listTables = Table.listTables(base, token);
+        if (listTables == null) {
            Logs.writeLog("Error: Could not list tables.");
            return;
-       }
-       JsonArray tables = JsonParser.parseString(listTables).getAsJsonObject().getAsJsonArray("tables");
-       for (JsonElement table : tables) {
+        }
+        JsonArray tables = JsonParser.parseString(listTables).getAsJsonObject().getAsJsonArray("tables");
+        for (JsonElement table : tables) {
             JsonObject tableJson = table.getAsJsonObject();
             String tableName = tableJson.get("name").getAsString();
             switch (tableName) {
-               case "Channels" -> channelTable = new Table(tableJson, base, token);
-               case "Users" -> userTable = new Table(tableJson, base, token);
-               case "Tasks" -> taskTable = new Table(tableJson, base, token);
+               case "Channels" -> channelTable = new Table(tableJson);
+               case "Users" -> userTable = new Table(tableJson);
+               case "Tasks" -> taskTable = new Table(tableJson);
             }
-       }
-       channelTable = allFieldsValid(channelTable, "Channels");
-       userTable = allFieldsValid(userTable, "Users");
-       taskTable = allFieldsValid(taskTable, "Tasks");
+        }
 
-       if (channelTable == null || userTable == null || taskTable == null) {
-          Logs.writeLog("Error: Could not validate AirTable. because of missing fields.");
-          System.out.println(channelTable == null);
-          System.out.println(userTable == null);
-          System.out.println(taskTable == null);
-          isActive = false;
-       }
+        try (ExecutorService executor = Executors.newFixedThreadPool(3)) {
+            executor.submit(() -> {
+               channelTable = validTable(channelTable, "Channels");
+               if (channelTable == null) {
+                   isActive = false;
+                   return;
+               }
+               channelTable.syncRecord(base, token);
+            });
+            executor.submit(() -> {
+            userTable = validTable(userTable, "Users");
+            if (userTable == null) {
+                 isActive = false;
+                 return;
+            }
+            userTable.syncRecord(base, token);
+            });
+            executor.submit(() -> {
+                taskTable = validTable(taskTable, "Tasks");
+                if (taskTable == null) {
+                     isActive = false;
+                     return;
+                }
+                taskTable.syncRecord(base, token);
+            });
 
-       Field linkField = channelTable.getField("Users");
-       if (linkField == null) {
+            executor.shutdown();
+        }
+
+
+        Field linkField = channelTable.getField("Users");
+        if (linkField == null) {
            JsonObject newField = new JsonObject();
            newField.addProperty("name", "Users");
            newField.addProperty("type", "multipleRecordLinks");
@@ -64,13 +86,15 @@ public class AirTable {
                Logs.writeLog("Error: Could not add field Users to Channels table.");
                isActive = false;
            }
-       }
+        }
 
+        long time2 = System.currentTimeMillis();
+        Logs.writeLog("AirTable initialized in " + (time2 - time) + "ms.");
     }
     public boolean isActive() {
        return isActive;
     }
-    private Table allFieldsValid(Table table, String name) {
+    private Table validTable(Table table, String name) {
         try (FileReader fileReader = new FileReader("src/main/java/data/fields.json")) {
 
             JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
@@ -84,7 +108,7 @@ public class AirTable {
                     Logs.writeLog("Error: Could not create table " + name + ".");
                     return null;
                 }
-                return new Table(JsonParser.parseString(createTable).getAsJsonObject(), base, token);
+                return new Table(JsonParser.parseString(createTable).getAsJsonObject());
             }
 
             for (JsonElement field : fields) {
@@ -116,7 +140,7 @@ public class AirTable {
                     Logs.writeLog("Error: Could not find user with id " + memberId + ".");
                     return false;
                 }
-                MembersRecordId.add(record.getId());
+                MembersRecordId.add(record.getRecordId());
             }
             field.add("Users", MembersRecordId);
             field.remove("Members Id");

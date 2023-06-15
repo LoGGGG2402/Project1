@@ -1,6 +1,6 @@
 package Slack;
 
-import Log.Logs;
+import Logs.Logs;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.model.Conversation;
 
@@ -33,12 +33,25 @@ public class Slack {
         if (users == null || channels == null)
             return false;
 
+        for (SlackUser user : users) {
+            executorService.submit(() -> {
+                for (var channelId : user.getChannelsId()) {
+                    for (Channel channel : channels) {
+                        if (channel.getId().equals(channelId.getAsString())) {
+                            channel.addMemberId(user.getId());
+                            break;
+                        }
+                    }
+                }
+                return null;
+            });
+        }
+
         executorService.shutdown();
         return true;
         } catch (InterruptedException | ExecutionException e) {
             return false;
         }
-
     }
     public boolean isActive() {
         return active;
@@ -117,7 +130,7 @@ public class Slack {
     public boolean createChannel(String name, boolean isPrivate) {
         Conversation channel = Channel.createChannel(name , isPrivate, client);
         if (channel != null) {
-            channels.add(new Channel(channel, client));
+            channels.add(new Channel(channel));
             Logs.writeLog("Channel " + name + " created");
             return true;
         }

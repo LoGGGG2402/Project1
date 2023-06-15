@@ -1,11 +1,11 @@
-package Log;
+package Logs;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Logs {
-    private static final String path = "src/main/java/Log/Logs.txt";
+    private static final String path = "src/main/java/Logs/Logs.txt";
     private static final File file = new File(path);
 
     public static void writeLog(String message) {

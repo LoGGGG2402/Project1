@@ -1,6 +1,6 @@
 package Slack;
 
-import Log.Logs;
+import Logs.Logs;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -91,6 +91,9 @@ public class SlackUser {
     }
     public String getEmail() {
         return email;
+    }
+    public JsonArray getChannelsId() {
+        return channelsId;
     }
 
 

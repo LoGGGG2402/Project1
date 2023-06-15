@@ -1,6 +1,6 @@
 package Slack;
 
-import Log.Logs;
+import Logs.Logs;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -23,12 +23,12 @@ public class Channel {
     private final String created;
     private final String topic;
     private final String purpose;
-    private final int numMembers;
+    private int numMembers;
     private final boolean isPrivate;
     private final boolean isArchive;
 
-    private final JsonArray membersId;
-    public Channel(Conversation conversation, MethodsClient client){
+    private final JsonArray membersId = new JsonArray();
+    public Channel(Conversation conversation){
         this.id = conversation.getId();
         this.name = conversation.getName();
         String topic = conversation.getTopic().getValue();
@@ -52,10 +52,6 @@ public class Channel {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 
         this.created = formatter.format(instant);
-
-
-        this.membersId = listMembersId(this, client);
-        this.numMembers = membersId != null ? membersId.size() : 0;
     }
 
 
@@ -84,6 +80,11 @@ public class Channel {
         return name;
     }
 
+    // Add memberId
+    protected void addMemberId(String memberId){
+        this.membersId.add(memberId);
+        this.numMembers++;
+    }
 
     // API method
     protected boolean removeUser(String userId, MethodsClient client){
@@ -138,7 +139,7 @@ public class Channel {
                         .limit(1000)
                 );
                 for (var channel : response.getChannels()) {
-                    channels.add(new Channel(channel, client));
+                    channels.add(new Channel(channel));
                 }
                 nextCursor = response.getResponseMetadata().getNextCursor();
             } while (nextCursor != null && !nextCursor.isEmpty());
@@ -146,29 +147,6 @@ public class Channel {
             return channels;
         } catch (Exception e) {
             Logs.writeLog("List channels failed");
-            return null;
-        }
-    }
-    private JsonArray listMembersId(Channel channel, MethodsClient client) {
-        JsonArray membersId = new JsonArray();
-        String nextCursor = "";
-        try {
-            do {
-                String finalNextCursor = nextCursor;
-                var response = client.conversationsMembers(r -> r
-                        .channel(channel.id)
-                        .cursor(finalNextCursor)
-                        .limit(1000)
-                );
-                for (var memberId : response.getMembers()) {
-                    membersId.add(memberId);
-                }
-                nextCursor = response.getResponseMetadata().getNextCursor();
-            } while (nextCursor != null && !nextCursor.isEmpty());
-            Logs.writeLog("List members of channel " + channel.name + " successfully");
-            return membersId;
-        } catch (Exception e) {
-            Logs.writeLog("List members of channel " + channel.name + " failed");
             return null;
         }
     }

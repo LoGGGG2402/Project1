@@ -1,6 +1,6 @@
 package AirTable;
 
-import Log.Logs;
+import Logs.Logs;
 import com.google.gson.*;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -29,13 +29,10 @@ public class Table {
     private final List<Record> records = new ArrayList<>();
 
     // Constructors
-    protected Table(JsonObject table, String baseId, String token) {
+    protected Table(JsonObject table) {
         this.id = table.get("id").getAsString();
         this.name = table.get("name").getAsString();
         table.get("fields").getAsJsonArray().forEach(field -> this.fields.add(new Field(field.getAsJsonObject())));
-
-        // Get Records
-        syncRecord(baseId, token);
     }
 
     protected void syncRecord(String baseId, String token) {
@@ -63,6 +60,16 @@ public class Table {
     protected int getNumRecords() {
         return records.size();
     }
+    protected Record getRecord(String Id) {
+        for (Record record : this.records) {
+            if (record.getId().equals(Id)) {
+                return record;
+            }
+        }
+        return null;
+    }
+
+
 
     // Handle Fields
     protected Field getField(String name) {
@@ -86,7 +93,6 @@ public class Table {
         Logs.writeLog("Updated field: " + field.getName() + " in table: " + name);
         return true;
     }
-
     protected boolean addField(JsonObject field, String baseId, String token) {
         String fieldCreate = Field.createField(field, id, baseId, token);
         if (fieldCreate == null) {
@@ -99,17 +105,18 @@ public class Table {
         return true;
     }
 
+
     // Handle Records
     private boolean updateRecord(JsonObject fields, Record record, String baseId, String token) {
-        String recordUpdate = Record.updateRecord(fields, record.getId(), id, baseId, token);
+        String recordUpdate = Record.updateRecord(fields, record.getRecordId(), id, baseId, token);
         if (recordUpdate == null) {
-            Logs.writeLog("Error: Could not update record: " + record.getValOfId() + " in table: " + name);
+            Logs.writeLog("Error: Could not update record: " + record.getId() + " in table: " + name);
             return false;
         }
         JsonObject recordJson = JsonParser.parseString(recordUpdate).getAsJsonObject();
         records.remove(record);
         records.add(new Record(recordJson));
-        Logs.writeLog("Updated record: " + record.getValOfId() + " in table: " + name);
+        Logs.writeLog("Updated record: " + record.getId() + " in table: " + name);
         return true;
     }
     private boolean addRecord(JsonObject fields, String baseId, String token) {
@@ -118,28 +125,15 @@ public class Table {
             Logs.writeLog("Error: Could not create record: " + fields.get("Id").getAsString() + " in table: " + name + "has id: " + id + " baseId: " + baseId);
             return false;
         }
-        JsonObject recordJson = new Gson().fromJson(recordCreate, JsonObject.class);
-        JsonArray listRecords = recordJson.get("records").getAsJsonArray();
 
-        records.clear();
-        listRecords.forEach(record -> this.records.add(new Record(record.getAsJsonObject())));
-
+        this.records.add(new Record(JsonParser.parseString(recordCreate).getAsJsonObject()));
         Logs.writeLog("Created record: " + fields.get("Id").getAsString() + " in table: " + name);
         return true;
-    }
-    protected Record getRecord(String idFieldVal) {
-        for (Record record : this.records) {
-            if (record.getValOfId().equals(idFieldVal)) {
-                return record;
-            }
-        }
-        return null;
     }
     private boolean pullRecord(JsonObject fields, String baseId, String token) {
         Record oldRecord = getRecord(fields.get("Id").getAsString());
         if (oldRecord == null) {
             if (addRecord(fields, baseId, token)){
-                Logs.writeLog("Add record: " + fields.get("Id").getAsString() + " in table: " + name);
                 numChanges++;
                 return true;
             }
@@ -149,12 +143,13 @@ public class Table {
             return true;
         }
         if (updateRecord(fields, oldRecord, baseId, token)) {
-            Logs.writeLog("Update record: " + fields.get("Id").getAsString() + " in table: " + name);
             numChanges++;
             return true;
         }
         return false;
     }
+
+
     protected boolean pullAllRecord(List<JsonObject> fields, String baseId, String token) {
         numChanges = 0;
         for (JsonObject field : fields) {
@@ -171,17 +166,17 @@ public class Table {
         for (Record record : this.records) {
             boolean isExist = false;
             for (JsonObject field : fields) {
-                if (record.getValOfId().equals(field.get("Id").getAsString())) {
+                if (record.getId().equals(field.get("Id").getAsString())) {
                     isExist = true;
                     break;
                 }
             }
             if (!isExist) {
-                if (Record.dropRecord(record.getId(), id, baseId, token)) {
-                    Logs.writeLog("Deleted record: " + record.getValOfId() + " in table: " + name);
+                if (Record.dropRecord(record.getRecordId(), id, baseId, token)) {
+                    Logs.writeLog("Deleted record: " + record.getId() + " in table: " + name);
                     dropList.add(record);
                 } else {
-                    Logs.writeLog("Error: Could not delete record: " + record.getValOfId() + " in table: " + name);
+                    Logs.writeLog("Error: Could not delete record: " + record.getId() + " in table: " + name);
                 }
             }
         }

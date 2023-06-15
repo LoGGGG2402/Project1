@@ -15,6 +15,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainUI {
     private  AirTable airTable;
@@ -288,7 +291,7 @@ public class MainUI {
 
     public static void main(String[] args) {
         JDialog loadingDialog = new JDialog();
-        loadingDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        loadingDialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         loadingDialog.setModal(true);
         loadingDialog.setSize(200, 100);
         loadingDialog.setLocationRelativeTo(null);
@@ -297,30 +300,58 @@ public class MainUI {
         loadingLabel.setHorizontalAlignment(SwingConstants.CENTER);
         loadingDialog.add(loadingLabel);
 
-        JFrame frame = new JFrame("MainUI");
-        MainUI mainUI = new MainUI();
-        frame.setContentPane(mainUI.mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(false);
 
-        SwingWorker<Void, Void> worker = new SwingWorker<>() {
-            @Override
-            protected Void doInBackground() {
-                AirTable airTable = new AirTable();
-                Slack slack = new Slack();
-                mainUI.setProperties(airTable, slack);
-                return null;
-            }
+        CompletableFuture<Slack> slackFuture = CompletableFuture.supplyAsync(Slack::new);
+        CompletableFuture<AirTable> airTableFuture = CompletableFuture.supplyAsync(AirTable::new);
 
-            @Override
-            protected void done() {
-                loadingDialog.dispose();
-                frame.setVisible(true);
-            }
-        };
+        long start = System.currentTimeMillis();
 
-        worker.execute();
-        loadingDialog.setVisible(true);
+        Slack slack = slackFuture.join();
+        long end = System.currentTimeMillis();
+        System.out.println("Slack: " + (end - start) + "ms");
+
+        AirTable airTable = airTableFuture.join();
+        long end2 = System.currentTimeMillis();
+        System.out.println("AirTable: " + (end2 - end) + "ms");
+
+        System.out.println("All time: " + (end2 - start) + "ms");
+
+        loadingDialog.dispose();
+
+        if (!airTable.isActive() || !slack.isActive()) {
+            showErrorDialog();
+            return;
+        }
+
+        showMainUI(airTable, slack);
+    }
+
+    private static void showErrorDialog() {
+        SwingUtilities.invokeLater(() -> {
+            JDialog errorDialog = new JDialog();
+            errorDialog.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+            errorDialog.setModal(true);
+            errorDialog.setSize(200, 100);
+            errorDialog.setLocationRelativeTo(null);
+
+            JLabel errorLabel = new JLabel("Error to connect to AirTable or Slack");
+            errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            errorDialog.add(errorLabel);
+
+            errorDialog.setVisible(true);
+        });
+    }
+
+    private static void showMainUI(AirTable airTable, Slack slack) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("MainUI");
+            MainUI mainUI = new MainUI();
+            frame.setContentPane(mainUI.mainPanel);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setVisible(true);
+
+            mainUI.setProperties(airTable, slack);
+        });
     }
 }
