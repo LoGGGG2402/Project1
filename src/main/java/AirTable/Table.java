@@ -17,12 +17,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class Table {
     private int numChanges;
@@ -110,103 +106,121 @@ public class Table {
 
 
     // Handle Records
-    private boolean updateRecord(JsonObject fields, Record record, String baseId, String token) {
-        String recordUpdate = Record.updateRecord(fields, record.getRecordId(), id, baseId, token);
-        if (recordUpdate == null) {
-            Logs.writeLog("Error: Could not update record: " + record.getId() + " in table: " + name);
-            return false;
+    private boolean updateMultipleRecords(Map<Record, JsonObject> listUpdate, String baseId, String token) {
+        if (listUpdate.isEmpty()) {
+            return true;
         }
-        JsonObject recordJson = JsonParser.parseString(recordUpdate).getAsJsonObject();
-        records.remove(record);
-        records.add(new Record(recordJson));
-        Logs.writeLog("Updated record: " + record.getId() + " in table: " + name);
-        return true;
-    }
-    private boolean addRecord(JsonObject fields, String baseId, String token) {
-        String recordCreate = Record.createRecord(fields, id, baseId, token);
-        if (recordCreate == null) {
-            Logs.writeLog("Error: Could not create record: " + fields.get("Id").getAsString() + " in table: " + name + "has id: " + id + " baseId: " + baseId);
-            return false;
-        }
+        JsonArray records = new JsonArray();
+        List<Record> recordsUpdate = new ArrayList<>();
+        for (Record record : listUpdate.keySet()) {
+            JsonObject fields = listUpdate.get(record);
+            JsonObject recordJson = new JsonObject();
+            recordJson.addProperty("id", record.getRecordId());
+            recordJson.add("fields", fields);
+            records.add(recordJson);
+            recordsUpdate.add(record);
 
-        this.records.add(new Record(JsonParser.parseString(recordCreate).getAsJsonObject()));
-        Logs.writeLog("Created record: " + fields.get("Id").getAsString() + " in table: " + name);
-        return true;
-    }
-    private boolean pullRecord(JsonObject fields, String baseId, String token) {
-        Record oldRecord = getRecord(fields.get("Id").getAsString());
-        if (oldRecord == null) {
-            if (addRecord(fields, baseId, token)){
-                numChanges++;
-                return true;
+            if (records.size() >= 10 || records.size() == listUpdate.size()) {
+                JsonObject body = new JsonObject();
+                body.add("records", records);
+
+                String response = Record.updateMultipleRecords(body, id, baseId, token);
+                if (response == null) {
+                    Logs.writeLog("Error: Could not update multiple records in table: " + name);
+                    return false;
+                }
+                Logs.writeLog("Updated multiple records in table: " + name);
+                for (Record recordUpdate : recordsUpdate) {
+                    this.records.remove(recordUpdate);
+                }
+                JsonArray recordsResponse = JsonParser.parseString(response).getAsJsonObject().get("records").getAsJsonArray();
+                for (JsonElement recordResponse : recordsResponse) {
+                    this.records.add(new Record(recordResponse.getAsJsonObject()));
+                }
+                records = new JsonArray();
+                recordsUpdate = new ArrayList<>();
             }
-            return false;
         }
-        if (oldRecord.equals(fields, this.fields)) {
-            return true;
-        }
-        if (updateRecord(fields, oldRecord, baseId, token)) {
-            numChanges++;
-            return true;
-        }
-        return false;
+        return true;
     }
+    protected boolean addMultipleRecords(List<JsonObject> listAdd, String baseId, String token) {
+        if (listAdd.isEmpty()) {
+            return true;
+        }
 
+        JsonArray records = new JsonArray();
+        for (JsonObject fields : listAdd) {
+            JsonObject recordJson = new JsonObject();
+            recordJson.add("fields", fields);
+            records.add(recordJson);
 
-    protected boolean pullAllRecord(List<JsonObject> fields, String baseId, String token) {
-        numChanges = 0;
+            if (records.size() >= 10 || records.size() == listAdd.size()) {
+                JsonObject body = new JsonObject();
+                body.add("records", records);
 
-        ExecutorService executor = Executors.newFixedThreadPool(fields.size());
+                String response = Record.addMultipleRecords(body, id, baseId, token);
+                if (response == null) {
+                    Logs.writeLog("Error: Could not add multiple records in table: " + name);
+                    return false;
+                }
+                Logs.writeLog("Added multiple records in table: " + name);
+                JsonArray recordsResponse = JsonParser.parseString(response).getAsJsonObject().get("records").getAsJsonArray();
+                for (JsonElement record : recordsResponse) {
+                    this.records.add(new Record(record.getAsJsonObject()));
+                }
+                records = new JsonArray();
+            }
+        }
+        return true;
+    }
+    private boolean deleteMultipleRecords(List<Record> listDelete, String baseId, String token) {
+        if (listDelete.isEmpty()) {
+            return true;
+        }
+        for (Record record: listDelete){
+            if(!Record.dropRecord(record.getRecordId(), id, baseId, token)){
+                Logs.writeLog("Error: Could not delete record: " + record.getRecordId() + " in table: " + name);
+                return false;
+            }
+            Logs.writeLog("Deleted record: " + record.getRecordId() + " in table: " + name);
+        }
+        return true;
+    }
+    protected boolean pullMultipleRecord(List<JsonObject> fields, String baseId, String token) {
+        List<Record> listDelete = new ArrayList<>(records);
 
-        List<CompletableFuture<Boolean>> futures = fields.stream()
-                .map(field -> CompletableFuture.supplyAsync(() -> pullRecord(field, baseId, token), executor))
-                .toList();
+        List<JsonObject> listAdd = new ArrayList<>(fields);
+        Map<Record, JsonObject> listUpdate = new HashMap<>();
 
-        boolean isSuccess = true;
+        for (JsonObject field : fields) {
+            String id = field.get("Id").getAsString();
+            Record record = getRecord(id);
+            if (record != null) {
+                listDelete.remove(record);
+                listAdd.remove(field);
+                if(!record.equals(field, this.fields)){
+                    listUpdate.put(record, field);
+                }
+            }
+        }
 
-        for (CompletableFuture<Boolean> future : futures) {
-            try {
+        numChanges = listDelete.size() + listAdd.size() + listUpdate.size();
+        try(ExecutorService executorService = Executors.newFixedThreadPool(3)){
+            List<Future<Boolean>> futures = executorService.invokeAll(Arrays.asList(
+                    () -> deleteMultipleRecords(listDelete, baseId, token),
+                    () -> addMultipleRecords(listAdd, baseId, token),
+                    () -> updateMultipleRecords(listUpdate, baseId, token)
+            ));
+            for (Future<Boolean> future : futures) {
                 if (!future.get()) {
-                    isSuccess = false;
-                    break;
-                }
-            } catch (Exception e) {
-                isSuccess = false;
-            }
-        }
-
-        executor.shutdown();
-
-        if (!isSuccess) {
-            Logs.writeLog("Error: Could not pull one or more records in table: " + name);
-            return false;
-        }
-
-        Logs.writeLog("Pulled all records in table: " + name);
-        return true;
-    }
-    protected boolean dropRecord(List<JsonObject> fields, String baseId, String token) {
-        List<Record> dropList = new ArrayList<>();
-        for (Record record : this.records) {
-            boolean isExist = false;
-            for (JsonObject field : fields) {
-                if (record.getId().equals(field.get("Id").getAsString())) {
-                    isExist = true;
-                    break;
-                }
-            }
-            if (!isExist) {
-                if (Record.dropRecord(record.getRecordId(), id, baseId, token)) {
-                    Logs.writeLog("Deleted record: " + record.getId() + " in table: " + name);
-                    dropList.add(record);
-                } else {
-                    Logs.writeLog("Error: Could not delete record: " + record.getId() + " in table: " + name);
                     return false;
                 }
             }
+            return true;
+        } catch (InterruptedException | ExecutionException e) {
+            Logs.writeLog("Error: Could not pull multiple records in table: " + name + " with message: " + e.getMessage());
+            return false;
         }
-        this.records.removeAll(dropList);
-        return true;
     }
 
     // API Methods
@@ -293,8 +307,6 @@ public class Table {
             Logs.writeLog("Wrote table: " + name + " to file: " + path);
         } catch (IOException e) {
             Logs.writeLog("Error: Could not write table: " + name + " to file: " + path + " with message: " + e.getMessage());
-
         }
     }
-
 }

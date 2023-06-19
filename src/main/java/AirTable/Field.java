@@ -7,7 +7,6 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.ParseException;
-import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
@@ -15,8 +14,6 @@ import java.io.IOException;
 import java.net.URI;
 
 public class Field {
-    private static final HttpClientResponseHandler<? extends ClassicHttpResponse> responseHandler = (HttpClientResponseHandler<ClassicHttpResponse>) classicHttpResponse -> null;
-
     private final String id;
     private final String name;
     private final String type;
@@ -56,7 +53,7 @@ public class Field {
             post.setHeader("Content-Type", "application/json");
             post.setEntity(new StringEntity(field.toString()));
 
-            ClassicHttpResponse response = client.execute(post, responseHandler);
+            ClassicHttpResponse response = client.execute(post);
 
             if (response.getCode() != 200) {
                 System.out.println("Error " + response.getCode());
@@ -81,7 +78,7 @@ public class Field {
             patch.setEntity(new StringEntity(field.toString()));
 
 
-            ClassicHttpResponse response = client.execute(patch, responseHandler);
+            ClassicHttpResponse response = client.execute(patch);
 
             if (response.getCode() != 200) {
                 System.out.println("Error updating field: " + response.getCode());
