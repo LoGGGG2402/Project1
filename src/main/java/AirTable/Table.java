@@ -177,12 +177,26 @@ public class Table {
         if (listDelete.isEmpty()) {
             return true;
         }
-        for (Record record: listDelete){
-            if(!Record.dropRecord(record.getRecordId(), id, baseId, token)){
-                Logs.writeLog("Error: Could not delete record: " + record.getRecordId() + " in table: " + name);
-                return false;
+        try (ExecutorService executorService = Executors.newFixedThreadPool(listDelete.size())) {
+            List<Future<Boolean>> futures = new ArrayList<>();
+            for (Record record : listDelete) {
+                futures.add(executorService.submit(() -> {
+                    if (!Record.dropRecord(record.getRecordId(), id, baseId, token)) {
+                        records.remove(record);
+                        Logs.writeLog("Error: Could not delete record: " + record.getRecordId() + " in table: " + name);
+                        return false;
+                    }
+                    Logs.writeLog("Deleted record: " + record.getRecordId() + " in table: " + name);
+                    return true;
+                }));
             }
-            Logs.writeLog("Deleted record: " + record.getRecordId() + " in table: " + name);
+            for (Future<Boolean> future : futures) {
+                if (!future.get()) {
+                    return false;
+                }
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
         return true;
     }

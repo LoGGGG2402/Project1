@@ -1,6 +1,5 @@
 package AirTable;
 
-import Logs.Logs;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -16,10 +15,6 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class Record{
@@ -103,8 +98,8 @@ public class Record{
             ClassicHttpResponse response = client.execute(delete);
 
             if (response.getCode() == 200) {
-                Logs.writeLog("Record " + recordId + " deleted");
-                return true;
+                JsonObject response1 = new Gson().fromJson(response.getEntity().toString(), JsonObject.class);
+                return response1.get("deleted").getAsBoolean();
             } else {
                 return false;
             }
