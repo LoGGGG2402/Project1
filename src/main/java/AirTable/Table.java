@@ -36,13 +36,20 @@ public class Table {
 
     protected void syncRecord(String baseId, String token) {
         records.clear();
-        String records = Record.listRecords(id, baseId, token);
-        if (records == null) {
-            Logs.writeLog("Error: Could not get records for table: " + name);
-        } else {
-            JsonObject recordsJson = new Gson().fromJson(records, JsonObject.class);
-            JsonArray listRecords = recordsJson.get("records").getAsJsonArray();
-            listRecords.forEach(record -> this.records.add(new Record(record.getAsJsonObject())));
+        String offset = null;
+        while (true){
+            String response = Record.listRecords(id, offset, baseId, token);
+            if (response == null) {
+                Logs.writeLog("Error: Could not get records for table: " + name);
+            } else {
+                JsonObject recordsJson = new Gson().fromJson(response, JsonObject.class);
+                JsonArray listRecords = recordsJson.get("records").getAsJsonArray();
+                listRecords.forEach(record -> this.records.add(new Record(record.getAsJsonObject())));
+                if (recordsJson.has("offset"))
+                    offset = recordsJson.get("offset").getAsString();
+                else
+                    break;
+            }
         }
     }
 

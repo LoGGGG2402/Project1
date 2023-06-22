@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Logs {
-    private static final String path = "src/main/java/Logs/Logs.txt";
+    private static final String path = "src/main/resources/Logs.txt";
     private static final File file = new File(path);
 
     public static void writeLog(String message) {
@@ -27,5 +27,4 @@ public class Logs {
             e.printStackTrace();
         }
     }
-
 }

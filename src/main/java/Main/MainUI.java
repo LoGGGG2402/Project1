@@ -50,7 +50,7 @@ public class MainUI {
         setSyncTimeButton.addActionListener(e -> setSyncTime());
         changeLanguageButton.addActionListener(e -> changeLanguage());
 
-        File file = new File("src/main/java/data/vi.json");
+        File file = new File("src/main/resources/data/en.json");
         try {
             if (file.exists()) {
                 Gson gson = new Gson();
@@ -256,9 +256,9 @@ public class MainUI {
 
         File file;
         if(language.get("currentLanguage").getAsString().equals("en")){
-            file = new File("src/main/java/data/vi.json");
+            file = new File("src/main/resources/data/vi.json");
         } else {
-            file = new File("src/main/java/data/en.json");
+            file = new File("src/main/resources/data/en.json");
         }
 
         try {

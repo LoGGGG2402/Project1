@@ -95,7 +95,7 @@ public class AirTable {
        return isActive;
     }
     private Table validTable(Table table, String name) {
-        try (FileReader fileReader = new FileReader("src/main/java/data/fields.json")) {
+        try (FileReader fileReader = new FileReader("src/main/resources/data/fields.json")) {
 
             JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
 

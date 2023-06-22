@@ -71,10 +71,12 @@ public class Record{
 
 
     // API Methods
-    protected static String listRecords(String tableId, String baseId, String token) {
+    protected static String listRecords(String tableId, String offset, String baseId, String token) {
         //curl "https://api.airtable.com/v0/{baseId}/{tableIdOrName}" \
         //-H "Authorization: Bearer YOUR_TOKEN"
-        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableId;
+        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableId + "?maxRecords=100000";
+        if (offset != null)
+            url += "&offset=" + offset;
 
         try(CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpGet get = new HttpGet(url);
