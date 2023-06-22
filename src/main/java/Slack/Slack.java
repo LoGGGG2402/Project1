@@ -19,7 +19,7 @@ public class Slack {
     private final boolean active;
     public Slack() {
         try {
-            FileReader fileReader = new FileReader("src/main/resources/Info.json");
+            FileReader fileReader = new FileReader("src/main/resources/data/Info.json");
             JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
             String token = jsonObject.get("slack").getAsString();
             this.client = com.slack.api.Slack.getInstance().methods(token);

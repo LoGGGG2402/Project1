@@ -1,7 +1,6 @@
 package AirTable;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -9,17 +8,12 @@ import org.apache.hc.client5.http.classic.methods.HttpPatch;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
-import org.apache.hc.core5.http.ClassicHttpResponse;
-import org.apache.hc.core5.http.ParseException;
-import org.apache.hc.core5.http.io.HttpClientResponseHandler;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
 import java.util.List;
 
 public class Record{
-    static final HttpClientResponseHandler<ClassicHttpResponse> responseHandler = response -> response;
     private final String id;
     private final JsonObject fields;
     private final String IdFieldVal;
@@ -85,9 +79,8 @@ public class Record{
             get.setHeader("Authorization", "Bearer " + token);
             get.setHeader("Content-Type", "application/json");
 
-            ClassicHttpResponse response = client.execute(get, responseHandler);
-            return EntityUtils.toString(response.getEntity());
-        } catch (IOException | ParseException e) {
+            return client.execute(get, AirTable.responseHandler);
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
@@ -99,14 +92,10 @@ public class Record{
             HttpDelete delete = new HttpDelete(url);
             delete.setHeader("Authorization", "Bearer " + Token);
 
-            ClassicHttpResponse response = client.execute(delete, responseHandler);
+            String response = client.execute(delete, AirTable.responseHandler);
 
-            if (response.getCode() == 200) {
-                JsonObject response1 = new Gson().fromJson(response.getEntity().toString(), JsonObject.class);
-                return response1.get("deleted").getAsBoolean();
-            } else {
-                return false;
-            }
+            JsonObject responseJson = new Gson().fromJson(response, JsonObject.class);
+            return responseJson.get("deleted").getAsBoolean();
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -122,14 +111,8 @@ public class Record{
 
             patch.setEntity(new StringEntity(records.toString()));
 
-            ClassicHttpResponse response = client.execute(patch, responseHandler);
-
-            if (response.getCode() == 200) {
-                return EntityUtils.toString(response.getEntity());
-            } else {
-                return null;
-            }
-        } catch (IOException | ParseException e) {
+            return client.execute(patch, AirTable.responseHandler);
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
@@ -144,18 +127,8 @@ public class Record{
 
             post.setEntity(new StringEntity(records.toString()));
 
-            ClassicHttpResponse response = client.execute(post, responseHandler);
-
-            if (response.getCode() == 200) {
-                return EntityUtils.toString(response.getEntity());
-            } else {
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                System.out.println(url);
-                System.out.println(gson.toJson(records));
-                System.out.println(response);
-                return null;
-            }
-        } catch (IOException | ParseException e) {
+            return client.execute(post, AirTable.responseHandler);
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
         }

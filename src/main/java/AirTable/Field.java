@@ -1,13 +1,11 @@
 package AirTable;
 
+import Logs.Logs;
 import com.google.gson.JsonObject;
 import org.apache.hc.client5.http.classic.methods.HttpPatch;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
-import org.apache.hc.core5.http.ClassicHttpResponse;
-import org.apache.hc.core5.http.ParseException;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
@@ -53,15 +51,10 @@ public class Field {
             post.setHeader("Content-Type", "application/json");
             post.setEntity(new StringEntity(field.toString()));
 
-            ClassicHttpResponse response = client.execute(post, AirTable.responseHandler);
+            return client.execute(post, AirTable.responseHandler);
 
-            if (response.getCode() != 200) {
-                System.out.println("Error " + response.getCode());
-                return response.toString();
-            }
-            return EntityUtils.toString(response.getEntity());
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            Logs.writeLog("Error creating field: " + field);
             return null;
         }
 
@@ -76,16 +69,8 @@ public class Field {
             patch.setHeader("Authorization", "Bearer " + token);
             patch.setHeader("Content-Type", "application/json");
             patch.setEntity(new StringEntity(field.toString()));
-
-
-            ClassicHttpResponse response = client.execute(patch, AirTable.responseHandler);
-
-            if (response.getCode() != 200) {
-                System.out.println("Error updating field: " + response.getCode());
-                return null;
-            }
-            return EntityUtils.toString(response.getEntity());
-        } catch (IOException | ParseException e) {
+            return client.execute(patch, AirTable.responseHandler );
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
         }

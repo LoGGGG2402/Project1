@@ -5,8 +5,9 @@ import Slack.Channel;
 import Slack.SlackUser;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +24,19 @@ public class AirTable {
     private boolean isActive = true;
     private String token;
     private String base;
-    static final HttpClientResponseHandler<ClassicHttpResponse> responseHandler = response -> response;
+    static final HttpClientResponseHandler<String> responseHandler = httpResponse -> {
+        int status = httpResponse.getCode();
+        if (status != 200) {
+            return null;
+        }
+
+        try {
+            return EntityUtils.toString(httpResponse.getEntity());
+        } catch (ParseException e) {
+            return null;
+        }
+    };
+
 
     private Table channelTable = null;
     private Table userTable = null;
@@ -31,7 +44,7 @@ public class AirTable {
 
     public AirTable() {
         try {
-            FileReader fileReader = new FileReader("src/main/resources/Info.json");
+            FileReader fileReader = new FileReader("src/main/resources/data/Info.json");
             JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
             this.token = jsonObject.get("airtable").getAsString();
             this.base = jsonObject.get("base").getAsString();
@@ -44,8 +57,10 @@ public class AirTable {
         long time = System.currentTimeMillis();
         String listTables = Table.listTables(base, token);
         if (listTables == null) {
-           Logs.writeLog("Error: Could not list tables.");
-           return;
+            this.isActive = false;
+            return;
+        }else {
+            Logs.writeLog("List tables: " + (System.currentTimeMillis() - time));
         }
         JsonArray tables = JsonParser.parseString(listTables).getAsJsonObject().getAsJsonArray("tables");
         for (JsonElement table : tables) {
@@ -97,7 +112,7 @@ public class AirTable {
            JsonObject options = new JsonObject();
            options.addProperty("linkedTableId", userTable.getId());
            newField.add("options", options);
-           if (!channelTable.addField(newField, base, token)) {
+           if (channelTable.addField(newField, base, token)) {
                Logs.writeLog("Error: Could not add field Users to Channels table.");
                isActive = false;
            }
@@ -120,9 +135,9 @@ public class AirTable {
             if (table == null) {
                 String createTable = Table.createTable(name, fields, base, token);
                 if (createTable == null) {
-                    Logs.writeLog("Error: Could not create table " + name + ".");
                     return null;
                 }
+                Logs.writeLog("Created table " + name + ".");
                 return new Table(JsonParser.parseString(createTable).getAsJsonObject());
             }
 
@@ -132,7 +147,8 @@ public class AirTable {
                 Field tableField = table.getField(fieldName);
 
                 if (tableField == null){
-                    if(!table.addField(fieldJson, base, token)) return null;
+                    System.out.println("Adding field " + fieldName + " to table " + name + ".");
+                    if(table.addField(fieldJson, base, token)) return null;
                 }
             }
             return table;
@@ -162,7 +178,7 @@ public class AirTable {
 
             fields.add(field);
         }
-        if (!channelTable.pullMultipleRecord(fields, base, token)) {
+        if (channelTable.pullMultipleRecord(fields, base, token)) {
             Logs.writeLog("Error: Could not push channels to AirTable.");
             return false;
         }
@@ -176,7 +192,7 @@ public class AirTable {
 
             fields.add(field);
         }
-        if (!userTable.pullMultipleRecord(fields, base, token)) {
+        if (userTable.pullMultipleRecord(fields, base, token)) {
             Logs.writeLog("Error: Could not push users to AirTable.");
             return false;
         }

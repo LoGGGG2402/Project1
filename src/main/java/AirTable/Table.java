@@ -6,9 +6,6 @@ import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
-import org.apache.hc.core5.http.ClassicHttpResponse;
-import org.apache.hc.core5.http.ParseException;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -18,7 +15,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Table {
     private int numChanges;
@@ -51,6 +51,7 @@ public class Table {
                     break;
             }
         }
+        Logs.writeLog("Info: Synced " + records.size() + " records for table: " + name);
     }
 
     // Getters
@@ -103,12 +104,12 @@ public class Table {
         String fieldCreate = Field.createField(field, id, baseId, token);
         if (fieldCreate == null) {
             Logs.writeLog("Error: Could not create field: " + field.get("name").getAsString() + " in table: " + name);
-            return false;
+            return true;
         }
         JsonObject fieldJson = JsonParser.parseString(fieldCreate).getAsJsonObject();
         fields.add(new Field(fieldJson));
         Logs.writeLog("Created field: " + field.get("name").getAsString() + " in table: " + name);
-        return true;
+        return false;
     }
 
 
@@ -136,7 +137,7 @@ public class Table {
                     Logs.writeLog("Error: Could not update multiple records in table: " + name);
                     return false;
                 }
-                Logs.writeLog("Updated multiple records in table: " + name);
+                Logs.writeLog("Updated " + records.size() + " records in table: " + name);
                 for (Record recordUpdate : recordsUpdate) {
                     this.records.remove(recordUpdate);
                 }
@@ -170,7 +171,7 @@ public class Table {
                     Logs.writeLog("Error: Could not add multiple records in table: " + name);
                     return false;
                 }
-                Logs.writeLog("Added multiple records in table: " + name);
+                Logs.writeLog("Added " + records.size() + " records in table: " + name);
                 JsonArray recordsResponse = JsonParser.parseString(response).getAsJsonObject().get("records").getAsJsonArray();
                 for (JsonElement record : recordsResponse) {
                     this.records.add(new Record(record.getAsJsonObject()));
@@ -234,13 +235,13 @@ public class Table {
             ));
             for (Future<Boolean> future : futures) {
                 if (!future.get()) {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         } catch (InterruptedException | ExecutionException e) {
             Logs.writeLog("Error: Could not pull multiple records in table: " + name + " with message: " + e.getMessage());
-            return false;
+            return true;
         }
     }
 
@@ -250,14 +251,9 @@ public class Table {
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpGet get = new HttpGet(url);
             get.setHeader("Authorization", "Bearer " + token);
-            ClassicHttpResponse response = client.execute(get, AirTable.responseHandler);
-            if (response.getCode() != 200) {
-                Logs.writeLog("Error: Could not list tables");
-                return null;
-            }
-            Logs.writeLog("Listed tables");
-            return EntityUtils.toString(response.getEntity());
-        } catch (IOException | ParseException e) {
+            return client.execute(get, AirTable.responseHandler);
+
+        } catch (IOException e) {
             Logs.writeLog("Error: Could not list tables due to exception: " + e.getMessage());
             return null;
         }
@@ -276,14 +272,8 @@ public class Table {
 
             post.setEntity(new StringEntity(body.toString()));
 
-            ClassicHttpResponse response = client.execute(post, AirTable.responseHandler);
-            if (response.getCode() != 200) {
-                Logs.writeLog("Error: Could not create table: " + name);
-                return null;
-            }
-            Logs.writeLog("Created table: " + name);
-            return EntityUtils.toString(response.getEntity());
-        } catch (IOException | ParseException e) {
+            return client.execute(post, AirTable.responseHandler);
+        } catch (IOException e) {
             Logs.writeLog("Error: Could not create table: " + name + " with message: " + e.getMessage());
             return null;
         }
