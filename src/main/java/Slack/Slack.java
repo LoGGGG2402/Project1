@@ -1,19 +1,32 @@
 package Slack;
 
 import Logs.Logs;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.model.Conversation;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 import java.util.concurrent.*;
 
 public class Slack {
-    private final String token = "xoxp-5244767721591-5283002456640-5415053595015-5714263853ebca81efb4b2613be47c5f";
-    private final MethodsClient client = com.slack.api.Slack.getInstance().methods(token);
+    private MethodsClient client;
     private List<SlackUser> users;
     private List<Channel> channels;
     private final boolean active;
     public Slack() {
+        try {
+            FileReader fileReader = new FileReader("src/main/resources/Info.json");
+            JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
+            String token = jsonObject.get("slack").getAsString();
+            this.client = com.slack.api.Slack.getInstance().methods(token);
+        } catch (FileNotFoundException e) {
+            active = false;
+            return;
+        }
         active = syncLocal();
     }
 
@@ -109,13 +122,13 @@ public class Slack {
     public boolean removeUserFromChannel(Channel channel, SlackUser user) {
         int userIndex = users.indexOf(user);
         if (userIndex == -1) {
-            Logs.writeLog("SlackUser " + user.getEmail() + " added to channel " + channel.getName() + " failed");
+            Logs.writeLog("SlackUser " + user.getEmail() + " remove to channel " + channel.getName() + " failed");
             return false;
         }
 
         int channelIndex = channels.indexOf(channel);
         if (channelIndex == -1) {
-            Logs.writeLog("SlackUser " + user.getEmail() + " added to channel " + channel.getName() + " failed");
+            Logs.writeLog("SlackUser " + user.getEmail() + " remove to channel " + channel.getName() + " failed");
             return false;
         }
 

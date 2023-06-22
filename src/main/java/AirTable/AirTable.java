@@ -5,8 +5,11 @@ import Slack.Channel;
 import Slack.SlackUser;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
@@ -18,14 +21,26 @@ import java.util.concurrent.Executors;
 
 public class AirTable {
     private boolean isActive = true;
-    private final String token = "patogTEA7FvHGIl6u.349a94a6d90f7677d2a982c8d1d1b1f23559a96400fd5e378af806afa6c6f4a2";
-    private final String base = "app0JoYGd35HXtP3S";
+    private String token;
+    private String base;
+    static final HttpClientResponseHandler<ClassicHttpResponse> responseHandler = response -> response;
 
     private Table channelTable = null;
     private Table userTable = null;
     private Table taskTable = null;
 
     public AirTable() {
+        try {
+            FileReader fileReader = new FileReader("src/main/resources/Info.json");
+            JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
+            this.token = jsonObject.get("airtable").getAsString();
+            this.base = jsonObject.get("base").getAsString();
+        } catch (FileNotFoundException e) {
+            Logs.writeLog("Error: Could not find Info.json");
+            this.isActive = false;
+            return;
+        }
+
         long time = System.currentTimeMillis();
         String listTables = Table.listTables(base, token);
         if (listTables == null) {

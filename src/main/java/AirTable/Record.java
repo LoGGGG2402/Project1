@@ -11,6 +11,7 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class Record{
+    static final HttpClientResponseHandler<ClassicHttpResponse> responseHandler = response -> response;
     private final String id;
     private final JsonObject fields;
     private final String IdFieldVal;
@@ -83,7 +85,7 @@ public class Record{
             get.setHeader("Authorization", "Bearer " + token);
             get.setHeader("Content-Type", "application/json");
 
-            ClassicHttpResponse response = client.execute(get);
+            ClassicHttpResponse response = client.execute(get, responseHandler);
             return EntityUtils.toString(response.getEntity());
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -97,7 +99,7 @@ public class Record{
             HttpDelete delete = new HttpDelete(url);
             delete.setHeader("Authorization", "Bearer " + Token);
 
-            ClassicHttpResponse response = client.execute(delete);
+            ClassicHttpResponse response = client.execute(delete, responseHandler);
 
             if (response.getCode() == 200) {
                 JsonObject response1 = new Gson().fromJson(response.getEntity().toString(), JsonObject.class);
@@ -120,7 +122,7 @@ public class Record{
 
             patch.setEntity(new StringEntity(records.toString()));
 
-            ClassicHttpResponse response = client.execute(patch);
+            ClassicHttpResponse response = client.execute(patch, responseHandler);
 
             if (response.getCode() == 200) {
                 return EntityUtils.toString(response.getEntity());
@@ -142,7 +144,7 @@ public class Record{
 
             post.setEntity(new StringEntity(records.toString()));
 
-            ClassicHttpResponse response = client.execute(post);
+            ClassicHttpResponse response = client.execute(post, responseHandler);
 
             if (response.getCode() == 200) {
                 return EntityUtils.toString(response.getEntity());

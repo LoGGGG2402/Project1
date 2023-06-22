@@ -250,7 +250,7 @@ public class Table {
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpGet get = new HttpGet(url);
             get.setHeader("Authorization", "Bearer " + token);
-            ClassicHttpResponse response = client.execute(get);
+            ClassicHttpResponse response = client.execute(get, AirTable.responseHandler);
             if (response.getCode() != 200) {
                 Logs.writeLog("Error: Could not list tables");
                 return null;
@@ -276,7 +276,7 @@ public class Table {
 
             post.setEntity(new StringEntity(body.toString()));
 
-            ClassicHttpResponse response = client.execute(post);
+            ClassicHttpResponse response = client.execute(post, AirTable.responseHandler);
             if (response.getCode() != 200) {
                 Logs.writeLog("Error: Could not create table: " + name);
                 return null;

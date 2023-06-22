@@ -53,7 +53,7 @@ public class Field {
             post.setHeader("Content-Type", "application/json");
             post.setEntity(new StringEntity(field.toString()));
 
-            ClassicHttpResponse response = client.execute(post);
+            ClassicHttpResponse response = client.execute(post, AirTable.responseHandler);
 
             if (response.getCode() != 200) {
                 System.out.println("Error " + response.getCode());
@@ -78,7 +78,7 @@ public class Field {
             patch.setEntity(new StringEntity(field.toString()));
 
 
-            ClassicHttpResponse response = client.execute(patch);
+            ClassicHttpResponse response = client.execute(patch, AirTable.responseHandler);
 
             if (response.getCode() != 200) {
                 System.out.println("Error updating field: " + response.getCode());
