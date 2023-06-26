@@ -98,7 +98,7 @@ public class SlackUser {
 
 
     // API Method
-    public static List<SlackUser> listUsers(MethodsClient client){
+    protected static List<SlackUser> listUsers(MethodsClient client){
         List<SlackUser> slackUsers = new ArrayList<>();
         String nextCursor = "";
         try {
@@ -145,6 +145,16 @@ public class SlackUser {
         } catch (Exception e) {
             Logs.writeLog("List channels id of user " + user.name + " failed");
             return null;
+        }
+    }
+    protected static boolean LeaveChannel(String channelId, MethodsClient client){
+        try {
+            client.conversationsLeave(r -> r.channel(channelId));
+            Logs.writeLog("Leave channel " + channelId + " successfully");
+            return true;
+        } catch (Exception e) {
+            Logs.writeLog("Leave channel " + channelId + " failed");
+            return false;
         }
     }
 }

@@ -73,7 +73,7 @@ public class Channel {
         json.add("Members Id", this.membersId);
         return json;
     }
-    public String getId() {
+    protected String getId() {
         return id;
     }
     public String getName() {
@@ -127,7 +127,7 @@ public class Channel {
             return false;
         }
     }
-    public static List<Channel> listChannels(MethodsClient client) {
+    protected static List<Channel> listChannels(MethodsClient client) {
         List<Channel> channels = new ArrayList<>();
         String nextCursor = "";
         try {

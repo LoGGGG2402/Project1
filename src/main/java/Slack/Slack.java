@@ -137,6 +137,11 @@ public class Slack {
             Logs.writeLog("SlackUser " + user.getEmail() + " removed from channel " + channel.getName());
             return true;
         }
+        if (SlackUser.LeaveChannel(channel.getId(), client)) {
+            users.get(userIndex).removeChannelId(channel.getId());
+            Logs.writeLog("SlackUser " + user.getEmail() + " removed from channel " + channel.getName());
+            return true;
+        }
         Logs.writeLog("SlackUser " + user.getEmail() + " removed from channel " + channel.getName() + " failed");
         return false;
     }

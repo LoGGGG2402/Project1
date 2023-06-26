@@ -155,6 +155,10 @@ public class MainUI {
             }
         }
 
+        if (JOptionPane.showConfirmDialog(null, language.get("sureContinue").getAsString(), language.get("continue").getAsString(), JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION){
+            status.setText(language.get("userNotAddedToChannel").getAsString());
+            return;
+        }
         if (slack.addUserToChannel(channel, user))
             status.setText(language.get("userAddedToChannel").getAsString());
         else
@@ -182,6 +186,10 @@ public class MainUI {
 
         for (JsonElement r : channel.getMembersId()) {
             if (r.getAsString().equals(user.getId())) {
+                if (JOptionPane.showConfirmDialog(null, language.get("sureContinue").getAsString(), language.get("continue").getAsString(), JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION){
+                    status.setText(language.get("userNotRemovedFromChannel").getAsString());
+                    return;
+                }
                 if (slack.removeUserFromChannel(channel, user))
                     status.setText(language.get("userRemovedFromChannel").getAsString());
                 else

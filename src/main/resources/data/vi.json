@@ -47,5 +47,7 @@
   "changeLanguage": "Chuyển sang tiếng Anh",
 
   "languageChanged": "Ngôn ngữ đã được thay đổi",
-    "languageNotChanged": "Ngôn ngữ không được thay đổi"
+  "languageNotChanged": "Ngôn ngữ không được thay đổi",
+  "sureContinue": "Bạn có chắc chắn muốn tiếp tục ?",
+  "continue": "Tiếp tục"
 }

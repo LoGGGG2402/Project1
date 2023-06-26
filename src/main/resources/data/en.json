@@ -47,5 +47,7 @@
   "changeLanguage": "Switch to Vietnamese",
 
   "languageChanged": "Language changed",
-  "languageNotChanged": "Language not changed"
+  "languageNotChanged": "Language not changed",
+  "sureContinue": "Are you sure you want to continue ?",
+  "continue": "Continue"
 }
