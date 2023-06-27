@@ -247,3 +247,154 @@
 2023-06-26T03:36:47.835Z Remove user: U058B02DEJU from channel: long failed
 2023-06-26T03:36:48.234Z Leave channel C05E7M7ST1S successfully
 2023-06-26T03:36:48.234Z SlackUser lythatda2003@gmail.com removed from channel long
+2023-06-27T16:11:08.270Z List channels successfully
+2023-06-27T16:11:08.472Z List channels id of user lythatda2003 successfully
+2023-06-27T16:11:08.776Z List channels id of user dghongnam successfully
+2023-06-27T16:11:09.083Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:11:09.084Z List users successfully
+2023-06-27T16:11:09.179Z List tables: 2454
+2023-06-27T16:11:10.340Z Info: Synced 3 records for table: Users
+2023-06-27T16:11:10.352Z Info: Synced 11 records for table: Channels
+2023-06-27T16:11:10.377Z Info: Synced 9 records for table: Tasks
+2023-06-27T16:11:10.378Z AirTable initialized in 3652ms.
+2023-06-27T16:11:18.187Z List channels successfully
+2023-06-27T16:11:18.373Z List channels id of user lythatda2003 successfully
+2023-06-27T16:11:18.717Z List channels id of user dghongnam successfully
+2023-06-27T16:11:19.224Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:11:19.224Z List users successfully
+2023-06-27T16:18:43.888Z List tables: 3218
+2023-06-27T16:18:44.054Z List channels successfully
+2023-06-27T16:18:44.428Z List channels id of user lythatda2003 successfully
+2023-06-27T16:18:44.833Z List channels id of user dghongnam successfully
+2023-06-27T16:18:45.245Z Info: Synced 9 records for table: Tasks
+2023-06-27T16:18:45.248Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:18:45.249Z List users successfully
+2023-06-27T16:18:45.255Z Info: Synced 3 records for table: Users
+2023-06-27T16:18:45.334Z Info: Synced 11 records for table: Channels
+2023-06-27T16:18:45.336Z AirTable initialized in 4678ms.
+2023-06-27T16:18:55.481Z List channels successfully
+2023-06-27T16:18:56.087Z List channels id of user lythatda2003 successfully
+2023-06-27T16:18:56.495Z List channels id of user dghongnam successfully
+2023-06-27T16:18:56.900Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:18:56.900Z List users successfully
+2023-06-27T16:19:36.097Z List channels successfully
+2023-06-27T16:19:36.709Z List channels id of user lythatda2003 successfully
+2023-06-27T16:19:37.215Z List channels id of user dghongnam successfully
+2023-06-27T16:19:37.626Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:19:37.627Z List users successfully
+2023-06-27T16:19:43.256Z List channels successfully
+2023-06-27T16:19:43.468Z List channels id of user lythatda2003 successfully
+2023-06-27T16:19:43.865Z List channels id of user dghongnam successfully
+2023-06-27T16:19:44.276Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:19:44.277Z List users successfully
+2023-06-27T16:20:14.879Z List channels successfully
+2023-06-27T16:20:15.489Z List channels id of user lythatda2003 successfully
+2023-06-27T16:20:15.896Z List channels id of user dghongnam successfully
+2023-06-27T16:20:16.305Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:20:16.306Z List users successfully
+2023-06-27T16:21:03.585Z Create channel: test_276 success
+2023-06-27T16:21:03.586Z Channel test_276 created
+2023-06-27T16:21:14.535Z List channels successfully
+2023-06-27T16:21:14.843Z List channels id of user lythatda2003 successfully
+2023-06-27T16:21:15.259Z List channels id of user dghongnam successfully
+2023-06-27T16:21:15.661Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:21:15.662Z List users successfully
+2023-06-27T16:24:25.254Z List channels successfully
+2023-06-27T16:24:25.564Z List channels id of user lythatda2003 successfully
+2023-06-27T16:24:25.889Z List channels id of user dghongnam successfully
+2023-06-27T16:24:26.197Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:24:26.197Z List users successfully
+2023-06-27T16:24:47.460Z Add user: U05C02YUCS0 to channel: test_276
+2023-06-27T16:24:47.461Z SlackUser ninh.nguyn1602@gmail.com added to channel test_276
+2023-06-27T16:24:58.647Z List channels successfully
+2023-06-27T16:24:58.806Z List channels id of user lythatda2003 successfully
+2023-06-27T16:24:59.112Z List channels id of user dghongnam successfully
+2023-06-27T16:24:59.410Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:24:59.411Z List users successfully
+2023-06-27T16:25:14.196Z Remove user: U05C02YUCS0 from channel: test_276
+2023-06-27T16:25:14.198Z SlackUser ninh.nguyn1602@gmail.com removed from channel test_276
+2023-06-27T16:25:44.257Z Wrote table: Channels to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/channels.xlsx
+2023-06-27T16:25:44.323Z Wrote table: Users to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/users.xlsx
+2023-06-27T16:25:44.385Z Wrote table: Tasks to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/tasks.xlsx
+2023-06-27T16:29:15.174Z Wrote table: Channels to file: C:\Users\DELL\Documents\GitHub/channels.xlsx
+2023-06-27T16:29:15.223Z Wrote table: Users to file: C:\Users\DELL\Documents\GitHub/users.xlsx
+2023-06-27T16:29:15.285Z Wrote table: Tasks to file: C:\Users\DELL\Documents\GitHub/tasks.xlsx
+2023-06-27T16:31:02.688Z List channels successfully
+2023-06-27T16:31:02.866Z List channels id of user lythatda2003 successfully
+2023-06-27T16:31:03.214Z List channels id of user dghongnam successfully
+2023-06-27T16:31:03.582Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:31:03.583Z List users successfully
+2023-06-27T16:31:05.628Z Updated 2 records in table: Users
+2023-06-27T16:31:06.978Z Added 1 records in table: Channels
+2023-06-27T16:31:07.208Z Updated 4 records in table: Channels
+2023-06-27T16:31:07.301Z Deleted record: recRnqPgNNAeQ1R8n in table: Channels
+2023-06-27T16:31:08.498Z Added 1 records in table: Tasks
+2023-06-27T16:31:11.430Z List channels successfully
+2023-06-27T16:31:11.629Z List channels id of user lythatda2003 successfully
+2023-06-27T16:31:11.928Z List channels id of user dghongnam successfully
+2023-06-27T16:31:12.256Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:31:12.256Z List users successfully
+2023-06-27T16:31:27.365Z Add user: U05C02YUCS0 to channel: test_276
+2023-06-27T16:31:27.366Z SlackUser ninh.nguyn1602@gmail.com added to channel test_276
+2023-06-27T16:31:39.794Z List channels successfully
+2023-06-27T16:31:40.175Z List channels id of user lythatda2003 successfully
+2023-06-27T16:31:40.520Z List channels id of user dghongnam successfully
+2023-06-27T16:31:40.924Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:31:40.925Z List users successfully
+2023-06-27T16:31:42.070Z Updated 1 records in table: Users
+2023-06-27T16:31:43.230Z Updated 3 records in table: Channels
+2023-06-27T16:31:43.232Z Error: Could not pull multiple records in table: Channels with message: java.lang.RuntimeException: java.util.concurrent.ExecutionException: java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonObject.get(String)" because "responseJson" is null
+2023-06-27T16:31:43.233Z Error: Could not push channels to AirTable.
+2023-06-27T16:34:00.464Z List channels successfully
+2023-06-27T16:34:00.855Z List channels id of user lythatda2003 successfully
+2023-06-27T16:34:01.155Z List channels id of user dghongnam successfully
+2023-06-27T16:34:01.466Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:34:01.466Z List users successfully
+2023-06-27T16:34:02.940Z Updated 1 records in table: Users
+2023-06-27T16:34:04.241Z Updated 2 records in table: Channels
+2023-06-27T16:34:04.257Z Error: Could not pull multiple records in table: Channels with message: java.lang.RuntimeException: java.util.concurrent.ExecutionException: java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonObject.get(String)" because "responseJson" is null
+2023-06-27T16:34:04.258Z Error: Could not push channels to AirTable.
+2023-06-27T16:34:53.443Z List channels successfully
+2023-06-27T16:34:53.818Z List channels id of user lythatda2003 successfully
+2023-06-27T16:34:54.137Z List channels id of user dghongnam successfully
+2023-06-27T16:34:54.487Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:34:54.488Z List users successfully
+2023-06-27T16:34:55.687Z Updated 1 records in table: Users
+2023-06-27T16:34:56.819Z Updated 2 records in table: Channels
+2023-06-27T16:34:56.826Z Error: Could not pull multiple records in table: Channels with message: java.lang.RuntimeException: java.util.concurrent.ExecutionException: java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonObject.get(String)" because "responseJson" is null
+2023-06-27T16:34:56.827Z Error: Could not push channels to AirTable.
+2023-06-27T16:35:13.196Z List channels successfully
+2023-06-27T16:35:13.400Z List channels id of user lythatda2003 successfully
+2023-06-27T16:35:13.694Z List channels id of user dghongnam successfully
+2023-06-27T16:35:14.042Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:35:14.043Z List users successfully
+2023-06-27T16:35:29.742Z Remove user: U05C02YUCS0 from channel: test_276
+2023-06-27T16:35:29.743Z SlackUser ninh.nguyn1602@gmail.com removed from channel test_276
+2023-06-27T16:36:01.119Z List channels successfully
+2023-06-27T16:36:01.799Z List channels id of user lythatda2003 successfully
+2023-06-27T16:36:02.102Z List channels id of user dghongnam successfully
+2023-06-27T16:36:02.389Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:36:02.389Z List users successfully
+2023-06-27T16:36:03.574Z Updated 1 records in table: Users
+2023-06-27T16:36:04.804Z Updated 3 records in table: Channels
+2023-06-27T16:36:04.805Z Error: Could not pull multiple records in table: Channels with message: java.lang.RuntimeException: java.util.concurrent.ExecutionException: java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonObject.get(String)" because "responseJson" is null
+2023-06-27T16:36:04.806Z Error: Could not push channels to AirTable.
+2023-06-27T16:36:58.431Z Wrote table: Channels to file: C:\Users\DELL\Documents\GitHub/channels.xlsx
+2023-06-27T16:36:58.477Z Wrote table: Users to file: C:\Users\DELL\Documents\GitHub/users.xlsx
+2023-06-27T16:36:58.526Z Wrote table: Tasks to file: C:\Users\DELL\Documents\GitHub/tasks.xlsx
+2023-06-27T16:38:34.079Z List channels successfully
+2023-06-27T16:38:34.399Z List channels id of user lythatda2003 successfully
+2023-06-27T16:38:34.888Z List channels id of user dghongnam successfully
+2023-06-27T16:38:35.263Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:38:35.264Z List users successfully
+2023-06-27T16:38:47.831Z Add user: U05C02YUCS0 to channel: test_276
+2023-06-27T16:38:47.832Z SlackUser ninh.nguyn1602@gmail.com added to channel test_276
+2023-06-27T16:38:52.589Z List channels successfully
+2023-06-27T16:38:52.967Z List channels id of user lythatda2003 successfully
+2023-06-27T16:38:53.275Z List channels id of user dghongnam successfully
+2023-06-27T16:38:53.571Z List channels id of user ninh.nguyn1602 successfully
+2023-06-27T16:38:53.572Z List users successfully
+2023-06-27T16:38:54.922Z Updated 1 records in table: Users
+2023-06-27T16:38:56.168Z Updated 3 records in table: Channels
+2023-06-27T16:38:56.174Z Error: Could not pull multiple records in table: Channels with message: java.lang.RuntimeException: java.util.concurrent.ExecutionException: java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonObject.get(String)" because "responseJson" is null
+2023-06-27T16:38:56.175Z Error: Could not push channels to AirTable.
