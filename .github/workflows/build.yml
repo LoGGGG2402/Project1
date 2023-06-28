@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Set JAVA_HOME to JDK 11
+        run: echo "JAVA_HOME=${{ env.JAVA_HOME }}" >> $GITHUB_ENV
       - name: Cache SonarQube packages
         uses: actions/cache@v1
         with:
