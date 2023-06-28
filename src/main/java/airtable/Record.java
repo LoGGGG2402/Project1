@@ -14,21 +14,25 @@ import java.io.IOException;
 import java.util.List;
 
 public class Record{
+    private static final String AIRTABLE_API_URL_PREFIX = "https://api.airtable.com/v0/";
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String AUTHORIZATION_VALUE_PREFIX = "Bearer ";
+    private static final String CONTENT_TYPE_HEADER = "Content-Type";
+    private static final String CONTENT_TYPE_VALUE = "application/json";
     private final String id;
     private final JsonObject fields;
-    private final String IdFieldVal;
+    private final String idFieldVal;
 
     // Constructor
-    Record(JsonObject record) {
-        this.id = record.get("id").getAsString();
-        this.fields = record.get("fields").getAsJsonObject();
+    Record(JsonObject jsonRecord) {
+        this.id = jsonRecord.get("id").getAsString();
+        this.fields = jsonRecord.get("fields").getAsJsonObject();
         if (this.fields.has("Id")){
-            this.IdFieldVal = this.fields.get("Id").getAsString();
-//            System.out.println("Record :" + this.id + " has Id: " + this.IdFieldVal);
+            this.idFieldVal = this.fields.get("Id").getAsString();
         }
 
         else
-            this.IdFieldVal = null;
+            this.idFieldVal = null;
     }
 
     protected boolean equals(JsonObject fields, List<Field> fieldsList) {
@@ -42,9 +46,8 @@ public class Record{
                     return false;
                 }
                 String oldVal = this.fields.get(field.getName()).toString();
-                if (field.getType().contains("date"))
-                    if(oldVal.replaceAll(".000Z", "Z").equals(newVal))
-                        continue;
+                if (field.getType().contains("date") && oldVal.replaceAll(".000Z", "Z").equals(newVal))
+                    continue;
                 if (!newVal.equals(oldVal))
                 {
                     return false;
@@ -58,8 +61,8 @@ public class Record{
     protected String getRecordId() {
         return this.id;
     }
-    protected String getId() {
-        return this.IdFieldVal;
+    protected String getIdFieldVal() {
+        return this.idFieldVal;
     }
     protected JsonObject getFields() {
         return this.fields;
@@ -70,14 +73,14 @@ public class Record{
     protected static String listRecords(String tableId, String offset, String baseId, String token) {
         //curl "https://api.airtable.com/v0/{baseId}/{tableIdOrName}" \
         //-H "Authorization: Bearer YOUR_TOKEN"
-        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableId + "?maxRecords=100000";
+        String url = AIRTABLE_API_URL_PREFIX + baseId + "/" + tableId + "?maxRecords=100000";
         if (offset != null)
             url += "&offset=" + offset;
 
         try(CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpGet get = new HttpGet(url);
-            get.setHeader("Authorization", "Bearer " + token);
-            get.setHeader("Content-Type", "application/json");
+            get.setHeader(AUTHORIZATION_HEADER, AUTHORIZATION_VALUE_PREFIX + token);
+            get.setHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
 
             return client.execute(get, AirTable.responseHandler);
         } catch (IOException e) {
@@ -85,12 +88,12 @@ public class Record{
             return null;
         }
     }
-    protected static boolean dropRecord(String recordId, String tableId, String baseId, String Token){
-        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableId + "/" + recordId;
+    protected static boolean dropRecord(String recordId, String tableId, String baseId, String token){
+        String url = AIRTABLE_API_URL_PREFIX + baseId + "/" + tableId + "/" + recordId;
 
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpDelete delete = new HttpDelete(url);
-            delete.setHeader("Authorization", "Bearer " + Token);
+            delete.setHeader(AUTHORIZATION_HEADER, AUTHORIZATION_VALUE_PREFIX + token);
 
             String response = client.execute(delete, AirTable.responseHandler);
 
@@ -101,13 +104,13 @@ public class Record{
             return false;
         }
     }
-    protected static String updateMultipleRecords(JsonObject records, String tableId, String baseId, String Token){
-        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableId;
+    protected static String updateMultipleRecords(JsonObject records, String tableId, String baseId, String token){
+        String url = AIRTABLE_API_URL_PREFIX + baseId + "/" + tableId;
 
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpPatch patch = new HttpPatch(url);
-            patch.setHeader("Authorization", "Bearer " + Token);
-            patch.setHeader("Content-Type", "application/json");
+            patch.setHeader(AUTHORIZATION_HEADER, AUTHORIZATION_VALUE_PREFIX + token);
+            patch.setHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
 
             patch.setEntity(new StringEntity(records.toString()));
 
@@ -117,13 +120,13 @@ public class Record{
             return null;
         }
     }
-    protected static String addMultipleRecords(JsonObject records, String tableId, String baseId, String Token){
-        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableId;
+    protected static String addMultipleRecords(JsonObject records, String tableId, String baseId, String token){
+        String url = AIRTABLE_API_URL_PREFIX + baseId + "/" + tableId;
 
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpPost post = new HttpPost(url);
-            post.setHeader("Authorization", "Bearer " + Token);
-            post.setHeader("Content-Type", "application/json");
+            post.setHeader(AUTHORIZATION_HEADER, AUTHORIZATION_VALUE_PREFIX + token);
+            post.setHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
 
             post.setEntity(new StringEntity(records.toString()));
 

@@ -69,7 +69,7 @@ public class Table {
     }
     protected Record getRecord(String Id) {
         for (Record record : this.records) {
-            if (record.getId().equals(Id)) {
+            if (record.getIdFieldVal().equals(Id)) {
                 return record;
             }
         }
