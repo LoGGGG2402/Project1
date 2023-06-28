@@ -1,4 +1,4 @@
-package AirTable;
+package airtable;
 
 import Logs.Logs;
 import com.google.gson.*;

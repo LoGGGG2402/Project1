@@ -1,6 +1,6 @@
 package SyncTask;
 
-import AirTable.AirTable;
+import airtable.AirTable;
 import Slack.Slack;
 
 import Slack.Channel;

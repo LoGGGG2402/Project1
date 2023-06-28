@@ -1,6 +1,6 @@
 package Main;
 
-import AirTable.AirTable;
+import airtable.AirTable;
 import Slack.Channel;
 import Slack.Slack;
 import Slack.SlackUser;

@@ -1,4 +1,4 @@
-package AirTable;
+package airtable;
 
 import Logs.Logs;
 import Slack.Channel;
@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AirTable {
+    private  static final String USERS_TABLE_NAME = "Users";
     private boolean isActive = true;
     private String token;
     private String base;
@@ -67,9 +68,11 @@ public class AirTable {
             JsonObject tableJson = table.getAsJsonObject();
             String tableName = tableJson.get("name").getAsString();
             switch (tableName) {
-               case "Channels" -> channelTable = new Table(tableJson);
-               case "Users" -> userTable = new Table(tableJson);
-               case "Tasks" -> taskTable = new Table(tableJson);
+                case "Channels" -> channelTable = new Table(tableJson);
+                case USERS_TABLE_NAME -> userTable = new Table(tableJson);
+                case "Tasks" -> taskTable = new Table(tableJson);
+                default -> {
+                }
             }
         }
 
@@ -83,7 +86,7 @@ public class AirTable {
                channelTable.syncRecord(base, token);
             });
             executor.submit(() -> {
-            userTable = validTable(userTable, "Users");
+            userTable = validTable(userTable, USERS_TABLE_NAME);
             if (userTable == null) {
                  isActive = false;
                  return;
@@ -103,10 +106,10 @@ public class AirTable {
         }
 
 
-        Field linkField = channelTable.getField("Users");
+        Field linkField = channelTable.getField(USERS_TABLE_NAME);
         if (linkField == null) {
            JsonObject newField = new JsonObject();
-           newField.addProperty("name", "Users");
+           newField.addProperty("name", USERS_TABLE_NAME);
            newField.addProperty("type", "multipleRecordLinks");
 
            JsonObject options = new JsonObject();
@@ -147,7 +150,7 @@ public class AirTable {
                 Field tableField = table.getField(fieldName);
 
                 if (tableField == null){
-                    System.out.println("Adding field " + fieldName + " to table " + name + ".");
+                    Logs.writeLog("Adding field " + fieldName + " to table " + name + ".");
                     if(table.addField(fieldJson, base, token)) return null;
                 }
             }
@@ -162,18 +165,18 @@ public class AirTable {
         for (Channel channel: channels){
             JsonObject field = channel.toJson();
 
-            JsonArray MembersId = field.getAsJsonArray("Members Id");
-            JsonArray MembersRecordId = new JsonArray();
-            for (JsonElement member : MembersId) {
+            JsonArray membersId = field.getAsJsonArray("Members Id");
+            JsonArray membersRecordId = new JsonArray();
+            for (JsonElement member : membersId) {
                 String memberId = member.getAsString();
-                Record record = userTable.getRecord(memberId);
-                if (record == null) {
+                Record userRecord = userTable.getRecord(memberId);
+                if (userRecord == null) {
                     Logs.writeLog("Error: Could not find user with id " + memberId + ".");
                     return false;
                 }
-                MembersRecordId.add(record.getRecordId());
+                membersRecordId.add(userRecord.getRecordId());
             }
-            field.add("Users", MembersRecordId);
+            field.add(USERS_TABLE_NAME, membersRecordId);
             field.remove("Members Id");
 
             fields.add(field);
@@ -224,11 +227,9 @@ public class AirTable {
     }
     public void exportToXlsx(String path) {
         File file = new File(path);
-        if (!file.exists()) {
-            if (!file.mkdirs()) {
-                Logs.writeLog("Error: Could not create directory " + path + ".");
-                return;
-            }
+        if (!file.exists() && !file.mkdirs()) {
+            Logs.writeLog("Error: Could not create directory " + path + ".");
+            return;
         }
         channelTable.writeTableToXlsx(path + "/channels.xlsx");
         userTable.writeTableToXlsx(path + "/users.xlsx");
