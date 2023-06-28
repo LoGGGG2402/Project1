@@ -815,3 +815,13 @@
 2023-06-28T04:32:18.120Z Updated 1 records in table: Users
 2023-06-28T04:32:19.386Z Updated 3 records in table: Channels
 2023-06-28T04:32:20.650Z Added 1 records in table: Tasks
+2023-06-28T04:34:31.810Z List tables: 2984
+2023-06-28T04:34:31.943Z List channels successfully
+2023-06-28T04:34:32.180Z List channels id of user lythatda2003 successfully
+2023-06-28T04:34:32.586Z List channels id of user dghongnam successfully
+2023-06-28T04:34:32.954Z List channels id of user ninh.nguyn1602 successfully
+2023-06-28T04:34:32.955Z List users successfully
+2023-06-28T04:34:32.967Z Info: Synced 3 records for table: Users
+2023-06-28T04:34:32.984Z Info: Synced 13 records for table: Channels
+2023-06-28T04:34:33.016Z Info: Synced 17 records for table: Tasks
+2023-06-28T04:34:33.018Z AirTable initialized in 4198ms.
