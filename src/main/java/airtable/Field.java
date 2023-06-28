@@ -15,17 +15,11 @@ public class Field {
     private final String id;
     private final String name;
     private final String type;
-//    private final JsonObject options;
 
     protected Field(JsonObject field) {
         this.id = field.get("id").getAsString();
         this.name = field.get("name").getAsString();
         this.type = field.get("type").getAsString();
-//        if (field.has("options")) {
-//            this.options = field.get("options").getAsJsonObject();
-//        } else {
-//            this.options = null;
-//        }
     }
 
     protected String getId() {

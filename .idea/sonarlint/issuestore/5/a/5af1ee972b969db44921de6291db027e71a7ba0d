@@ -1,0 +1,7 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(è§‚ïûÿÿÿÿ
+A
+java:S1168{"+Return an empty collection instead of null.(¥¹ï
+Y
+java:S1117">Rename "channelsId" which hides the field declared at line 25.(Þ¢ë‘þÿÿÿÿ
+i	java:S100–"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦Ÿ÷Óøÿÿÿÿ
