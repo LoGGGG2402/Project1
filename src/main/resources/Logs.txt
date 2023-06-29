@@ -1262,3 +1262,30 @@
 2023-06-29T01:53:24.818Z Wrote table: Channels to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/channels.xlsx
 2023-06-29T01:53:24.885Z Wrote table: Users to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/users.xlsx
 2023-06-29T01:53:24.953Z Wrote table: Tasks to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/tasks.xlsx
+2023-06-29T02:11:08.275Z List channels successfully
+2023-06-29T02:11:08.383Z List channels id of user lythatda2003 successfully
+2023-06-29T02:11:08.733Z List channels id of user dghongnam successfully
+2023-06-29T02:11:08.872Z List tables: 3442
+2023-06-29T02:11:09.065Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:11:09.066Z List users successfully
+2023-06-29T02:11:10.027Z Info: Synced 3 records for table: Users
+2023-06-29T02:11:10.088Z Info: Synced 22 records for table: Tasks
+2023-06-29T02:11:10.124Z Info: Synced 14 records for table: Channels
+2023-06-29T02:11:10.125Z AirTable initialized in 4701ms.
+2023-06-29T02:11:14.295Z List channels successfully
+2023-06-29T02:11:14.681Z List channels id of user lythatda2003 successfully
+2023-06-29T02:11:15.014Z List channels id of user dghongnam successfully
+2023-06-29T02:11:15.374Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:11:15.375Z List users successfully
+2023-06-29T02:11:16.741Z List channels successfully
+2023-06-29T02:11:17.149Z List channels id of user lythatda2003 successfully
+2023-06-29T02:11:17.546Z List channels id of user dghongnam successfully
+2023-06-29T02:11:17.869Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:11:17.870Z List users successfully
+2023-06-29T02:11:36.821Z List channels successfully
+2023-06-29T02:11:37.268Z List channels id of user lythatda2003 successfully
+2023-06-29T02:11:37.568Z List channels id of user dghongnam successfully
+2023-06-29T02:11:37.900Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:11:37.900Z List users successfully
+2023-06-29T02:11:49.602Z Add user: U05C02YUCS0 to channel: test_286
+2023-06-29T02:11:49.604Z SlackUser ninh.nguyn1602@gmail.com added to channel test_286

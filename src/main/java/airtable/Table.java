@@ -1,6 +1,6 @@
 package airtable;
 
-import Logs.Logs;
+import logs.Logs;
 import com.google.gson.*;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;

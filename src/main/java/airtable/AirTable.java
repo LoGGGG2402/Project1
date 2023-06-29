@@ -1,6 +1,6 @@
 package airtable;
 
-import Logs.Logs;
+import logs.Logs;
 import Slack.Channel;
 import Slack.SlackUser;
 import com.google.gson.*;

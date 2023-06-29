@@ -1214,3 +1214,51 @@
 2023-06-28T18:51:05.849Z Wrote table: Channels to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/channels.xlsx
 2023-06-28T18:51:05.919Z Wrote table: Users to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/users.xlsx
 2023-06-28T18:51:05.994Z Wrote table: Tasks to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/tasks.xlsx
+2023-06-29T01:49:43.245Z List channels id of user lythatda2003 successfully
+2023-06-29T01:49:43.245Z List channels successfully
+2023-06-29T01:49:43.561Z List channels id of user dghongnam successfully
+2023-06-29T01:49:43.714Z List tables: 3397
+2023-06-29T01:49:43.887Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T01:49:43.888Z List users successfully
+2023-06-29T01:49:44.846Z Info: Synced 21 records for table: Tasks
+2023-06-29T01:49:44.865Z Info: Synced 14 records for table: Channels
+2023-06-29T01:49:44.898Z Info: Synced 3 records for table: Users
+2023-06-29T01:49:44.900Z AirTable initialized in 4588ms.
+2023-06-29T01:50:56.778Z List channels successfully
+2023-06-29T01:50:56.942Z List channels id of user lythatda2003 successfully
+2023-06-29T01:50:57.264Z List channels id of user dghongnam successfully
+2023-06-29T01:50:57.572Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T01:50:57.573Z List users successfully
+2023-06-29T01:51:00.499Z List channels successfully
+2023-06-29T01:51:00.669Z List channels id of user lythatda2003 successfully
+2023-06-29T01:51:01.060Z List channels id of user dghongnam successfully
+2023-06-29T01:51:01.359Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T01:51:01.360Z List users successfully
+2023-06-29T01:51:06.180Z List channels successfully
+2023-06-29T01:51:06.352Z List channels id of user lythatda2003 successfully
+2023-06-29T01:51:06.640Z List channels id of user dghongnam successfully
+2023-06-29T01:51:06.947Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T01:51:06.947Z List users successfully
+2023-06-29T01:51:29.363Z Add user: U05C02YUCS0 to channel: test_296
+2023-06-29T01:51:29.365Z SlackUser ninh.nguyn1602@gmail.com added to channel test_296
+2023-06-29T01:51:33.155Z List channels successfully
+2023-06-29T01:51:33.339Z List channels id of user lythatda2003 successfully
+2023-06-29T01:51:33.648Z List channels id of user dghongnam successfully
+2023-06-29T01:51:33.980Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T01:51:33.981Z List users successfully
+2023-06-29T01:51:45.702Z Remove user: U05C02YUCS0 from channel: test_286
+2023-06-29T01:51:45.703Z SlackUser ninh.nguyn1602@gmail.com removed from channel test_286
+2023-06-29T01:52:07.340Z Wrote table: Channels to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/channels.xlsx
+2023-06-29T01:52:07.403Z Wrote table: Users to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/users.xlsx
+2023-06-29T01:52:07.484Z Wrote table: Tasks to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/tasks.xlsx
+2023-06-29T01:52:26.428Z List channels successfully
+2023-06-29T01:52:26.624Z List channels id of user lythatda2003 successfully
+2023-06-29T01:52:26.917Z List channels id of user dghongnam successfully
+2023-06-29T01:52:27.218Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T01:52:27.219Z List users successfully
+2023-06-29T01:52:28.492Z Updated 1 records in table: Users
+2023-06-29T01:52:29.896Z Updated 4 records in table: Channels
+2023-06-29T01:52:31.197Z Added 1 records in table: Tasks
+2023-06-29T01:53:24.818Z Wrote table: Channels to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/channels.xlsx
+2023-06-29T01:53:24.885Z Wrote table: Users to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/users.xlsx
+2023-06-29T01:53:24.953Z Wrote table: Tasks to file: C:\Users\DELL\OneDrive - Hanoi University of Science and Technology\Project\Project I/tasks.xlsx

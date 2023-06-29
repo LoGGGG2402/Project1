@@ -7,8 +7,6 @@ N
 src/main/java/Main/MainUI.form,3\e\3ed49e0c3cb1ac3d438adde97e36578524022748
 \
 ,src/main/java/Main/ColorfulCellRenderer.java,a\4\a4990a17f97dc6ea013a7137db867d9a6e2d270b
-L
-src/main/java/Logs/Logs.java,d\4\d449a873b59c796917eac90b241cce24116faae8
 P
  src/main/java/Slack/Channel.java,f\f\ffeaaceea1783adda5aa6c85ddc53cec8a5b8360
 N
