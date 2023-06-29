@@ -10,6 +10,7 @@
   "syncButton": "Đồng bộ",
   "setSyncButton": "Đặt Lịch đồng bộ",
   "toXlsxButton": "Xuất ra Excel",
+  "ExportToXlsxSuccess": "Xuất ra Excel thành công",
 
   "listChannelStatus": "Liệt kê danh sách kênh thành công",
   "listUserStatus": "Liệt kê danh sách người dùng thành công",

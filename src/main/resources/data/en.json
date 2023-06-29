@@ -10,6 +10,7 @@
   "syncButton": "Sync",
   "setSyncButton": "Set Sync Schedule",
   "toXlsxButton": "Export to Excel",
+  "ExportToXlsxSuccess": "Export to Excel successful",
 
   "listChannelStatus": "List channels successful",
   "listUserStatus": "List users successful",

@@ -100,6 +100,21 @@ public class Slack {
         }
         return null;
     }
+    public Channel getChannelById(String id) {
+        for (Channel channel : channels) {
+            if (channel.getId().equals(id))
+                return channel;
+        }
+        return null;
+    }
+
+    public SlackUser getUserById(String id) {
+        for (SlackUser user : users) {
+            if (user.getId().equals(id))
+                return user;
+        }
+        return null;
+    }
 
 
     // Channel, SlackUser management

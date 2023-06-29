@@ -1,6 +1,7 @@
 package airtable;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -19,20 +20,20 @@ public class Record{
     private static final String AUTHORIZATION_VALUE_PREFIX = "Bearer ";
     private static final String CONTENT_TYPE_HEADER = "Content-Type";
     private static final String CONTENT_TYPE_VALUE = "application/json";
-    private final String id;
+    private final String recordId;
     private final JsonObject fields;
-    private final String idFieldVal;
+    private final String id;
 
     // Constructor
     Record(JsonObject jsonRecord) {
-        this.id = jsonRecord.get("id").getAsString();
+        this.recordId = jsonRecord.get("id").getAsString();
         this.fields = jsonRecord.get("fields").getAsJsonObject();
         if (this.fields.has("Id")){
-            this.idFieldVal = this.fields.get("Id").getAsString();
+            this.id = this.fields.get("Id").getAsString();
         }
 
         else
-            this.idFieldVal = null;
+            this.id = null;
     }
 
     protected boolean equals(JsonObject fields, List<Field> fieldsList) {
@@ -41,36 +42,52 @@ public class Record{
                 String newVal = fields.get(field.getName()).toString();
                 String oldVal;
                 if (!this.fields.has(field.getName()))
-                    oldVal = "null";
+                    oldVal = null;
                 else
                     oldVal = this.fields.get(field.getName()).toString();
 
                 if (!fieldEqual(field.getType(), newVal, oldVal)) {
+
                     return false;
                 }
             }
         }
         return true;
     }
-
     private boolean fieldEqual(String fieldType, String newVal, String oldVal) {
-        if (newVal.equals("false") && oldVal.equals("null"))
+        if (newVal.equals("false") && oldVal == null)
             return true;
-        if (newVal.equals("null") && oldVal.equals("null"))
+        if (newVal.equals("null") && oldVal == null)
             return true;
-        if (newVal.equals("[]") && oldVal.equals("null"))
+        if (newVal.equals("[]") && oldVal == null)
+            return true;
+        if (newVal.equals("\"\"") && oldVal == null)
             return true;
         if (newVal.equals(oldVal))
             return true;
+        if (fieldType.equals("multipleRecordLinks")){
+            JsonArray oldValArray = new Gson().fromJson(oldVal, JsonArray.class);
+            JsonArray newValArray = new Gson().fromJson(newVal, JsonArray.class);
+            return multipleRecordLinksEqual(newValArray, oldValArray);
+        }
         return fieldType.contains("date") && oldVal.replaceAll(".000Z", "Z").equals(newVal);
+    }
+    private boolean multipleRecordLinksEqual(JsonArray newValArray, JsonArray oldValArray) {
+        if (oldValArray.size() != newValArray.size())
+            return false;
+        for (var element : oldValArray){
+            if (!newValArray.contains(element))
+                return false;
+        }
+        return true;
     }
 
     // Getters
     protected String getRecordId() {
-        return this.id;
+        return this.recordId;
     }
-    protected String getIdFieldVal() {
-        return this.idFieldVal;
+    protected String getId() {
+        return this.id;
     }
     protected JsonObject getFields() {
         return this.fields;

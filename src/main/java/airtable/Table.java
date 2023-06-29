@@ -15,10 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Table {
     private static final String FIELDS_KEY = "fields";
@@ -73,7 +70,7 @@ public class Table {
     }
     protected Record getRecord(String id) {
         for (Record rec : this.records) {
-            if (rec.getIdFieldVal().equals(id)) {
+            if (rec.getId().equals(id)) {
                 return rec;
             }
         }
@@ -110,70 +107,119 @@ public class Table {
         if (listUpdate.isEmpty()) {
             return true;
         }
-        JsonArray newRecords = new JsonArray();
-        List<Record> recordsUpdate = new ArrayList<>();
-        for (Map.Entry<Record, JsonObject> entry : listUpdate.entrySet()) {
-            Record rec = entry.getKey();
-            JsonObject updateFields = listUpdate.get(rec);
-            JsonObject recordJson = new JsonObject();
-            recordJson.addProperty("id", rec.getRecordId());
-            recordJson.add(FIELDS_KEY, updateFields);
-            newRecords.add(recordJson);
-            recordsUpdate.add(rec);
 
-            if (newRecords.size() >= 10 || newRecords.size() == listUpdate.size()) {
-                JsonObject body = new JsonObject();
-                body.add(RECORDS_KEY, newRecords);
+        try (ExecutorService executorService = Executors.newFixedThreadPool(10)){ // Number of parallel threads
+            JsonArray newRecords = new JsonArray();
+            List<Record> recordsUpdate = new ArrayList<>();
+            int sized = listUpdate.size();
 
-                String response = Record.updateMultipleRecords(body, id, baseId, token);
-                if (response == null) {
-                    Logs.writeLog("Error: Could not update multiple records in table: " + name);
-                    return false;
+            for (Map.Entry<Record, JsonObject> entry : listUpdate.entrySet()) {
+                Record rec = entry.getKey();
+                JsonObject updateFields = entry.getValue();
+
+                JsonObject recordJson = new JsonObject();
+                recordJson.addProperty("id", rec.getRecordId());
+                recordJson.add(FIELDS_KEY, updateFields);
+                newRecords.add(recordJson);
+                recordsUpdate.add(rec);
+
+                if (newRecords.size() >= 10 || newRecords.size() == sized) {
+                    submitUpdateTask(executorService, newRecords, recordsUpdate, baseId, token);
+                    newRecords = new JsonArray();
+                    recordsUpdate = new ArrayList<>();
+                    sized -= 10;
                 }
-                Logs.writeLog("Updated " + newRecords.size() + " records in table: " + name);
+            }
+
+            executorService.shutdown();
+            if (!executorService.awaitTermination(5, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return false;
+        }
+
+        return true;
+    }
+    private void submitUpdateTask(ExecutorService executorService, JsonArray records, List<Record> recordsUpdate, String baseId, String token) {
+        executorService.submit(() -> {
+            JsonObject body = new JsonObject();
+            body.add(RECORDS_KEY, records);
+
+            String response = Record.updateMultipleRecords(body, id, baseId, token);
+            if (response == null) {
+                Logs.writeLog("Error: Could not update multiple records in table: " + name);
+            } else {
+                Logs.writeLog("Updated " + records.size() + " records in table: " + name);
                 for (Record recordUpdate : recordsUpdate) {
                     this.records.remove(recordUpdate);
                 }
-                JsonArray recordsResponse = JsonParser.parseString(response).getAsJsonObject().get(RECORDS_KEY).getAsJsonArray();
+                JsonArray recordsResponse = JsonParser.parseString(response)
+                        .getAsJsonObject()
+                        .get(RECORDS_KEY)
+                        .getAsJsonArray();
                 for (JsonElement recordResponse : recordsResponse) {
                     this.records.add(new Record(recordResponse.getAsJsonObject()));
                 }
-                newRecords = new JsonArray();
-                recordsUpdate = new ArrayList<>();
             }
-        }
-        return true;
+        });
     }
+
     protected boolean addMultipleRecords(List<JsonObject> listAdd, String baseId, String token) {
         if (listAdd.isEmpty()) {
             return true;
         }
 
-        JsonArray newRecords = new JsonArray();
-        for (JsonObject addFields : listAdd) {
-            JsonObject recordJson = new JsonObject();
-            recordJson.add(FIELDS_KEY, addFields);
-            newRecords.add(recordJson);
+        try (ExecutorService executorService = Executors.newFixedThreadPool(10)) {
+            JsonArray newRecords = new JsonArray();
+            int sized = listAdd.size();
 
-            if (newRecords.size() >= 10 || newRecords.size() == listAdd.size()) {
-                JsonObject body = new JsonObject();
-                body.add(RECORDS_KEY, newRecords);
+            for (JsonObject addFields : listAdd) {
+                JsonObject recordJson = new JsonObject();
+                recordJson.add(FIELDS_KEY, addFields);
+                newRecords.add(recordJson);
 
-                String response = Record.addMultipleRecords(body, id, baseId, token);
-                if (response == null) {
-                    Logs.writeLog("Error: Could not add multiple records in table: " + name);
-                    return false;
+                if (newRecords.size() >= 10 || newRecords.size() == sized) {
+                    submitRecordsTask(executorService, newRecords, baseId, token);
+                    newRecords = new JsonArray();
+                    sized -= 10;
                 }
-                Logs.writeLog("Added " + newRecords.size() + " records in table: " + name);
-                JsonArray recordsResponse = JsonParser.parseString(response).getAsJsonObject().get(RECORDS_KEY).getAsJsonArray();
+            }
+
+            executorService.shutdown();
+
+            if (!executorService.awaitTermination(5, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return false;
+        }
+
+        return true;
+    }
+    private void submitRecordsTask(ExecutorService executorService, JsonArray records, String baseId, String token) {
+        executorService.submit(() -> {
+            JsonObject body = new JsonObject();
+            body.add(RECORDS_KEY, records);
+
+            String response = Record.addMultipleRecords(body, id, baseId, token);
+            if (response == null) {
+                Logs.writeLog("Error: Could not add multiple records in table: " + name);
+            } else {
+                Logs.writeLog("Added " + body.get(RECORDS_KEY).getAsJsonArray().size() + " records in table: " + name);
+                JsonArray recordsResponse = JsonParser.parseString(response)
+                        .getAsJsonObject()
+                        .get(RECORDS_KEY)
+                        .getAsJsonArray();
                 for (JsonElement rec : recordsResponse) {
                     this.records.add(new Record(rec.getAsJsonObject()));
                 }
-                newRecords = new JsonArray();
             }
-        }
-        return true;
+        });
     }
+
     private boolean deleteMultipleRecords(List<Record> listDelete, String baseId, String token) {
         if (listDelete.isEmpty()) {
             return true;
@@ -277,7 +323,7 @@ public class Table {
     // write to xlsx file
     protected void writeTableToXlsx(String path) {
         try (XSSFWorkbook workbook = new XSSFWorkbook();
-            FileOutputStream outputStream = new FileOutputStream(path)) {
+             FileOutputStream outputStream = new FileOutputStream(path)) {
 
             XSSFSheet sheet = workbook.createSheet(name);
 

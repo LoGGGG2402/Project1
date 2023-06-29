@@ -1,14 +1,11 @@
 package main;
 
 import airtable.AirTable;
+import com.google.gson.*;
 import slack.Channel;
 import slack.Slack;
 import slack.SlackUser;
 import synctask.DataSyncTask;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import javax.swing.*;
 import java.io.File;
@@ -94,8 +91,17 @@ public class MainUI {
         DefaultListModel<String> model = new DefaultListModel<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         for (var channel : channels){
-            String json = gson.toJson(channel.toJson());
-            String html = "<html>" + json.replace("\n", "<br>").replace(" ", "&nbsp;") + "</html>";
+            JsonObject json = channel.toJson();
+            JsonArray membersId = json.getAsJsonArray("Members Id");
+            JsonArray membersEmail = new JsonArray();
+            for (var id : membersId){
+                String memberEmail = slack.getUserById(id.getAsString()).getEmail();
+                membersEmail.add(memberEmail);
+            }
+            json.add("Members Email", membersEmail);
+            json.remove("Members Id");
+            String jsonString = gson.toJson(json);
+            String html = "<html>" + jsonString.replace("\n", "<br>").replace(" ", "&nbsp;") + "</html>";
             model.addElement(html);
         }
         list.setModel(model);
@@ -111,9 +117,21 @@ public class MainUI {
 
         DefaultListModel<String> model = new DefaultListModel<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
         for (var user : users){
-            String json = gson.toJson(user.toJson());
-            String html = "<html>" + json.replace("\n", "<br>").replace(" ", "&nbsp;") + "</html>";
+            JsonObject json = user.toJson();
+            JsonArray channels = json.getAsJsonArray("Channels Id");
+
+            JsonArray channelsName = new JsonArray();
+            for (var channel : channels){
+                String channelName = slack.getChannelById(channel.getAsString()).getName();
+                channelsName.add(channelName);
+            }
+            json.add("Channels Name", channelsName);
+            json.remove("Channels Id");
+
+            String jsonString = gson.toJson(json);
+            String html = "<html>" + jsonString.replace("\n", "<br>").replace(" ", "&nbsp;") + "</html>";
             model.addElement(html);
         }
         list.setModel(model);
@@ -205,14 +223,17 @@ public class MainUI {
     }
 
     private void syncData(){
+
         if (!slack.syncLocal()) {
             status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
         }
+
         if (airTable.pushData(slack.getChannels(), slack.getUsers(), true))
             status.setText(language.get("dataSynced").getAsString());
         else
             status.setText(language.get("dataNotSynced").getAsString());
+
     }
 
     private void setSyncTime(){
@@ -258,6 +279,7 @@ public class MainUI {
         }
 
         airTable.exportToXlsx(path);
+        status.setText(language.get("ExportToXlsxSuccess").getAsString());
     }
 
     private void changeLanguage(){
