@@ -38,37 +38,38 @@ public class Slack {
     public boolean syncLocal() {
         try (ExecutorService executorService = Executors.newFixedThreadPool(2)) {
 
-        Callable<List<SlackUser>> listUsersTask = () -> SlackUser.listUsers(client);
-        Future<List<SlackUser>> usersFuture = executorService.submit(listUsersTask);
+            Callable<List<SlackUser>> listUsersTask = () -> SlackUser.listUsers(client);
+            Future<List<SlackUser>> usersFuture = executorService.submit(listUsersTask);
 
-        Callable<List<Channel>> listChannelsTask = () -> Channel.listChannels(client);
-        Future<List<Channel>> channelsFuture = executorService.submit(listChannelsTask);
+            Callable<List<Channel>> listChannelsTask = () -> Channel.listChannels(client);
+            Future<List<Channel>> channelsFuture = executorService.submit(listChannelsTask);
 
-        users = usersFuture.get();
-        channels = channelsFuture.get();
+            users = usersFuture.get();
+            channels = channelsFuture.get();
 
-        if (users == null || channels == null)
-            return false;
+            if (users == null || channels == null)
+                return false;
 
-        for (SlackUser user : users) {
-            executorService.submit(() -> {
-                for (var channelId : user.getChannelsId()) {
-                    for (Channel channel : channels) {
-                        if (channel.getId().equals(channelId.getAsString())) {
-                            channel.addMemberId(user.getId());
-                            break;
-                        }
-                    }
-                }
-                return null;
-            });
-        }
+            for (SlackUser user : users) {
+                executorService.submit(() -> addMemberToChannels(user, channels));
+            }
 
-        executorService.shutdown();
-        return true;
+            executorService.shutdown();
+            return true;
         } catch (InterruptedException | ExecutionException e) {
             Thread.currentThread().interrupt();
             return false;
+        }
+    }
+
+    private void addMemberToChannels(SlackUser user, List<Channel> channels) {
+        for (var channelId : user.getChannelsId()) {
+            for (Channel channel : channels) {
+                if (channel.getId().equals(channelId.getAsString())) {
+                    channel.addMemberId(user.getId());
+                    break;
+                }
+            }
         }
     }
     public boolean isActive() {

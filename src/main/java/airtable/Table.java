@@ -91,19 +91,7 @@ public class Table {
         }
         return null;
     }
-    @Deprecated // api not allow to update field type
-    protected boolean updateField(JsonObject newField, Field field, String baseId, String token) {
-        String fieldUpdate = Field.updateField(newField, field.getId(), id, baseId, token);
-        if (fieldUpdate == null) {
-            Logs.writeLog("Error: Could not update field: " + field.getName() + IN_TABLE_MESSAGE + name);
-            return false;
-        }
-        JsonObject fieldJson = JsonParser.parseString(fieldUpdate).getAsJsonObject();
-        fields.remove(field);
-        fields.add(new Field(fieldJson));
-        Logs.writeLog("Updated field: " + field.getName() + IN_TABLE_MESSAGE + name);
-        return true;
-    }
+
     protected boolean addField(JsonObject field, String baseId, String token) {
         String fieldCreate = Field.createField(field, id, baseId, token);
         if (fieldCreate == null) {
@@ -204,13 +192,13 @@ public class Table {
                 }));
             }
             for (Future<Boolean> future : futures) {
-                if (!future.get()) {
+                if (Boolean.FALSE.equals(future.get())) {
                     return false;
                 }
             }
         } catch (ExecutionException | InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            return false;
         }
         return true;
     }
@@ -240,7 +228,7 @@ public class Table {
                     () -> updateMultipleRecords(listUpdate, baseId, token)
             ));
             for (Future<Boolean> future : futures) {
-                if (!future.get()) {
+                if (Boolean.FALSE.equals(future.get())) {
                     return true;
                 }
             }

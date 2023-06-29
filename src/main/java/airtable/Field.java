@@ -2,7 +2,6 @@ package airtable;
 
 import logs.Logs;
 import com.google.gson.JsonObject;
-import org.apache.hc.client5.http.classic.methods.HttpPatch;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
@@ -53,21 +52,6 @@ public class Field {
         }
 
 
-    }
-    protected static String updateField(JsonObject field, String fieldId, String tableId, String baseId, String token) {
-
-        URI uri = URI.create("https://api.airtable.com/v0/meta/bases/" + baseId + "/tables/" + tableId + "/fields/" + fieldId);
-
-        try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
-            HttpPatch patch = new HttpPatch(uri);
-            patch.setHeader("Authorization", "Bearer " + token);
-            patch.setHeader("Content-Type", "application/json");
-            patch.setEntity(new StringEntity(field.toString()));
-            return client.execute(patch, AirTable.responseHandler );
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
 }

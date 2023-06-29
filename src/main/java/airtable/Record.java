@@ -39,22 +39,30 @@ public class Record{
         for (Field field : fieldsList) {
             if (fields.has(field.getName())) {
                 String newVal = fields.get(field.getName()).toString();
-                if (newVal.equals("false") || newVal.equals("null") || newVal.equals("[]"))
-                    continue;
+                String oldVal;
                 if (!this.fields.has(field.getName()))
-                {
-                    return false;
-                }
-                String oldVal = this.fields.get(field.getName()).toString();
-                if (field.getType().contains("date") && oldVal.replaceAll(".000Z", "Z").equals(newVal))
-                    continue;
-                if (!newVal.equals(oldVal))
-                {
+                    oldVal = "null";
+                else
+                    oldVal = this.fields.get(field.getName()).toString();
+
+                if (!fieldEqual(field.getType(), newVal, oldVal)) {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    private boolean fieldEqual(String fieldType, String newVal, String oldVal) {
+        if (newVal.equals("false") && oldVal.equals("null"))
+            return true;
+        if (newVal.equals("null") && oldVal.equals("null"))
+            return true;
+        if (newVal.equals("[]") && oldVal.equals("null"))
+            return true;
+        if (newVal.equals(oldVal))
+            return true;
+        return fieldType.contains("date") && oldVal.replaceAll(".000Z", "Z").equals(newVal);
     }
 
     // Getters
@@ -71,8 +79,6 @@ public class Record{
 
     // API Methods
     protected static String listRecords(String tableId, String offset, String baseId, String token) {
-        //curl "https://api.airtable.com/v0/{baseId}/{tableIdOrName}" \
-        //-H "Authorization: Bearer YOUR_TOKEN"
         String url = AIRTABLE_API_URL_PREFIX + baseId + "/" + tableId + "?maxRecords=100000";
         if (offset != null)
             url += "&offset=" + offset;
@@ -84,7 +90,6 @@ public class Record{
 
             return client.execute(get, AirTable.responseHandler);
         } catch (IOException e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -100,7 +105,6 @@ public class Record{
             JsonObject responseJson = new Gson().fromJson(response, JsonObject.class);
             return responseJson.get("deleted").getAsBoolean();
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -116,7 +120,7 @@ public class Record{
 
             return client.execute(patch, AirTable.responseHandler);
         } catch (IOException e) {
-            e.printStackTrace();
+
             return null;
         }
     }
@@ -132,7 +136,7 @@ public class Record{
 
             return client.execute(post, AirTable.responseHandler);
         } catch (IOException e) {
-            e.printStackTrace();
+
             return null;
         }
     }

@@ -110,7 +110,6 @@ public class Channel {
             }
         } catch (SlackApiException | IOException e) {
             Logs.writeLog(REMOVE_USER_MESSAGE + userId + FROM_CHANNEL_MESSAGE + this.name + FAILED_MESSAGE);
-            e.printStackTrace();
             return false;
         }
     }
@@ -130,7 +129,7 @@ public class Channel {
             }
         } catch (SlackApiException | IOException e) {
             Logs.writeLog(ADD_USER_MESSAGE + userId + TO_CHANNEL_MESSAGE + this.name + FAILED_MESSAGE);
-            e.printStackTrace();
+
             return false;
         }
     }
@@ -172,7 +171,6 @@ public class Channel {
             }
         } catch (SlackApiException | IOException e) {
             Logs.writeLog(CREATE_CHANNEL_MESSAGE + name + FAILED_MESSAGE);
-            e.printStackTrace();
             return null;
         }
     }

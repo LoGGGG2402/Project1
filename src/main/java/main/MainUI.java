@@ -69,7 +69,8 @@ public class MainUI {
                 language = gson.fromJson(fileReader, JsonObject.class);
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            showErrorDialog("Error: Could not find language file");
+
         }
 
         createChannelsButton.setText(language.get("createChannelButton").getAsString());
@@ -204,19 +205,14 @@ public class MainUI {
     }
 
     private void syncData(){
-        long start = System.currentTimeMillis();
         if (!slack.syncLocal()) {
             status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
         }
-        long end = System.currentTimeMillis();
-        System.out.println("Sync local: " + (end - start) + "ms");
         if (airTable.pushData(slack.getChannels(), slack.getUsers(), true))
             status.setText(language.get("dataSynced").getAsString());
         else
             status.setText(language.get("dataNotSynced").getAsString());
-        long end2 = System.currentTimeMillis();
-        System.out.println("Sync remote: " + (end2 - end) + "ms");
     }
 
     private void setSyncTime(){
@@ -298,7 +294,7 @@ public class MainUI {
                 status.setText(language.get("languageNotChanged").getAsString());
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            showErrorDialog("Error: Could not find language file");
         }
     }
 
@@ -316,20 +312,15 @@ public class MainUI {
                 CompletableFuture<Slack> slackFuture = CompletableFuture.supplyAsync(Slack::new);
                 CompletableFuture<AirTable> airTableFuture = CompletableFuture.supplyAsync(AirTable::new);
 
-                long start = System.currentTimeMillis();
 
                 slack = slackFuture.join();
-                long end = System.currentTimeMillis();
-                System.out.println("Slack: " + (end - start) + "ms");
+
 
                 airTable = airTableFuture.join();
-                long end2 = System.currentTimeMillis();
-                System.out.println("AirTable: " + (end2 - end) + "ms");
 
-                System.out.println("All time: " + (end2 - start) + "ms");
 
                 if (!airTable.isActive() || !slack.isActive()) {
-                    showErrorDialog();
+                    showErrorDialog("Cannot connect to AirTable or Slack");
                     isDone = false;
                     return null;
                 }
@@ -362,13 +353,13 @@ public class MainUI {
     }
 
 
-    private static void showErrorDialog() {
+    private static void showErrorDialog(String message) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Error");
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setSize(400, 100);
             frame.setLocationRelativeTo(null);
-            JLabel errorLabel = new JLabel("Error to connect to Slack or AirTable");
+            JLabel errorLabel = new JLabel(message);
             errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
             frame.add(errorLabel);
             frame.setVisible(true);

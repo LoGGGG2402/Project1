@@ -71,8 +71,7 @@ public class AirTable {
                 case "Channels" -> channelTable = new Table(tableJson);
                 case USERS_TABLE_NAME -> userTable = new Table(tableJson);
                 case "Tasks" -> taskTable = new Table(tableJson);
-                default -> {
-                }
+                default -> Logs.writeLog("Error: Unknown table " + tableName);
             }
         }
 
@@ -156,7 +155,7 @@ public class AirTable {
             }
             return table;
         } catch (IOException e) {
-            e.printStackTrace();
+
             return null;
         }
     }
