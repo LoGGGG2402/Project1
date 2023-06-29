@@ -5,8 +5,6 @@
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 N
 src/main/java/Main/MainUI.form,3\e\3ed49e0c3cb1ac3d438adde97e36578524022748
-P
- src/main/java/Slack/Channel.java,f\f\ffeaaceea1783adda5aa6c85ddc53cec8a5b8360
 N
 src/main/java/Slack/Slack.java,8\0\80009c1cd19c4ed44f5dffa5816093b228fac9ce
 R

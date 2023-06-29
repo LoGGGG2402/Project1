@@ -1,9 +1,9 @@
 package main;
 
 import airtable.AirTable;
-import Slack.Channel;
-import Slack.Slack;
-import Slack.SlackUser;
+import slack.Channel;
+import slack.Slack;
+import slack.SlackUser;
 import SyncTask.DataSyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

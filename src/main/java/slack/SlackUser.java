@@ -1,4 +1,4 @@
-package Slack;
+package slack;
 
 import logs.Logs;
 import com.google.gson.Gson;

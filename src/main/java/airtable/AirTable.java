@@ -1,8 +1,8 @@
 package airtable;
 
 import logs.Logs;
-import Slack.Channel;
-import Slack.SlackUser;
+import slack.Channel;
+import slack.SlackUser;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import org.apache.hc.core5.http.ParseException;

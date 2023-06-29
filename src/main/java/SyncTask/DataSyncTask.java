@@ -1,7 +1,7 @@
 package SyncTask;
 
 import airtable.AirTable;
-import Slack.Slack;
+import slack.Slack;
 
 import java.util.Calendar;
 import java.util.Timer;

@@ -1,4 +1,4 @@
-package Slack;
+package slack;
 
 import logs.Logs;
 import com.google.gson.Gson;
@@ -14,9 +14,16 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Channel {
+    private static final String REMOVE_USER_MESSAGE = "Remove user: ";
+    private static final String FROM_CHANNEL_MESSAGE = " from channel: ";
+    private static final String ADD_USER_MESSAGE = "Add user: ";
+    private static final String TO_CHANNEL_MESSAGE = " to channel: ";
+    private static final String CREATE_CHANNEL_MESSAGE = "Create channel: ";
+    private static final String FAILED_MESSAGE = " failed";
     private final String id;
     private final String name;
     private final String creatorId;
@@ -31,17 +38,17 @@ public class Channel {
     public Channel(Conversation conversation){
         this.id = conversation.getId();
         this.name = conversation.getName();
-        String topic = conversation.getTopic().getValue();
-        if (topic.isEmpty())
+        String topicValue = conversation.getTopic().getValue();
+        if (topicValue.isEmpty())
             this.topic = null;
         else
-            this.topic = topic;
+            this.topic = topicValue;
 
-        String purpose = conversation.getPurpose().getValue();
-        if (purpose.isEmpty())
+        String purposeValue = conversation.getPurpose().getValue();
+        if (purposeValue.isEmpty())
             this.purpose = null;
         else
-            this.purpose = purpose;
+            this.purpose = purposeValue;
 
         this.creatorId = conversation.getCreator();
         this.isArchive = conversation.isArchived();
@@ -94,15 +101,15 @@ public class Channel {
                     .user(userId)
             );
             if (result.isOk()){
-                Logs.writeLog("Remove user: " + userId + " from channel: " + this.name);
+                Logs.writeLog(REMOVE_USER_MESSAGE + userId + FROM_CHANNEL_MESSAGE + this.name);
                 membersId.remove(new Gson().fromJson(userId, JsonElement.class));
                 return true;
             }else {
-                Logs.writeLog("Remove user: " + userId + " from channel: " + this.name + " failed");
+                Logs.writeLog(REMOVE_USER_MESSAGE + userId + FROM_CHANNEL_MESSAGE + this.name + FAILED_MESSAGE);
                 return false;
             }
         } catch (SlackApiException | IOException e) {
-            Logs.writeLog("Remove user: " + userId + " from channel: " + this.name + " failed");
+            Logs.writeLog(REMOVE_USER_MESSAGE + userId + FROM_CHANNEL_MESSAGE + this.name + FAILED_MESSAGE);
             e.printStackTrace();
             return false;
         }
@@ -114,15 +121,15 @@ public class Channel {
                     .users(List.of(userId))
             );
             if (result.isOk()){
-                Logs.writeLog("Add user: " + userId + " to channel: " + this.name);
+                Logs.writeLog(ADD_USER_MESSAGE + userId + TO_CHANNEL_MESSAGE + this.name);
                 membersId.add(new Gson().fromJson(userId, JsonElement.class));
                 return true;
             }else {
-                Logs.writeLog("Add user: " + userId + " to channel: " + this.name + " failed");
+                Logs.writeLog(ADD_USER_MESSAGE + userId + TO_CHANNEL_MESSAGE + this.name + FAILED_MESSAGE);
                 return false;
             }
         } catch (SlackApiException | IOException e) {
-            Logs.writeLog("Add user: " + userId + " to channel: " + this.name + " failed");
+            Logs.writeLog(ADD_USER_MESSAGE + userId + TO_CHANNEL_MESSAGE + this.name + FAILED_MESSAGE);
             e.printStackTrace();
             return false;
         }
@@ -147,7 +154,7 @@ public class Channel {
             return channels;
         } catch (Exception e) {
             Logs.writeLog("List channels failed");
-            return null;
+            return Collections.emptyList();
         }
     }
     protected static Conversation createChannel(String name, boolean isPrivate, MethodsClient client){
@@ -157,14 +164,14 @@ public class Channel {
                     .isPrivate(isPrivate)
             );
             if (result.isOk()){
-                Logs.writeLog("Create channel: " + name + " success");
+                Logs.writeLog(CREATE_CHANNEL_MESSAGE + name + " success");
                 return result.getChannel();
             }else {
-                Logs.writeLog("Create channel: " + name + " failed");
+                Logs.writeLog(CREATE_CHANNEL_MESSAGE + name + FAILED_MESSAGE);
                 return null;
             }
         } catch (SlackApiException | IOException e) {
-            Logs.writeLog("Create channel: " + name + " failed");
+            Logs.writeLog(CREATE_CHANNEL_MESSAGE + name + FAILED_MESSAGE);
             e.printStackTrace();
             return null;
         }

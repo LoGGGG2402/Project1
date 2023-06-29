@@ -1352,3 +1352,70 @@
 2023-06-29T02:39:19.295Z Added 1 records in table: Channels
 2023-06-29T02:39:19.527Z Updated 3 records in table: Channels
 2023-06-29T02:39:20.654Z Added 1 records in table: Tasks
+2023-06-29T02:49:43.329Z List tables: 2266
+2023-06-29T02:49:43.575Z List channels successfully
+2023-06-29T02:49:43.985Z List channels id of user lythatda2003 successfully
+2023-06-29T02:49:44.356Z List channels id of user dghongnam successfully
+2023-06-29T02:49:44.444Z Info: Synced 3 records for table: Users
+2023-06-29T02:49:44.472Z Info: Synced 15 records for table: Channels
+2023-06-29T02:49:44.504Z Info: Synced 23 records for table: Tasks
+2023-06-29T02:49:44.506Z AirTable initialized in 3459ms.
+2023-06-29T02:49:44.732Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:49:44.733Z List users successfully
+2023-06-29T02:49:47.065Z List channels successfully
+2023-06-29T02:49:47.301Z List channels id of user lythatda2003 successfully
+2023-06-29T02:49:47.663Z List channels id of user dghongnam successfully
+2023-06-29T02:49:48.019Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:49:48.020Z List users successfully
+2023-06-29T02:58:36.632Z List tables: 2151
+2023-06-29T02:58:36.893Z List channels successfully
+2023-06-29T02:58:37.035Z List channels id of user lythatda2003 successfully
+2023-06-29T02:58:37.338Z List channels id of user dghongnam successfully
+2023-06-29T02:58:37.645Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:58:37.646Z List users successfully
+2023-06-29T02:58:37.803Z Info: Synced 23 records for table: Tasks
+2023-06-29T02:58:37.912Z Info: Synced 15 records for table: Channels
+2023-06-29T02:58:37.949Z Info: Synced 3 records for table: Users
+2023-06-29T02:58:37.950Z AirTable initialized in 3478ms.
+2023-06-29T02:58:40.597Z List channels successfully
+2023-06-29T02:58:40.994Z List channels id of user lythatda2003 successfully
+2023-06-29T02:58:41.294Z List channels id of user dghongnam successfully
+2023-06-29T02:58:41.592Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:58:41.593Z List users successfully
+2023-06-29T02:58:45.786Z List channels successfully
+2023-06-29T02:58:46.011Z List channels id of user lythatda2003 successfully
+2023-06-29T02:58:46.324Z List channels id of user dghongnam successfully
+2023-06-29T02:58:46.614Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:58:46.614Z List users successfully
+2023-06-29T02:59:08.078Z List channels successfully
+2023-06-29T02:59:08.209Z List channels id of user lythatda2003 successfully
+2023-06-29T02:59:08.498Z List channels id of user dghongnam successfully
+2023-06-29T02:59:08.801Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:59:08.802Z List users successfully
+2023-06-29T02:59:31.168Z Add user: U05C02YUCS0 to channel: test_286_1
+2023-06-29T02:59:31.169Z SlackUser ninh.nguyn1602@gmail.com added to channel test_286_1
+2023-06-29T02:59:49.339Z List channels successfully
+2023-06-29T02:59:49.506Z List channels id of user lythatda2003 successfully
+2023-06-29T02:59:49.803Z List channels id of user dghongnam successfully
+2023-06-29T02:59:50.106Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T02:59:50.107Z List users successfully
+2023-06-29T03:00:03.463Z Remove user: U05C02YUCS0 from channel: test_286_1
+2023-06-29T03:00:03.464Z SlackUser ninh.nguyn1602@gmail.com removed from channel test_286_1
+2023-06-29T03:00:24.133Z List channels successfully
+2023-06-29T03:00:24.559Z List channels id of user lythatda2003 successfully
+2023-06-29T03:00:24.872Z List channels id of user dghongnam successfully
+2023-06-29T03:00:25.166Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T03:00:25.166Z List users successfully
+2023-06-29T03:00:31.542Z List channels successfully
+2023-06-29T03:00:31.704Z List channels id of user lythatda2003 successfully
+2023-06-29T03:00:32.019Z List channels id of user dghongnam successfully
+2023-06-29T03:00:32.308Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T03:00:32.308Z List users successfully
+2023-06-29T03:01:10.628Z List channels successfully
+2023-06-29T03:01:10.861Z List channels id of user lythatda2003 successfully
+2023-06-29T03:01:11.148Z List channels id of user dghongnam successfully
+2023-06-29T03:01:11.449Z List channels id of user ninh.nguyn1602 successfully
+2023-06-29T03:01:11.450Z List users successfully
+2023-06-29T03:01:12.749Z Updated 1 records in table: Users
+2023-06-29T03:01:14.009Z Updated 5 records in table: Channels
+2023-06-29T03:01:15.210Z Added 1 records in table: Tasks

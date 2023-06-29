@@ -1,10 +1,10 @@
 package SyncTask;
 
 import airtable.AirTable;
-import Slack.Slack;
+import slack.Slack;
 
-import Slack.Channel;
-import Slack.SlackUser;
+import slack.Channel;
+import slack.SlackUser;
 
 import java.util.List;
 
