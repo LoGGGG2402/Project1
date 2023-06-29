@@ -142,7 +142,7 @@ public class Slack {
             Logs.writeLog(SLACK_USER + user.getEmail() + REMOVE_FROM_CHANNEL + channel.getName());
             return true;
         }
-        if (SlackUser.LeaveChannel(channel.getId(), client)) {
+        if (SlackUser.leaveChannel(channel.getId(), client)) {
             users.get(userIndex).removeChannelId(channel.getId());
             Logs.writeLog(SLACK_USER + user.getEmail() + REMOVE_FROM_CHANNEL + channel.getName());
             return true;

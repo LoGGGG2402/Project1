@@ -12,6 +12,7 @@ import com.slack.api.model.User;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SlackUser {
@@ -120,11 +121,11 @@ public class SlackUser {
             return slackUsers;
         } catch (Exception e) {
             Logs.writeLog("List users failed");
-            return null;
+            return Collections.emptyList();
         }
     }
     private JsonArray listChannelsId(SlackUser user, MethodsClient client) {
-        JsonArray channelsId = new JsonArray();
+        JsonArray channelsIdList = new JsonArray();
         String nextCursor = "";
         try {
             do {
@@ -136,18 +137,18 @@ public class SlackUser {
                         .limit(1000)
                 );
                 for (var channel : response.getChannels()) {
-                    channelsId.add(channel.getId());
+                    channelsIdList.add(channel.getId());
                 }
                 nextCursor = response.getResponseMetadata().getNextCursor();
             } while (nextCursor != null && !nextCursor.isEmpty());
             Logs.writeLog("List channels id of user " + user.name + " successfully");
-            return channelsId;
+            return channelsIdList;
         } catch (Exception e) {
             Logs.writeLog("List channels id of user " + user.name + " failed");
             return null;
         }
     }
-    protected static boolean LeaveChannel(String channelId, MethodsClient client){
+    protected static boolean leaveChannel(String channelId, MethodsClient client){
         try {
             client.conversationsLeave(r -> r.channel(channelId));
             Logs.writeLog("Leave channel " + channelId + " successfully");
