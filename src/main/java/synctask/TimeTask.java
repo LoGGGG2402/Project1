@@ -1,4 +1,4 @@
-package SyncTask;
+package synctask;
 
 import airtable.AirTable;
 import slack.Slack;

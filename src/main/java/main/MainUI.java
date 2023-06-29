@@ -4,7 +4,7 @@ import airtable.AirTable;
 import slack.Channel;
 import slack.Slack;
 import slack.SlackUser;
-import SyncTask.DataSyncTask;
+import synctask.DataSyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;

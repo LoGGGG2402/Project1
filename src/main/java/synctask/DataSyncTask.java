@@ -1,4 +1,4 @@
-package SyncTask;
+package synctask;
 
 import airtable.AirTable;
 import slack.Slack;
@@ -32,7 +32,7 @@ public class DataSyncTask {
         if (calendar.getTime().compareTo(Calendar.getInstance().getTime()) < 0)
             calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-        timer.scheduleAtFixedRate(timeTask, calendar.getTime(), 1000 * 60 * 60 * 24);
+        timer.scheduleAtFixedRate(timeTask, calendar.getTime(), 1000L * 60 * 60 * 24);
     }
 }
 
