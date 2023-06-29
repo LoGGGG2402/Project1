@@ -30,7 +30,7 @@ public class SlackUser {
     // Constructor
     protected SlackUser(User user, MethodsClient client){
         this.id = user.getId();
-        this.name = user.getName();
+        this.name = user.getProfile().getDisplayName();
         this.realName = user.getRealName();
         this.email = user.getProfile().getEmail();
         this.isActive = !user.isDeleted();

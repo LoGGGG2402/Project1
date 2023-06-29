@@ -1,85 +1,30 @@
-2023-06-29T04:48:59.074Z List channels successfully
-2023-06-29T04:48:59.283Z List tables: 1501
-2023-06-29T04:48:59.285Z Error: Unknown table Table 2
-2023-06-29T04:48:59.350Z List channels id of user lythatda2003 successfully
-2023-06-29T04:48:59.655Z List channels id of user dghongnam successfully
-2023-06-29T04:48:59.950Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T04:48:59.950Z List users successfully
-2023-06-29T04:49:00.418Z Info: Synced 3 records for table: Users
-2023-06-29T04:49:00.437Z Info: Synced 15 records for table: Channels
-2023-06-29T04:49:00.457Z Info: Synced 29 records for table: Tasks
-2023-06-29T04:49:00.458Z AirTable initialized in 2678ms.
-2023-06-29T04:49:02.167Z List channels successfully
-2023-06-29T04:49:02.544Z List channels id of user lythatda2003 successfully
-2023-06-29T04:49:02.842Z List channels id of user dghongnam successfully
-2023-06-29T04:49:03.277Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T04:49:03.277Z List users successfully
-2023-06-29T04:49:04.644Z Updated 2 records in table: Users
-2023-06-29T04:49:05.937Z Updated 2 records in table: Channels
-2023-06-29T04:49:07.619Z Added 1 records in table: Tasks
-2023-06-29T04:49:37.528Z List channels successfully
-2023-06-29T04:49:37.687Z List channels id of user lythatda2003 successfully
-2023-06-29T04:49:37.985Z List channels id of user dghongnam successfully
-2023-06-29T04:49:38.400Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T04:49:38.400Z List users successfully
-2023-06-29T04:49:39.798Z Updated 1 records in table: Users
-2023-06-29T04:49:41.056Z Updated 2 records in table: Channels
-2023-06-29T04:49:42.325Z Added 1 records in table: Tasks
-2023-06-29T04:58:52.589Z List channels successfully
-2023-06-29T04:58:52.662Z List tables: 1560
-2023-06-29T04:58:52.663Z Error: Unknown table Table 2
-2023-06-29T04:58:52.915Z List channels id of user lythatda2003 successfully
-2023-06-29T04:58:53.249Z List channels id of user dghongnam successfully
-2023-06-29T04:58:53.552Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T04:58:53.552Z List users successfully
-2023-06-29T04:58:53.695Z Info: Synced 15 records for table: Channels
-2023-06-29T04:58:53.716Z Info: Synced 31 records for table: Tasks
-2023-06-29T04:58:53.753Z Info: Synced 3 records for table: Users
-2023-06-29T04:58:53.754Z AirTable initialized in 2654ms.
-2023-06-29T04:58:55.855Z List channels successfully
-2023-06-29T04:58:56.030Z List channels id of user lythatda2003 successfully
-2023-06-29T04:58:56.320Z List channels id of user dghongnam successfully
-2023-06-29T04:58:56.621Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T04:58:56.621Z List users successfully
-2023-06-29T04:58:58.028Z List channels successfully
-2023-06-29T04:58:58.211Z List channels id of user lythatda2003 successfully
-2023-06-29T04:58:58.500Z List channels id of user dghongnam successfully
-2023-06-29T04:58:58.871Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T04:58:58.871Z List users successfully
-2023-06-29T04:59:00.960Z List channels successfully
-2023-06-29T04:59:01.124Z List channels id of user lythatda2003 successfully
-2023-06-29T04:59:01.459Z List channels id of user dghongnam successfully
-2023-06-29T04:59:01.820Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T04:59:01.820Z List users successfully
-2023-06-29T04:59:02.943Z Updated 1 records in table: Users
-2023-06-29T04:59:04.036Z Updated 2 records in table: Channels
-2023-06-29T04:59:05.207Z Added 1 records in table: Tasks
-2023-06-29T05:04:34.384Z List channels successfully
-2023-06-29T05:04:34.621Z List tables: 1742
-2023-06-29T05:04:34.622Z Error: Unknown table Table 2
-2023-06-29T05:04:34.718Z List channels id of user lythatda2003 successfully
-2023-06-29T05:04:35.031Z List channels id of user dghongnam successfully
-2023-06-29T05:04:35.348Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T05:04:35.348Z List users successfully
-2023-06-29T05:04:35.726Z Info: Synced 15 records for table: Channels
-2023-06-29T05:04:35.758Z Info: Synced 32 records for table: Tasks
-2023-06-29T05:04:35.767Z Info: Synced 3 records for table: Users
-2023-06-29T05:04:35.768Z AirTable initialized in 2891ms.
-2023-06-29T05:04:38.666Z List channels successfully
-2023-06-29T05:04:38.866Z List channels id of user lythatda2003 successfully
-2023-06-29T05:04:39.155Z List channels id of user dghongnam successfully
-2023-06-29T05:04:39.453Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T05:04:39.453Z List users successfully
-2023-06-29T05:04:41.036Z List channels successfully
-2023-06-29T05:04:41.161Z List channels id of user lythatda2003 successfully
-2023-06-29T05:04:41.451Z List channels id of user dghongnam successfully
-2023-06-29T05:04:41.740Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T05:04:41.741Z List users successfully
-2023-06-29T05:04:47.613Z List channels successfully
-2023-06-29T05:04:47.785Z List channels id of user lythatda2003 successfully
-2023-06-29T05:04:48.085Z List channels id of user dghongnam successfully
-2023-06-29T05:04:48.393Z List channels id of user ninh.nguyn1602 successfully
-2023-06-29T05:04:48.393Z List users successfully
-2023-06-29T05:04:49.572Z Updated 1 records in table: Users
-2023-06-29T05:04:50.802Z Updated 2 records in table: Channels
-2023-06-29T05:04:52.164Z Added 1 records in table: Tasks
+2023-06-29T13:29:31.661Z List channels successfully
+2023-06-29T13:29:32.516Z List channels id of user  successfully
+2023-06-29T13:29:32.807Z List channels id of user Hồng Nam Dương successfully
+2023-06-29T13:29:33.123Z List channels id of user Ninh Nguyễn successfully
+2023-06-29T13:29:33.426Z List channels id of user Cu successfully
+2023-06-29T13:29:33.426Z List users successfully
+2023-06-29T13:29:34.009Z List tables: 3979
+2023-06-29T13:29:34.010Z Error: Unknown table Table 2
+2023-06-29T13:29:35.547Z Info: Synced 36 records for table: Tasks
+2023-06-29T13:29:35.860Z Info: Synced 16 records for table: Channels
+2023-06-29T13:29:36.399Z Info: Synced 4 records for table: Users
+2023-06-29T13:29:36.399Z AirTable initialized in 6372ms.
+2023-06-29T13:29:38.205Z List channels successfully
+2023-06-29T13:29:38.468Z List channels id of user  successfully
+2023-06-29T13:29:38.810Z List channels id of user Hồng Nam Dương successfully
+2023-06-29T13:29:39.125Z List channels id of user Ninh Nguyễn successfully
+2023-06-29T13:29:39.507Z List channels id of user Cu successfully
+2023-06-29T13:29:39.507Z List users successfully
+2023-06-29T13:29:45.488Z List channels successfully
+2023-06-29T13:29:45.670Z List channels id of user  successfully
+2023-06-29T13:29:45.962Z List channels id of user Hồng Nam Dương successfully
+2023-06-29T13:29:46.279Z List channels id of user Ninh Nguyễn successfully
+2023-06-29T13:29:46.772Z List channels id of user Cu successfully
+2023-06-29T13:29:46.772Z List users successfully
+2023-06-29T13:29:51.493Z List channels successfully
+2023-06-29T13:29:51.717Z List channels id of user  successfully
+2023-06-29T13:29:52.099Z List channels id of user Hồng Nam Dương successfully
+2023-06-29T13:29:52.511Z List channels id of user Ninh Nguyễn successfully
+2023-06-29T13:29:52.920Z List channels id of user Cu successfully
+2023-06-29T13:29:52.920Z List users successfully

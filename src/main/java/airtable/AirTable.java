@@ -155,7 +155,6 @@ public class AirTable {
             }
             return table;
         } catch (IOException e) {
-
             return null;
         }
     }

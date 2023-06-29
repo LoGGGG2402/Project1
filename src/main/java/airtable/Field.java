@@ -11,18 +11,12 @@ import java.io.IOException;
 import java.net.URI;
 
 public class Field {
-    private final String id;
     private final String name;
     private final String type;
 
     protected Field(JsonObject field) {
-        this.id = field.get("id").getAsString();
         this.name = field.get("name").getAsString();
         this.type = field.get("type").getAsString();
-    }
-
-    protected String getId() {
-        return this.id;
     }
 
     protected String getName() {
