@@ -21,6 +21,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Table {
+    private static final String FIELDS_KEY = "fields";
+    private static final String ERROR_MESSAGE = " with message: ";
+    private static final String IN_TABLE_MESSAGE = " in table: ";
+    private static final String RECORDS_KEY = "records";
     private int numChanges;
     private final String id;
     private final String name;
@@ -31,7 +35,7 @@ public class Table {
     protected Table(JsonObject table) {
         this.id = table.get("id").getAsString();
         this.name = table.get("name").getAsString();
-        table.get("fields").getAsJsonArray().forEach(field -> this.fields.add(new Field(field.getAsJsonObject())));
+        table.get(FIELDS_KEY).getAsJsonArray().forEach(field -> this.fields.add(new Field(field.getAsJsonObject())));
     }
 
     protected void syncRecord(String baseId, String token) {
@@ -43,8 +47,8 @@ public class Table {
                 Logs.writeLog("Error: Could not get records for table: " + name);
             } else {
                 JsonObject recordsJson = new Gson().fromJson(response, JsonObject.class);
-                JsonArray listRecords = recordsJson.get("records").getAsJsonArray();
-                listRecords.forEach(record -> this.records.add(new Record(record.getAsJsonObject())));
+                JsonArray listRecords = recordsJson.get(RECORDS_KEY).getAsJsonArray();
+                listRecords.forEach(rec -> this.records.add(new Record(rec.getAsJsonObject())));
                 if (recordsJson.has("offset"))
                     offset = recordsJson.get("offset").getAsString();
                 else
@@ -67,10 +71,10 @@ public class Table {
     protected int getNumRecords() {
         return records.size();
     }
-    protected Record getRecord(String Id) {
-        for (Record record : this.records) {
-            if (record.getIdFieldVal().equals(Id)) {
-                return record;
+    protected Record getRecord(String id) {
+        for (Record rec : this.records) {
+            if (rec.getIdFieldVal().equals(id)) {
+                return rec;
             }
         }
         return null;
@@ -91,24 +95,24 @@ public class Table {
     protected boolean updateField(JsonObject newField, Field field, String baseId, String token) {
         String fieldUpdate = Field.updateField(newField, field.getId(), id, baseId, token);
         if (fieldUpdate == null) {
-            Logs.writeLog("Error: Could not update field: " + field.getName() + " in table: " + name);
+            Logs.writeLog("Error: Could not update field: " + field.getName() + IN_TABLE_MESSAGE + name);
             return false;
         }
         JsonObject fieldJson = JsonParser.parseString(fieldUpdate).getAsJsonObject();
         fields.remove(field);
         fields.add(new Field(fieldJson));
-        Logs.writeLog("Updated field: " + field.getName() + " in table: " + name);
+        Logs.writeLog("Updated field: " + field.getName() + IN_TABLE_MESSAGE + name);
         return true;
     }
     protected boolean addField(JsonObject field, String baseId, String token) {
         String fieldCreate = Field.createField(field, id, baseId, token);
         if (fieldCreate == null) {
-            Logs.writeLog("Error: Could not create field: " + field.get("name").getAsString() + " in table: " + name);
+            Logs.writeLog("Error: Could not create field: " + field.get("name").getAsString() + IN_TABLE_MESSAGE + name);
             return true;
         }
         JsonObject fieldJson = JsonParser.parseString(fieldCreate).getAsJsonObject();
         fields.add(new Field(fieldJson));
-        Logs.writeLog("Created field: " + field.get("name").getAsString() + " in table: " + name);
+        Logs.writeLog("Created field: " + field.get("name").getAsString() + IN_TABLE_MESSAGE + name);
         return false;
     }
 
@@ -118,34 +122,35 @@ public class Table {
         if (listUpdate.isEmpty()) {
             return true;
         }
-        JsonArray records = new JsonArray();
+        JsonArray newRecords = new JsonArray();
         List<Record> recordsUpdate = new ArrayList<>();
-        for (Record record : listUpdate.keySet()) {
-            JsonObject fields = listUpdate.get(record);
+        for (Map.Entry<Record, JsonObject> entry : listUpdate.entrySet()) {
+            Record rec = entry.getKey();
+            JsonObject updateFields = listUpdate.get(rec);
             JsonObject recordJson = new JsonObject();
-            recordJson.addProperty("id", record.getRecordId());
-            recordJson.add("fields", fields);
-            records.add(recordJson);
-            recordsUpdate.add(record);
+            recordJson.addProperty("id", rec.getRecordId());
+            recordJson.add(FIELDS_KEY, updateFields);
+            newRecords.add(recordJson);
+            recordsUpdate.add(rec);
 
-            if (records.size() >= 10 || records.size() == listUpdate.size()) {
+            if (newRecords.size() >= 10 || newRecords.size() == listUpdate.size()) {
                 JsonObject body = new JsonObject();
-                body.add("records", records);
+                body.add(RECORDS_KEY, newRecords);
 
                 String response = Record.updateMultipleRecords(body, id, baseId, token);
                 if (response == null) {
                     Logs.writeLog("Error: Could not update multiple records in table: " + name);
                     return false;
                 }
-                Logs.writeLog("Updated " + records.size() + " records in table: " + name);
+                Logs.writeLog("Updated " + newRecords.size() + " records in table: " + name);
                 for (Record recordUpdate : recordsUpdate) {
                     this.records.remove(recordUpdate);
                 }
-                JsonArray recordsResponse = JsonParser.parseString(response).getAsJsonObject().get("records").getAsJsonArray();
+                JsonArray recordsResponse = JsonParser.parseString(response).getAsJsonObject().get(RECORDS_KEY).getAsJsonArray();
                 for (JsonElement recordResponse : recordsResponse) {
                     this.records.add(new Record(recordResponse.getAsJsonObject()));
                 }
-                records = new JsonArray();
+                newRecords = new JsonArray();
                 recordsUpdate = new ArrayList<>();
             }
         }
@@ -156,27 +161,27 @@ public class Table {
             return true;
         }
 
-        JsonArray records = new JsonArray();
-        for (JsonObject fields : listAdd) {
+        JsonArray newRecords = new JsonArray();
+        for (JsonObject addFields : listAdd) {
             JsonObject recordJson = new JsonObject();
-            recordJson.add("fields", fields);
-            records.add(recordJson);
+            recordJson.add(FIELDS_KEY, addFields);
+            newRecords.add(recordJson);
 
-            if (records.size() >= 10 || records.size() == listAdd.size()) {
+            if (newRecords.size() >= 10 || newRecords.size() == listAdd.size()) {
                 JsonObject body = new JsonObject();
-                body.add("records", records);
+                body.add(RECORDS_KEY, newRecords);
 
                 String response = Record.addMultipleRecords(body, id, baseId, token);
                 if (response == null) {
                     Logs.writeLog("Error: Could not add multiple records in table: " + name);
                     return false;
                 }
-                Logs.writeLog("Added " + records.size() + " records in table: " + name);
-                JsonArray recordsResponse = JsonParser.parseString(response).getAsJsonObject().get("records").getAsJsonArray();
-                for (JsonElement record : recordsResponse) {
-                    this.records.add(new Record(record.getAsJsonObject()));
+                Logs.writeLog("Added " + newRecords.size() + " records in table: " + name);
+                JsonArray recordsResponse = JsonParser.parseString(response).getAsJsonObject().get(RECORDS_KEY).getAsJsonArray();
+                for (JsonElement rec : recordsResponse) {
+                    this.records.add(new Record(rec.getAsJsonObject()));
                 }
-                records = new JsonArray();
+                newRecords = new JsonArray();
             }
         }
         return true;
@@ -187,14 +192,14 @@ public class Table {
         }
         try (ExecutorService executorService = Executors.newFixedThreadPool(listDelete.size())) {
             List<Future<Boolean>> futures = new ArrayList<>();
-            for (Record record : listDelete) {
+            for (Record rec : listDelete) {
                 futures.add(executorService.submit(() -> {
-                    if (!Record.dropRecord(record.getRecordId(), id, baseId, token)) {
-                        records.remove(record);
-                        Logs.writeLog("Error: Could not delete record: " + record.getRecordId() + " in table: " + name);
+                    if (!Record.dropRecord(rec.getRecordId(), id, baseId, token)) {
+                        records.remove(rec);
+                        Logs.writeLog("Error: Could not delete record: " + rec.getRecordId() + IN_TABLE_MESSAGE + name);
                         return false;
                     }
-                    Logs.writeLog("Deleted record: " + record.getRecordId() + " in table: " + name);
+                    Logs.writeLog("Deleted record: " + rec.getRecordId() + IN_TABLE_MESSAGE + name);
                     return true;
                 }));
             }
@@ -204,6 +209,7 @@ public class Table {
                 }
             }
         } catch (ExecutionException | InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
         return true;
@@ -215,13 +221,13 @@ public class Table {
         Map<Record, JsonObject> listUpdate = new HashMap<>();
 
         for (JsonObject field : fields) {
-            String id = field.get("Id").getAsString();
-            Record record = getRecord(id);
-            if (record != null) {
-                listDelete.remove(record);
+            String fieldId = field.get("Id").getAsString();
+            Record rec = getRecord(fieldId);
+            if (rec != null) {
+                listDelete.remove(rec);
                 listAdd.remove(field);
-                if(!record.equals(field, this.fields)){
-                    listUpdate.put(record, field);
+                if(!rec.equals(field, this.fields)){
+                    listUpdate.put(rec, field);
                 }
             }
         }
@@ -240,7 +246,8 @@ public class Table {
             }
             return false;
         } catch (InterruptedException | ExecutionException e) {
-            Logs.writeLog("Error: Could not pull multiple records in table: " + name + " with message: " + e.getMessage());
+            Logs.writeLog("Error: Could not pull multiple records in table: " + name + ERROR_MESSAGE + e.getMessage());
+            Thread.currentThread().interrupt();
             return true;
         }
     }
@@ -268,21 +275,22 @@ public class Table {
 
             JsonObject body = new JsonObject();
             body.addProperty("name", name);
-            body.add("fields", fields);
+            body.add(FIELDS_KEY, fields);
 
             post.setEntity(new StringEntity(body.toString()));
 
             return client.execute(post, AirTable.responseHandler);
         } catch (IOException e) {
-            Logs.writeLog("Error: Could not create table: " + name + " with message: " + e.getMessage());
+            Logs.writeLog("Error: Could not create table: " + name + ERROR_MESSAGE + e.getMessage());
             return null;
         }
     }
 
     // write to xlsx file
     protected void writeTableToXlsx(String path) {
-        try {
-            XSSFWorkbook workbook = new XSSFWorkbook();
+        try (XSSFWorkbook workbook = new XSSFWorkbook();
+            FileOutputStream outputStream = new FileOutputStream(path)) {
+
             XSSFSheet sheet = workbook.createSheet(name);
 
             List<String> headers = new ArrayList<>();
@@ -298,26 +306,23 @@ public class Table {
             }
 
             // write records
-            for (Record record : records) {
-                Row row = sheet.createRow(records.indexOf(record) + 1);
-                JsonObject fields = record.getFields();
+            for (Record rec : records) {
+                Row row = sheet.createRow(records.indexOf(rec) + 1);
+                JsonObject recordFields = rec.getFields();
                 for (String header : headers) {
                     Cell cell = row.createCell(headers.indexOf(header));
-                    if (fields.has(header)) {
-                        JsonElement field = fields.get(header);
+                    if (recordFields.has(header)) {
+                        JsonElement field = recordFields.get(header);
                         cell.setCellValue(field.toString());
                     }
                 }
             }
 
             // write to file
-            FileOutputStream outputStream = new FileOutputStream(path);
             workbook.write(outputStream);
-            workbook.close();
-            outputStream.close();
             Logs.writeLog("Wrote table: " + name + " to file: " + path);
         } catch (IOException e) {
-            Logs.writeLog("Error: Could not write table: " + name + " to file: " + path + " with message: " + e.getMessage());
+            Logs.writeLog("Error: Could not write table: " + name + " to file: " + path + ERROR_MESSAGE + e.getMessage());
         }
     }
 }
