@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import airtable.AirTable;
 import Slack.Channel;
@@ -20,6 +20,9 @@ import java.util.concurrent.CompletableFuture;
 public class MainUI {
     private final AirTable airTable;
     private final Slack slack;
+    private static final String LOCAL_SYNC_NOT_SUCCESS = "localSyncNotSuccess";
+    private static final String ENTER_CHANNEL_NAME = "enterChannelName";
+    private static final String INVALID_TIME = "invalidTime";
     private JPanel mainPanel;
     private JButton createChannelsButton;
     private JButton addUserToChannelButton;
@@ -82,7 +85,7 @@ public class MainUI {
 
     private void listAllChannels(){
         if (!slack.syncLocal()) {
-            status.setText(language.get("localSyncNotSuccess").getAsString());
+            status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
         }
         List<Channel> channels = slack.getChannels();
@@ -91,7 +94,7 @@ public class MainUI {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         for (var channel : channels){
             String json = gson.toJson(channel.toJson());
-            String html = "<html>" + json.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp;") + "</html>";
+            String html = "<html>" + json.replace("\n", "<br>").replace(" ", "&nbsp;") + "</html>";
             model.addElement(html);
         }
         list.setModel(model);
@@ -100,7 +103,7 @@ public class MainUI {
 
     private void listAllUsers(){
         if (!slack.syncLocal()) {
-            status.setText(language.get("localSyncNotSuccess").getAsString());
+            status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
         }
         List<SlackUser> users = slack.getUsers();
@@ -109,7 +112,7 @@ public class MainUI {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         for (var user : users){
             String json = gson.toJson(user.toJson());
-            String html = "<html>" + json.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp;") + "</html>";
+            String html = "<html>" + json.replace("\n", "<br>").replace(" ", "&nbsp;") + "</html>";
             model.addElement(html);
         }
         list.setModel(model);
@@ -117,7 +120,7 @@ public class MainUI {
     }
 
     private void createChannel(){
-        String channelName = JOptionPane.showInputDialog(language.get("enterChannelName").getAsString());
+        String channelName = JOptionPane.showInputDialog(language.get(ENTER_CHANNEL_NAME).getAsString());
         boolean isPrivate = JOptionPane.showConfirmDialog(null, language.get("isPrivate?").getAsString(), language.get("private").getAsString(), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 
         if (channelName == null)
@@ -131,10 +134,10 @@ public class MainUI {
 
     private void addUserToChannel(){
         if (!slack.syncLocal()) {
-            status.setText(language.get("localSyncNotSuccess").getAsString());
+            status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
         }
-        String channelName = JOptionPane.showInputDialog(language.get("enterChannelName").getAsString());
+        String channelName = JOptionPane.showInputDialog(language.get(ENTER_CHANNEL_NAME).getAsString());
         Channel channel = slack.getChannel(channelName);
         if (channel == null){
             status.setText(language.get("channelNotFound").getAsString());
@@ -167,10 +170,10 @@ public class MainUI {
 
     private void removeUserFromChannel(){
         if (!slack.syncLocal()) {
-            status.setText(language.get("localSyncNotSuccess").getAsString());
+            status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
         }
-        String channelName = JOptionPane.showInputDialog(language.get("enterChannelName").getAsString());
+        String channelName = JOptionPane.showInputDialog(language.get(ENTER_CHANNEL_NAME).getAsString());
         Channel channel = slack.getChannel(channelName);
         if (channel == null){
             status.setText(language.get("channelNotFound").getAsString());
@@ -203,7 +206,7 @@ public class MainUI {
     private void syncData(){
         long start = System.currentTimeMillis();
         if (!slack.syncLocal()) {
-            status.setText(language.get("localSyncNotSuccess").getAsString());
+            status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
         }
         long end = System.currentTimeMillis();
@@ -222,21 +225,25 @@ public class MainUI {
             return;
         String[] timeSplit = time.split(":");
         if (timeSplit.length != 3){
-            status.setText(language.get("invalidTime").getAsString());
+            status.setText(language.get(INVALID_TIME).getAsString());
             return;
         }
-        int hour, minute, second;
+
+        int hour;
+        int minute;
+        int second;
+
         try {
             hour = Integer.parseInt(timeSplit[0]);
             minute = Integer.parseInt(timeSplit[1]);
             second = Integer.parseInt(timeSplit[2]);
         } catch (NumberFormatException e){
-            status.setText(language.get("invalidTime").getAsString());
+            status.setText(language.get(INVALID_TIME).getAsString());
             return;
         }
 
         if (hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59){
-            status.setText(language.get("invalidTime").getAsString());
+            status.setText(language.get(INVALID_TIME).getAsString());
             return;
         }
         dataSyncTask.setTimeSync(hour, minute, second);
@@ -345,7 +352,7 @@ public class MainUI {
 
     private static JFrame createLoadingDialog() {
         JFrame frame = new JFrame("Loading");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(400, 100);
         frame.setLocationRelativeTo(null);
         JLabel loadingLabel = new JLabel("Loading...");
@@ -358,7 +365,7 @@ public class MainUI {
     private static void showErrorDialog() {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Error");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setSize(400, 100);
             frame.setLocationRelativeTo(null);
             JLabel errorLabel = new JLabel("Error to connect to Slack or AirTable");
@@ -373,7 +380,7 @@ public class MainUI {
             JFrame frame = new JFrame("MainUI");
             MainUI mainUI = new MainUI(airTable, slack);
             frame.setContentPane(mainUI.mainPanel);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

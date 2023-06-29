@@ -5,8 +5,6 @@
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 N
 src/main/java/Main/MainUI.form,3\e\3ed49e0c3cb1ac3d438adde97e36578524022748
-\
-,src/main/java/Main/ColorfulCellRenderer.java,a\4\a4990a17f97dc6ea013a7137db867d9a6e2d270b
 P
  src/main/java/Slack/Channel.java,f\f\ffeaaceea1783adda5aa6c85ddc53cec8a5b8360
 N
