@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.concurrent.*;
 
 public class Slack {
+    private static final String SLACK_USER = "SlackUser ";
+    private static final String ADD_TO_CHANNEL = " added to channel ";
+    private static final String FAILED_MESSAGE = " failed";
+    private static final String REMOVE_FROM_CHANNEL = " removed from channel ";
     private MethodsClient client;
     private List<SlackUser> users;
     private List<Channel> channels;
@@ -63,6 +67,7 @@ public class Slack {
         executorService.shutdown();
         return true;
         } catch (InterruptedException | ExecutionException e) {
+            Thread.currentThread().interrupt();
             return false;
         }
     }
@@ -100,49 +105,49 @@ public class Slack {
     public boolean addUserToChannel(Channel channel, SlackUser user) {
         int userIndex = users.indexOf(user);
         if (userIndex == -1) {
-            Logs.writeLog("SlackUser " + user.getEmail() + " added to channel " + channel.getName() + " failed");
+            Logs.writeLog(SLACK_USER + user.getEmail() + ADD_TO_CHANNEL + channel.getName() + FAILED_MESSAGE);
             return false;
         }
 
         int channelIndex = channels.indexOf(channel);
         if (channelIndex == -1) {
-            Logs.writeLog("SlackUser " + user.getEmail() + " added to channel " + channel.getName() + " failed");
+            Logs.writeLog(SLACK_USER + user.getEmail() + ADD_TO_CHANNEL + channel.getName() + FAILED_MESSAGE);
             return false;
         }
 
 
         if (channels.get(channelIndex).addUser(user.getId(), client)){
             users.get(userIndex).addChannelId(channel.getId());
-            Logs.writeLog("SlackUser " + user.getEmail() + " added to channel " + channel.getName());
+            Logs.writeLog(SLACK_USER + user.getEmail() + ADD_TO_CHANNEL + channel.getName());
             return true;
         }
-        Logs.writeLog("SlackUser " + user.getEmail() + " added to channel " + channel.getName() + " failed");
+        Logs.writeLog(SLACK_USER + user.getEmail() + ADD_TO_CHANNEL + channel.getName() + FAILED_MESSAGE);
         return false;
     }
     public boolean removeUserFromChannel(Channel channel, SlackUser user) {
         int userIndex = users.indexOf(user);
         if (userIndex == -1) {
-            Logs.writeLog("SlackUser " + user.getEmail() + " remove to channel " + channel.getName() + " failed");
+            Logs.writeLog(SLACK_USER + user.getEmail() + REMOVE_FROM_CHANNEL + channel.getName() + FAILED_MESSAGE);
             return false;
         }
 
         int channelIndex = channels.indexOf(channel);
         if (channelIndex == -1) {
-            Logs.writeLog("SlackUser " + user.getEmail() + " remove to channel " + channel.getName() + " failed");
+            Logs.writeLog(SLACK_USER + user.getEmail() + REMOVE_FROM_CHANNEL + channel.getName() + FAILED_MESSAGE);
             return false;
         }
 
         if (channels.get(channelIndex).removeUser(user.getId(), client)){
             users.get(userIndex).removeChannelId(channel.getId());
-            Logs.writeLog("SlackUser " + user.getEmail() + " removed from channel " + channel.getName());
+            Logs.writeLog(SLACK_USER + user.getEmail() + REMOVE_FROM_CHANNEL + channel.getName());
             return true;
         }
         if (SlackUser.LeaveChannel(channel.getId(), client)) {
             users.get(userIndex).removeChannelId(channel.getId());
-            Logs.writeLog("SlackUser " + user.getEmail() + " removed from channel " + channel.getName());
+            Logs.writeLog(SLACK_USER + user.getEmail() + REMOVE_FROM_CHANNEL + channel.getName());
             return true;
         }
-        Logs.writeLog("SlackUser " + user.getEmail() + " removed from channel " + channel.getName() + " failed");
+        Logs.writeLog(SLACK_USER + user.getEmail() + REMOVE_FROM_CHANNEL + channel.getName() + FAILED_MESSAGE);
         return false;
     }
     public boolean createChannel(String name, boolean isPrivate) {
