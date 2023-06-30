@@ -12,6 +12,7 @@ import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class Record{
@@ -133,7 +134,7 @@ public class Record{
             patch.setHeader(AUTHORIZATION_HEADER, AUTHORIZATION_VALUE_PREFIX + token);
             patch.setHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
 
-            patch.setEntity(new StringEntity(records.toString()));
+            patch.setEntity(new StringEntity(records.toString(), StandardCharsets.UTF_8));
 
             return client.execute(patch, AirTable.responseHandler);
         } catch (IOException e) {
@@ -149,7 +150,7 @@ public class Record{
             post.setHeader(AUTHORIZATION_HEADER, AUTHORIZATION_VALUE_PREFIX + token);
             post.setHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
 
-            post.setEntity(new StringEntity(records.toString()));
+            post.setEntity(new StringEntity(records.toString(), StandardCharsets.UTF_8));
 
             return client.execute(post, AirTable.responseHandler);
         } catch (IOException e) {

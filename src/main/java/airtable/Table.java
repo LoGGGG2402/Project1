@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -311,7 +312,7 @@ public class Table {
             body.addProperty("name", name);
             body.add(FIELDS_KEY, fields);
 
-            post.setEntity(new StringEntity(body.toString()));
+            post.setEntity(new StringEntity(body.toString(), StandardCharsets.UTF_8));
 
             return client.execute(post, AirTable.responseHandler);
         } catch (IOException e) {

@@ -9,6 +9,7 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 public class Field {
     private final String name;
@@ -36,7 +37,7 @@ public class Field {
             HttpPost post = new HttpPost(uri);
             post.setHeader("Authorization", "Bearer " + token);
             post.setHeader("Content-Type", "application/json");
-            post.setEntity(new StringEntity(field.toString()));
+            post.setEntity(new StringEntity(field.toString(), StandardCharsets.UTF_8));
 
             return client.execute(post, AirTable.responseHandler);
 
