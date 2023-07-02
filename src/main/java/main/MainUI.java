@@ -231,9 +231,10 @@ public class MainUI {
 
         if (airTable.pushData(slack.getChannels(), slack.getUsers(), true))
             status.setText(language.get("dataSynced").getAsString());
-        else
+        else{
             status.setText(language.get("dataNotSynced").getAsString());
-
+            airTable.reSync();
+        }
     }
 
     private void setSyncTime(){

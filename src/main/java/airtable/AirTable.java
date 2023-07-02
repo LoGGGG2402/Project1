@@ -233,4 +233,9 @@ public class AirTable {
         userTable.writeTableToXlsx(path + "/users.xlsx");
         taskTable.writeTableToXlsx(path + "/tasks.xlsx");
     }
+
+    public void reSync() {
+        channelTable.syncRecord(base, token);
+        userTable.syncRecord(base, token);
+    }
 }
