@@ -23,7 +23,9 @@ public class Table {
     private static final String ERROR_MESSAGE = " with message: ";
     private static final String IN_TABLE_MESSAGE = " in table: ";
     private static final String RECORDS_KEY = "records";
-    private int numChanges;
+    private int numDeletions = 0;
+    private int numAdditions = 0;
+    private int numUpdates = 0;
     private final String id;
     private final String name;
     private final List<Field> fields = new ArrayList<>();
@@ -57,21 +59,25 @@ public class Table {
     }
 
     // Getters
-    protected String getName() {
-        return this.name;
-    }
     protected String getId() {
         return this.id;
     }
-    protected int getNumChanges() {
-        return numChanges;
+
+    protected int getNumDeletions() {
+        return numDeletions;
     }
-    protected int getNumRecords() {
-        return records.size();
+
+    protected int getNumAdditions() {
+        return numAdditions;
     }
+
+    protected int getNumUpdates() {
+        return numUpdates;
+    }
+
     protected Record getRecord(String id) {
         for (Record rec : this.records) {
-            if (rec.getId().equals(id)) {
+            if (rec.getId() != null && rec.getId().equals(id)) {
                 return rec;
             }
         }
@@ -104,40 +110,94 @@ public class Table {
 
 
     // Handle Records
+
+    protected boolean pullMultipleRecord(List<JsonObject> listNewRecords, String baseId, String token) {
+        // Get records to delete, add and update
+        // Define all records to need to delete
+        List<Record> listDelete = new ArrayList<>(records);
+        // Define all new records to need to add
+        List<JsonObject> listAdd = new ArrayList<>(listNewRecords);
+        // Define no records need to update
+        Map<Record, JsonObject> listUpdate = new HashMap<>();
+
+        for (JsonObject field : listNewRecords) {
+            // Check if new record exists in current records
+            String fieldId = field.get("Id").getAsString();
+            Record rec = getRecord(fieldId);
+            if (rec != null) {
+                // If record exists, remove from delete list and add list
+                listDelete.remove(rec);
+                listAdd.remove(field);
+                // Check if record needs to be updated
+                if(!rec.equals(field, this.fields)){
+                    listUpdate.put(rec, field);
+                }
+            }
+        }
+
+        numAdditions = listAdd.size();
+        numDeletions = listDelete.size();
+        numUpdates = listUpdate.size();
+        if (numAdditions + numDeletions + numUpdates == 0) {
+            Logs.writeLog("Info: No changes in table: " + name);
+            return false;
+        }
+        try(ExecutorService executorService = Executors.newFixedThreadPool(3)){
+            List<Future<Boolean>> futures = executorService.invokeAll(Arrays.asList(
+                    () -> deleteMultipleRecords(listDelete, baseId, token),
+                    () -> addMultipleRecords(listAdd, baseId, token),
+                    () -> updateMultipleRecords(listUpdate, baseId, token)
+            ));
+            for (Future<Boolean> future : futures) {
+                if (Boolean.FALSE.equals(future.get())) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (InterruptedException | ExecutionException e) {
+            Logs.writeLog("Error: Could not pull multiple records in table: " + name + ERROR_MESSAGE + e.getMessage());
+            Thread.currentThread().interrupt();
+            return true;
+        }
+    }
+
+
     private boolean updateMultipleRecords(Map<Record, JsonObject> listUpdate, String baseId, String token) {
         if (listUpdate.isEmpty()) {
             return true;
         }
 
-        try (ExecutorService executorService = Executors.newFixedThreadPool(10)){ // Number of parallel threads
+        try (ExecutorService executorService = Executors.newFixedThreadPool(10)) { // Number of parallel threads
             JsonArray newRecords = new JsonArray();
             List<Record> recordsUpdate = new ArrayList<>();
             int sized = listUpdate.size();
 
             for (Map.Entry<Record, JsonObject> entry : listUpdate.entrySet()) {
+                // Get record needed to update and the fields to update
                 Record rec = entry.getKey();
                 JsonObject updateFields = entry.getValue();
 
+                // Create the json object to update the record
                 JsonObject recordJson = new JsonObject();
                 recordJson.addProperty("id", rec.getRecordId());
                 recordJson.add(FIELDS_KEY, updateFields);
+
+                // Add the record to the list of records to update
                 newRecords.add(recordJson);
                 recordsUpdate.add(rec);
 
+                // If the list of records to update is 10 or the last record, submit the update task
                 if (newRecords.size() >= 10 || newRecords.size() == sized) {
                     submitUpdateTask(executorService, newRecords, recordsUpdate, baseId, token);
+                    sized -= newRecords.size();
                     newRecords = new JsonArray();
                     recordsUpdate = new ArrayList<>();
-                    sized -= 10;
                 }
             }
 
             executorService.shutdown();
-            if (!executorService.awaitTermination(5, TimeUnit.MINUTES)) {
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+        }catch (Exception e){
+            Logs.writeLog("Error: Could not update multiple records in table: " + name + ERROR_MESSAGE + e.getMessage());
             return false;
         }
 
@@ -145,17 +205,26 @@ public class Table {
     }
     private void submitUpdateTask(ExecutorService executorService, JsonArray records, List<Record> recordsUpdate, String baseId, String token) {
         executorService.submit(() -> {
+
+            // Create the body to update the records
             JsonObject body = new JsonObject();
             body.add(RECORDS_KEY, records);
 
+            // Update the records
             String response = Record.updateMultipleRecords(body, id, baseId, token);
+
+            // Check if the update was successful
             if (response == null) {
                 Logs.writeLog("Error: Could not update multiple records in table: " + name);
             } else {
                 Logs.writeLog("Updated " + records.size() + " records in table: " + name);
+
+                // Remove the records that were updated
                 for (Record recordUpdate : recordsUpdate) {
                     this.records.remove(recordUpdate);
                 }
+
+                // Add the updated records to the table
                 JsonArray recordsResponse = JsonParser.parseString(response)
                         .getAsJsonObject()
                         .get(RECORDS_KEY)
@@ -177,24 +246,23 @@ public class Table {
             int sized = listAdd.size();
 
             for (JsonObject addFields : listAdd) {
+                // Create the json object to add the record
                 JsonObject recordJson = new JsonObject();
                 recordJson.add(FIELDS_KEY, addFields);
+
+                // Add the record to the list of records to add
                 newRecords.add(recordJson);
 
                 if (newRecords.size() >= 10 || newRecords.size() == sized) {
                     submitRecordsTask(executorService, newRecords, baseId, token);
+                    sized -= newRecords.size();
                     newRecords = new JsonArray();
-                    sized -= 10;
                 }
             }
 
             executorService.shutdown();
-
-            if (!executorService.awaitTermination(5, TimeUnit.MINUTES)) {
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+        }catch (Exception e){
+            Logs.writeLog("Error: Could not add multiple records in table: " + name + ERROR_MESSAGE + e.getMessage());
             return false;
         }
 
@@ -202,14 +270,20 @@ public class Table {
     }
     private void submitRecordsTask(ExecutorService executorService, JsonArray records, String baseId, String token) {
         executorService.submit(() -> {
+            // Create the body to add the records
             JsonObject body = new JsonObject();
             body.add(RECORDS_KEY, records);
 
+            // Add the records
             String response = Record.addMultipleRecords(body, id, baseId, token);
+
+            // Check if the add was successful
             if (response == null) {
                 Logs.writeLog("Error: Could not add multiple records in table: " + name);
             } else {
                 Logs.writeLog("Added " + body.get(RECORDS_KEY).getAsJsonArray().size() + " records in table: " + name);
+
+                // Add the added records to the table
                 JsonArray recordsResponse = JsonParser.parseString(response)
                         .getAsJsonObject()
                         .get(RECORDS_KEY)
@@ -248,43 +322,6 @@ public class Table {
             return false;
         }
         return true;
-    }
-    protected boolean pullMultipleRecord(List<JsonObject> fields, String baseId, String token) {
-        List<Record> listDelete = new ArrayList<>(records);
-
-        List<JsonObject> listAdd = new ArrayList<>(fields);
-        Map<Record, JsonObject> listUpdate = new HashMap<>();
-
-        for (JsonObject field : fields) {
-            String fieldId = field.get("Id").getAsString();
-            Record rec = getRecord(fieldId);
-            if (rec != null) {
-                listDelete.remove(rec);
-                listAdd.remove(field);
-                if(!rec.equals(field, this.fields)){
-                    listUpdate.put(rec, field);
-                }
-            }
-        }
-
-        numChanges = listDelete.size() + listAdd.size() + listUpdate.size();
-        try(ExecutorService executorService = Executors.newFixedThreadPool(3)){
-            List<Future<Boolean>> futures = executorService.invokeAll(Arrays.asList(
-                    () -> deleteMultipleRecords(listDelete, baseId, token),
-                    () -> addMultipleRecords(listAdd, baseId, token),
-                    () -> updateMultipleRecords(listUpdate, baseId, token)
-            ));
-            for (Future<Boolean> future : futures) {
-                if (Boolean.FALSE.equals(future.get())) {
-                    return true;
-                }
-            }
-            return false;
-        } catch (InterruptedException | ExecutionException e) {
-            Logs.writeLog("Error: Could not pull multiple records in table: " + name + ERROR_MESSAGE + e.getMessage());
-            Thread.currentThread().interrupt();
-            return true;
-        }
     }
 
     // API Methods

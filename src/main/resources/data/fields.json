@@ -135,10 +135,7 @@
   ],
   "Tasks": [
     {
-      "type": "number",
-      "options": {
-        "precision": 0
-      },
+      "type": "singleLineText",
       "name": "Id"
     },
     {
@@ -154,7 +151,21 @@
       "options": {
         "precision": 0
       },
-      "name": "Num of changes"
+      "name": "Num of additions"
+    },
+    {
+      "type": "number",
+      "options": {
+        "precision": 0
+      },
+      "name": "Num of updates"
+    },
+    {
+      "type": "number",
+      "options": {
+        "precision": 0
+      },
+      "name": "Num of deletions"
     },
     {
       "type": "dateTime",

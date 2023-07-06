@@ -30,9 +30,7 @@ public class Field {
 
     // API Methods
     protected static String createField(JsonObject field, String tableId, String baseId, String token) {
-
         URI uri = URI.create("https://api.airtable.com/v0/meta/bases/" + baseId + "/tables/" + tableId + "/fields");
-
         try(CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpPost post = new HttpPost(uri);
             post.setHeader("Authorization", "Bearer " + token);

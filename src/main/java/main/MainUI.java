@@ -2,12 +2,14 @@ package main;
 
 import airtable.AirTable;
 import com.google.gson.*;
+import logs.Logs;
 import slack.Channel;
 import slack.Slack;
 import slack.SlackUser;
 import synctask.DataSyncTask;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -79,6 +81,7 @@ public class MainUI {
         changeLanguageButton.setText(language.get("changeLanguage").getAsString());
         listAllChannelsButton.setText(language.get("listChannelButton").getAsString());
         listAllUsersButton.setText(language.get("listUserButton").getAsString());
+
     }
 
     private void listAllChannels(){
@@ -140,10 +143,10 @@ public class MainUI {
 
     private void createChannel(){
         String channelName = JOptionPane.showInputDialog(language.get(ENTER_CHANNEL_NAME).getAsString());
-        boolean isPrivate = JOptionPane.showConfirmDialog(null, language.get("isPrivate?").getAsString(), language.get("private").getAsString(), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 
-        if (channelName == null)
+        if (channelName == null || channelName.isEmpty())
             return;
+        boolean isPrivate = JOptionPane.showConfirmDialog(null, language.get("isPrivate?").getAsString(), language.get("private").getAsString(), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 
         if (slack.createChannel(channelName, isPrivate))
             status.setText(language.get("channelCreated").getAsString());
@@ -152,11 +155,13 @@ public class MainUI {
     }
 
     private void addUserToChannel(){
+        String channelName = JOptionPane.showInputDialog(language.get(ENTER_CHANNEL_NAME).getAsString());
+        if (channelName == null || channelName.isEmpty())
+            return;
         if (!slack.syncLocal()) {
             status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
         }
-        String channelName = JOptionPane.showInputDialog(language.get(ENTER_CHANNEL_NAME).getAsString());
         Channel channel = slack.getChannel(channelName);
         if (channel == null){
             status.setText(language.get("channelNotFound").getAsString());
@@ -188,11 +193,13 @@ public class MainUI {
     }
 
     private void removeUserFromChannel(){
+        String channelName = JOptionPane.showInputDialog(language.get(ENTER_CHANNEL_NAME).getAsString());
+        if (channelName == null || channelName.isEmpty())
+            return;
         if (!slack.syncLocal()) {
             status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
         }
-        String channelName = JOptionPane.showInputDialog(language.get(ENTER_CHANNEL_NAME).getAsString());
         Channel channel = slack.getChannel(channelName);
         if (channel == null){
             status.setText(language.get("channelNotFound").getAsString());
@@ -223,7 +230,7 @@ public class MainUI {
     }
 
     private void syncData(){
-
+        long start = System.currentTimeMillis();
         if (!slack.syncLocal()) {
             status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
             return;
@@ -235,6 +242,10 @@ public class MainUI {
             status.setText(language.get("dataNotSynced").getAsString());
             airTable.reSync();
         }
+
+        long end = System.currentTimeMillis();
+
+        Logs.writeLog("Synced data in " + (end - start) + "ms");
     }
 
     private void setSyncTime(){
@@ -270,7 +281,7 @@ public class MainUI {
 
     private void toXlsx(){
         String path = JOptionPane.showInputDialog(language.get("enterPath").getAsString());
-        if (path == null)
+        if (path == null || path.isEmpty())
             return;
         // check valid directory path
         File dir = new File(path);
@@ -343,7 +354,12 @@ public class MainUI {
 
 
                 if (!airTable.isActive() || !slack.isActive()) {
-                    showErrorDialog("Cannot connect to AirTable or Slack");
+                    if (airTable.isActive())
+                        showErrorDialog("Error: Could not connect to Slack (please check your internet connection or your Slack API token)");
+                    else if (slack.isActive())
+                        showErrorDialog("Error: Could not connect to AirTable (please check your internet connection or your AirTable API token and base ID)");
+                    else
+                        showErrorDialog("Error: Could not connect to Slack and AirTable (please check your internet connection or your Slack and AirTable API token)");
                     isDone = false;
                     return null;
                 }
@@ -380,14 +396,24 @@ public class MainUI {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Error");
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.setSize(400, 100);
+            frame.setSize(400, 200);
             frame.setLocationRelativeTo(null);
-            JLabel errorLabel = new JLabel(message);
-            errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            frame.add(errorLabel);
+
+            // Create a JTextArea to display the error message with scrollbars
+            JTextArea errorTextArea = new JTextArea(message);
+            errorTextArea.setLineWrap(true);
+            errorTextArea.setWrapStyleWord(true);
+            errorTextArea.setEditable(false);
+
+            JScrollPane scrollPane = new JScrollPane(errorTextArea); // Wrap the JTextArea in a JScrollPane
+
+            // Add the scroll pane to the center of the frame's content pane
+            frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
             frame.setVisible(true);
         });
     }
+
 
     private static void showMainUI(AirTable airTable, Slack slack) {
         SwingUtilities.invokeLater(() -> {

@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -45,12 +46,12 @@ public class AirTable {
 
     public AirTable() {
         try {
-            FileReader fileReader = new FileReader("src/main/resources/data/Info.json");
+            FileReader fileReader = new FileReader("src/main/resources/data/config.json");
             JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
             this.token = jsonObject.get("airtable").getAsString();
             this.base = jsonObject.get("base").getAsString();
         } catch (FileNotFoundException e) {
-            Logs.writeLog("Error: Could not find Info.json");
+            Logs.writeLog("Error: Could not find config.json");
             this.isActive = false;
             return;
         }
@@ -80,25 +81,19 @@ public class AirTable {
                channelTable = validTable(channelTable, "Channels");
                if (channelTable == null) {
                    isActive = false;
-                   return;
                }
-               channelTable.syncRecord(base, token);
             });
             executor.submit(() -> {
             userTable = validTable(userTable, USERS_TABLE_NAME);
             if (userTable == null) {
                  isActive = false;
-                 return;
             }
-            userTable.syncRecord(base, token);
             });
             executor.submit(() -> {
                 taskTable = validTable(taskTable, "Tasks");
                 if (taskTable == null) {
                      isActive = false;
-                     return;
                 }
-                taskTable.syncRecord(base, token);
             });
 
             executor.shutdown();
@@ -200,14 +195,17 @@ public class AirTable {
         return true;
     }
     public boolean pushData(List<Channel> channels, List<SlackUser> users, boolean isManual) {
+        reSync();
         if (!pushUsers(users)) return false;
         if (!pushChannels(channels)) return false;
 
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("Id", taskTable.getNumRecords()+1);
+        jsonObject.addProperty("Id", UUID.randomUUID().toString());
         jsonObject.addProperty("Is Manual", isManual);
-        jsonObject.addProperty("Num of changes", channelTable.getNumChanges()+userTable.getNumChanges());
+        jsonObject.addProperty("Num of additions", channelTable.getNumAdditions()+userTable.getNumAdditions());
+        jsonObject.addProperty("Num of updates", channelTable.getNumUpdates()+userTable.getNumUpdates());
+        jsonObject.addProperty("Num of deletions", channelTable.getNumDeletions()+userTable.getNumDeletions());
 
         long time = System.currentTimeMillis();
         Instant instant = Instant.ofEpochMilli(time);
@@ -224,6 +222,7 @@ public class AirTable {
         return true;
     }
     public void exportToXlsx(String path) {
+        reSync();
         File file = new File(path);
         if (!file.exists() && !file.mkdirs()) {
             Logs.writeLog("Error: Could not create directory " + path + ".");
