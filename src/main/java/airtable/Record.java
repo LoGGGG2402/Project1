@@ -29,10 +29,8 @@ public class Record{
     Record(JsonObject jsonRecord) {
         this.recordId = jsonRecord.get("id").getAsString();
         this.fields = jsonRecord.get("fields").getAsJsonObject();
-        if (this.fields.has("Id")){
+        if (this.fields.has("Id"))
             this.id = this.fields.get("Id").getAsString();
-        }
-
         else
             this.id = null;
     }
@@ -74,6 +72,10 @@ public class Record{
         return fieldType.contains("date") && oldVal.replaceAll(".000Z", "Z").equals(newVal);
     }
     private boolean multipleRecordLinksEqual(JsonArray newValArray, JsonArray oldValArray) {
+        if (oldValArray == null && newValArray == null)
+            return true;
+        if (oldValArray == null || newValArray == null)
+            return false;
         if (oldValArray.size() != newValArray.size())
             return false;
         for (var element : oldValArray){

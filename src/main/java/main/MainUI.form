@@ -26,7 +26,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="List All Users"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="8b5b1" class="javax.swing.JButton" binding="listAllChannelsButton" default-binding="true">
@@ -34,7 +34,7 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="List All Channels"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="d5548" class="javax.swing.JButton" binding="createChannelsButton" default-binding="true">
@@ -42,7 +42,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Create Channels"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="3bb1d" class="javax.swing.JButton" binding="addUserToChannelButton" default-binding="true">
@@ -50,7 +50,7 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Add User to Channel"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="74500" class="javax.swing.JButton" binding="removeUserFromChannelButton" default-binding="true">
@@ -58,7 +58,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Remove User from Channel"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="f7d66" class="javax.swing.JButton" binding="airTableToXlsxButton" default-binding="true">
@@ -66,7 +66,7 @@
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="airtable to xlsx"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="f29dd" class="javax.swing.JButton" binding="syncButton" default-binding="true">
@@ -74,7 +74,7 @@
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Sync"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="b3852" class="javax.swing.JButton" binding="setSyncTimeButton" default-binding="true">
@@ -82,7 +82,7 @@
               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Set Sync Time"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="4c111" class="javax.swing.JButton" binding="changeLanguageButton">
@@ -90,7 +90,7 @@
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Change Language"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
@@ -105,19 +105,6 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="e990b" class="javax.swing.JTextField" binding="status">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-6358350"/>
-              <editable value="false"/>
-              <enabled value="false"/>
-              <foreground color="-387784"/>
-            </properties>
-          </component>
           <scrollpane id="628a0">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -129,6 +116,28 @@
                 <constraints/>
                 <properties>
                   <model/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <scrollpane id="49a87">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="60"/>
+                <preferred-size width="-1" height="60"/>
+                <maximum-size width="-1" height="60"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="e990b" class="javax.swing.JTextField" binding="status">
+                <constraints/>
+                <properties>
+                  <background color="-6358350"/>
+                  <editable value="false"/>
+                  <enabled value="false"/>
+                  <foreground color="-387784"/>
                 </properties>
               </component>
             </children>

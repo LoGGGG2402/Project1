@@ -22,8 +22,9 @@ public class Slack {
     private List<Channel> channels;
     private final boolean active;
     public Slack() {
+        long start = System.currentTimeMillis();
         try {
-            FileReader fileReader = new FileReader("src/main/resources/data/Info.json");
+            FileReader fileReader = new FileReader("src/main/resources/data/config.json");
             JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
             String token = jsonObject.get("slack").getAsString();
             this.client = com.slack.api.Slack.getInstance().methods(token);
@@ -32,6 +33,7 @@ public class Slack {
             return;
         }
         active = syncLocal();
+        Logs.writeLog("Slack started in " + (System.currentTimeMillis() - start) + " ms");
     }
 
     // Sync local data with Slack
