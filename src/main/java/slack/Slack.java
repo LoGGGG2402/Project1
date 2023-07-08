@@ -9,7 +9,9 @@ import com.slack.api.model.Conversation;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 public class Slack {
@@ -57,7 +59,7 @@ public class Slack {
             }
 
             executorService.shutdown();
-            return true;
+            return !Objects.equals(users, Collections.emptyList()) || !Objects.equals(channels, Collections.emptyList());
         } catch (InterruptedException | ExecutionException e) {
             Thread.currentThread().interrupt();
             return false;

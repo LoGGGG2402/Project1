@@ -42,7 +42,7 @@ public class MainUI {
     public MainUI(AirTable airTable, Slack slack) {
         this.airTable = airTable;
         this.slack = slack;
-        dataSyncTask = new DataSyncTask(airTable, slack);
+        dataSyncTask = new DataSyncTask();
         dataSyncTask.setTimeSync(0, 0, 0);
 
 
@@ -63,13 +63,12 @@ public class MainUI {
         File file = new File("src/main/resources/data/en.json");
         try {
             if (file.exists()) {
-                Gson gson = new Gson();
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 FileReader fileReader = new FileReader(file);
                 language = gson.fromJson(fileReader, JsonObject.class);
             }
         } catch (FileNotFoundException e) {
             showErrorDialog("Error: Could not find language file");
-
         }
 
         createChannelsButton.setText(language.get("createChannelButton").getAsString());
@@ -151,7 +150,7 @@ public class MainUI {
         if (slack.createChannel(channelName, isPrivate))
             status.setText(language.get("channelCreated").getAsString());
         else
-            status.setText(language.get("channelNotCreated").getAsString());
+            status.setText(language.get("ChannelNotCreated").getAsString());
     }
 
     private void addUserToChannel(){
@@ -322,7 +321,6 @@ public class MainUI {
                 listAllChannelsButton.setText(language.get("listChannelButton").getAsString());
 
                 listAllUsersButton.setText(language.get("listUserButton").getAsString());
-
             }
             else {
                 status.setText(language.get("languageNotChanged").getAsString());

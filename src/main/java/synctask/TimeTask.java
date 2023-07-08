@@ -14,9 +14,9 @@ class TimeTask extends java.util.TimerTask {
     private final AirTable airtable;
     private final Slack slack;
 
-    public TimeTask(AirTable airtable, Slack slack) {
-        this.airtable = airtable;
-        this.slack = slack;
+    public TimeTask() {
+        this.airtable = new AirTable();
+        this.slack = new Slack();
     }
 
     @Override
@@ -30,5 +30,4 @@ class TimeTask extends java.util.TimerTask {
         }
         Logs.writeLog("Scheduled sync completed");
     }
-
 }

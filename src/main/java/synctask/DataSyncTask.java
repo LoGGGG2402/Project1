@@ -1,22 +1,15 @@
 package synctask;
 
-import airtable.AirTable;
-import slack.Slack;
-
 import java.util.Calendar;
 import java.util.Timer;
 
 public class DataSyncTask {
-    private final AirTable airtable;
-    private final Slack slack;
     private final Timer timer;
     private TimeTask timeTask;
 
-    public DataSyncTask(AirTable airtable, Slack slack) {
-        this.airtable = airtable;
-        this.slack = slack;
+    public DataSyncTask() {
         timer = new Timer();
-        timeTask = new TimeTask(airtable, slack);
+        timeTask = new TimeTask();
     }
 
     public void setTimeSync(int hour, int minute, int second) {
@@ -27,7 +20,7 @@ public class DataSyncTask {
 
         timeTask.cancel();
 
-        timeTask = new TimeTask(airtable, slack);
+        timeTask = new TimeTask();
 
         if (calendar.getTime().compareTo(Calendar.getInstance().getTime()) < 0)
             calendar.add(Calendar.DAY_OF_MONTH, 1);
