@@ -38,13 +38,14 @@ public class Table {
         table.get(FIELDS_KEY).getAsJsonArray().forEach(field -> this.fields.add(new Field(field.getAsJsonObject())));
     }
 
-    protected void syncRecord(String baseId, String token) {
+    protected boolean syncRecord(String baseId, String token) {
         records.clear();
         String offset = null;
         while (true){
             String response = Record.listRecords(id, offset, baseId, token);
             if (response == null) {
-                Logs.writeLog("Error: Could not get records for table: " + name);
+                Logs.writeLog("Error: Could not sync records for table: " + name);
+                return false;
             } else {
                 JsonObject recordsJson = new Gson().fromJson(response, JsonObject.class);
                 JsonArray listRecords = recordsJson.get(RECORDS_KEY).getAsJsonArray();
@@ -56,6 +57,7 @@ public class Table {
             }
         }
         Logs.writeLog("Info: Synced " + records.size() + " records for table: " + name);
+        return true;
     }
 
     // Getters

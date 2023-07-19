@@ -233,8 +233,7 @@ public class AirTable {
         taskTable.writeTableToXlsx(path + "/tasks.xlsx");
     }
 
-    public void reSync() {
-        channelTable.syncRecord(base, token);
-        userTable.syncRecord(base, token);
+    public boolean reSync() {
+        return channelTable.syncRecord(base, token) && userTable.syncRecord(base, token);
     }
 }

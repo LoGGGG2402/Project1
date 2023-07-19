@@ -2,6 +2,7 @@ package main;
 
 import airtable.AirTable;
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import logs.Logs;
 import slack.Channel;
 import slack.Slack;
@@ -13,8 +14,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.*;
 
 public class MainUI {
     private final AirTable airTable;
@@ -230,10 +232,23 @@ public class MainUI {
 
     private void syncData(){
         long start = System.currentTimeMillis();
-        if (!slack.syncLocal()) {
-            status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
-            return;
+
+        try (ExecutorService executor = Executors.newFixedThreadPool(2)){
+            List<Future<Boolean>> futures = new ArrayList<>();
+            futures.add(executor.submit(slack::syncLocal));
+            futures.add(executor.submit(airTable::reSync));
+
+            for (Future<Boolean> future : futures) {
+                if (Boolean.FALSE.equals(future.get())) {
+                    status.setText(language.get(LOCAL_SYNC_NOT_SUCCESS).getAsString());
+                    return;
+                }
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            Thread.currentThread().interrupt();
+            Logs.writeLog(e.getMessage());
         }
+
 
         if (airTable.pushData(slack.getChannels(), slack.getUsers(), true))
             status.setText(language.get("dataSynced").getAsString());
@@ -333,6 +348,29 @@ public class MainUI {
 
     public static void main(String[] args) {
         JFrame loadingDialog = createLoadingDialog();
+
+        // test config file exists or not
+        File file = new File("src/main/resources/data/config.json");
+        if (!file.exists()) {
+            loadingDialog.dispose();
+            showErrorDialog("Error: Could not find config file");
+            return;
+        }
+
+        try {
+            FileReader fileReader = new FileReader("src/main/resources/data/config.json");
+            JsonObject jsonObject = new Gson().fromJson(new JsonReader(fileReader), JsonObject.class);
+            if (jsonObject.get("slack").toString().equals("\"\"") || jsonObject.get("airtable").toString().equals("\"\"") || jsonObject.get("base").toString().equals("\"\"") ){
+                loadingDialog.dispose();
+                showErrorDialog("Error: Please fill in the config file");
+                return;
+            }
+
+        } catch (FileNotFoundException e) {
+            Logs.writeLog("Error: Could not find config.json");
+            return;
+        }
+
 
         SwingWorker<Void, Void> worker = new SwingWorker<>() {
             boolean isDone = true;
